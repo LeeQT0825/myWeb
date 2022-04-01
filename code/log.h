@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <time.h>
 
 namespace myWeb{
 
@@ -138,7 +139,7 @@ public:
         typedef std::shared_ptr<FormatItem> ptr;
         FormatItem(const std::string& fmt = ""){}   // 这里需要传入格式内容的原因是“统一接口”，比如DateTimeFormatItem子类就需要它
         virtual ~FormatItem(){}
-        // 格式化日志到流
+        // 格式化日志到标准流
         virtual void format(std::ostream& os, std::shared_ptr<Logger> logger,LogLevel::Level level,LogEvent::ptr event)=0;   //纯虚函数
 
     };
@@ -167,7 +168,7 @@ public:
     LogFomatter::ptr getFormatter() const { return m_formatter;}
 
 protected:      // 子类要用到的
-    LogLevel::Level m_level;
+    LogLevel::Level m_level=LogLevel::UNKNOW;
     LogFomatter::ptr m_formatter;
     bool m_hasformatter=false;
 };
@@ -202,10 +203,9 @@ public:
 
     Logger(const std::string& name="root")
     :m_name(name),
-    m_level(LogLevel::DEBUG){
-        m_formatter.reset(new LogFomatter("%d [%p] %f %l %m %n"));       // 定义一个默认的日志格式
+    m_level(LogLevel::UNKNOW){
+        m_formatter.reset(new LogFomatter("%d [%p] <%f:%l> %m %n"));       // 定义一个默认的日志格式
     }
-    //
     void log(LogLevel::Level level,LogEvent::ptr event);
 
     void debug(LogEvent::ptr event);
@@ -233,7 +233,7 @@ public:
 
 private: 
     std::string m_name;                             //日志名称
-    LogLevel::Level m_level;                        //日志级别
+    LogLevel::Level m_level=LogLevel::UNKNOW;       //日志级别
     std::list<LogAppender::ptr> m_appenders;        //路径列表(基类的指针)
     LogFomatter::ptr m_formatter;                   //格式器：默认格式器可分派给所有的appender
     Logger::ptr m_root;                             //主日志器

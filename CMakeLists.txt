@@ -2,8 +2,10 @@ cmake_minimum_required(VERSION 3.0)     # 可用版本号 必写
 project(myProject)                      # 项目名称 必写
 
 set(CMAKE_VERBOSE_MAKEFILE ON)          # 显示原始编译信息，用于定位一些连接错误
-# CMAKE_CXX_FLAGS———g++编译选项
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -g -std=c++11 -Wall -Wno-depracated -Werror -Wno-unused-function")
+# CMAKE_CXX_FLAGS———g++编译选项     
+# -O3是release版本；-O0是debug版本  O英文字母）
+# -g是启用GDB调试
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -g -std=c++11 -Wall -Wno-depracated -Werror -Wno-unused-function")
 
 set(LIB_SCR code/log.cc)
 

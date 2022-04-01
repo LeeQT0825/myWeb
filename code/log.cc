@@ -1,7 +1,10 @@
 #include "log.h"
 #include <map>
 #include <functional>
+#include <string.h>
 using namespace myWeb;
+
+namespace myWeb{
 
 const char* LogLevel::ToString(LogLevel::Level level){
     switch(level){
@@ -113,6 +116,7 @@ void FileLogAppender::log(std::shared_ptr<Logger> logger,LogLevel::Level level,L
 }
 
 // 解析子模块
+// 消息体（标准输出）——m
 class MessageFormatItem:public LogFomatter::FormatItem{
 public:
     MessageFormatItem(const std::string& str=""){};
@@ -121,7 +125,7 @@ public:
     }
 
 };
-
+//优先级——p
 class LevelFormatItem:public LogFomatter::FormatItem{
 public:
     LevelFormatItem(const std::string& str=""){};
@@ -130,7 +134,7 @@ public:
     }
 
 };
-
+//累积毫秒数——r
 class ElapseFormatItem:public LogFomatter::FormatItem{
 public:
     ElapseFormatItem(const std::string& str=""){};
@@ -139,7 +143,7 @@ public:
     }
 
 };
-
+//日志名称——c
 class NameFormatItem:public LogFomatter::FormatItem{
 public:
     NameFormatItem(const std::string& str=""){};
@@ -148,7 +152,7 @@ public:
     }
 
 };
-
+//产生该日志的线程号——t
 class ThreadFormatItem:public LogFomatter::FormatItem{
 public:
     ThreadFormatItem(const std::string& str=""){};
@@ -157,7 +161,7 @@ public:
     }
 
 };
-
+//协程ID——F
 class FiberIDFormatItem:public LogFomatter::FormatItem{
 public:
     FiberIDFormatItem(const std::string& str=""){};
@@ -166,17 +170,28 @@ public:
     }
 
 };
-
+//时间——d
 class DateTimeFormatItem:public LogFomatter::FormatItem{
 public:
-    DateTimeFormatItem(const std::string& format = "%Y:%m:%d %H:%M:%S"):m_format(format){}
+    DateTimeFormatItem(const std::string& format = "%Y-%m-%d %H:%M:%S"):m_format(format){
+        if(m_format.empty()){
+            m_format="%Y-%m-%d %H:%M:%S";
+        }
+    }
     void format(std::ostream& os,std::shared_ptr<Logger> logger,LogLevel::Level level,LogEvent::ptr event) override{
-        os<<event->getTime();
+        struct tm tm;
+        time_t time=event->getTime();
+        localtime_r(&time,&tm);
+        char buf[32];
+        strftime(buf,sizeof(buf),m_format.c_str(),&tm);
+        std::string str=buf;
+
+        os<<str;
     }
 private:
-    std::string m_format;
+    std::string m_format="%Y-%m-%d %H:%M:%S";       // 表示时间的固定格式
 };
-
+//文件名——f
 class FilenameFormatItem:public LogFomatter::FormatItem{
 public:
     FilenameFormatItem(const std::string& str=""){};
@@ -185,7 +200,7 @@ public:
     }
 
 };
-
+//行号——l
 class LineFormatItem:public LogFomatter::FormatItem{
 public:
     LineFormatItem(const std::string& str=""){};
@@ -194,7 +209,7 @@ public:
     }
 
 };
-
+//换行符——n
 class NewLineFormatItem:public LogFomatter::FormatItem{
 public:
     NewLineFormatItem(const std::string& str=""){};
@@ -203,7 +218,7 @@ public:
     }
 
 };
-
+// init中三元组type=0时，直接字符串输出
 class StringFormatItem:public LogFomatter::FormatItem{
 public:
     StringFormatItem(const std::string& str="")
@@ -240,9 +255,9 @@ void LogFomatter::init(){
         std::string str;        // 格式标识符
 
         while(n<m_patten.size()){
-            if(isspace(m_patten[i])){
-                break;
-            }
+            // if(isspace(m_patten[i])){
+            //     break;
+            // }
             if(!fmt_status && !isalpha(m_patten[n]) && m_patten[n]!='{' && m_patten[n]!='}'){
                 str=m_patten.substr(i+1,n-i-1);     //TODO 这里怎么是n-i-1呢
                 break;
@@ -257,7 +272,7 @@ void LogFomatter::init(){
                 }
             }else if(fmt_status==1){
                 if(m_patten=="}"){
-                    fmt=m_patten.substr(fmt_begin,n-fmt_begin-1);
+                    fmt=m_patten.substr(fmt_begin+1,n-fmt_begin-1);
                     fmt_status=0;
                     ++n;
                     break;
@@ -323,7 +338,8 @@ void LogFomatter::init(){
 std::string LogFomatter::format(std::shared_ptr<Logger> logger,LogLevel::Level level,LogEvent::ptr event){
     std::stringstream ss;
     for(auto i: m_items){
-        i->format(ss,logger,level,event);
+        i->format(ss,logger,level,event);       // 这里ss参数是从基类引用到派生类引用的转化
     }
     return ss.str();
+}
 }
