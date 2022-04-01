@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -rdynamic -O3 -g -std=c++11 -Wall -Wno-depracated -Werror -Wno-unused-function -shared -Wl,-soname,libcode.so -o ../lib/libcode.so CMakeFiles/code.dir/code/log.cc.o 
