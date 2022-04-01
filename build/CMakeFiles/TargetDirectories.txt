@@ -1,4 +1,0 @@
-/home/lee/projects/VScode/myProject/build/CMakeFiles/rebuild_cache.dir
-/home/lee/projects/VScode/myProject/build/CMakeFiles/edit_cache.dir
-/home/lee/projects/VScode/myProject/build/CMakeFiles/test.dir
-/home/lee/projects/VScode/myProject/build/CMakeFiles/code.dir
