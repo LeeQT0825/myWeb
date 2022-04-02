@@ -56,6 +56,12 @@ void Logger::fatal(LogEvent:: ptr event){
     log(LogLevel::FATAL,event);
 }
 
+LogEventWrap::LogEventWrap(LogEvent::ptr event):m_event(event){}
+
+LogEventWrap::~LogEventWrap(){
+    m_event->getLogger()->log(m_event->getLevel(),m_event);
+}
+
 void Logger::addappender(LogAppender::ptr appender){
     if(!appender->getFormatter()){
         appender->setFormatter(m_formatter);    // 如果传入的appender没有formatter，就把自己的给它
@@ -182,14 +188,14 @@ public:
         struct tm tm;
         time_t time=event->getTime();
         localtime_r(&time,&tm);
-        char buf[32];
+        char buf[64];
         strftime(buf,sizeof(buf),m_format.c_str(),&tm);
         std::string str=buf;
 
         os<<str;
     }
 private:
-    std::string m_format="%Y-%m-%d %H:%M:%S";       // 表示时间的固定格式
+    std::string m_format;       // 表示时间的固定格式
 };
 //文件名——f
 class FilenameFormatItem:public LogFomatter::FormatItem{
@@ -218,7 +224,16 @@ public:
     }
 
 };
-// init中三元组type=0时，直接字符串输出
+//Tab 输出
+class TabFormatItem:public LogFomatter::FormatItem{
+public:
+    TabFormatItem(const std::string& str=""){};
+    void format(std::ostream& os,std::shared_ptr<Logger> logger,LogLevel::Level level,LogEvent::ptr event) override{
+        os<<"\t";
+    }
+
+};
+// init中三元组type=0时，直接字符串输出;type=1时用于向终端返回错误
 class StringFormatItem:public LogFomatter::FormatItem{
 public:
     StringFormatItem(const std::string& str="")
@@ -236,7 +251,7 @@ void LogFomatter::init(){
     std::string nstr;        // 非格式内容
 
     // 字符串处理
-    for(size_t i=0;i<m_patten.size();i++){
+    for(size_t i=0;i<m_patten.size();++i){
         if(m_patten[i] != '%'){
             nstr.append(1,m_patten[i]);
             continue;
@@ -250,7 +265,7 @@ void LogFomatter::init(){
         // 以下 m_patten[i]='%'
         size_t n=i+1;
         int fmt_status=0;       // 状态量
-        int fmt_begin=0;
+        size_t fmt_begin=0;
         std::string fmt;        // 内容模板
         std::string str;        // 格式标识符
 
@@ -271,7 +286,7 @@ void LogFomatter::init(){
                     continue;
                 }
             }else if(fmt_status==1){
-                if(m_patten=="}"){
+                if(m_patten[n]=='}'){
                     fmt=m_patten.substr(fmt_begin+1,n-fmt_begin-1);
                     fmt_status=0;
                     ++n;
@@ -280,20 +295,22 @@ void LogFomatter::init(){
             }
             ++n;
             if(n==m_patten.size()){
-                str=m_patten.substr(i+1);
+                if(str.empty()){
+                    str=m_patten.substr(i+1);
+                }                
             }
         }
 
         if(fmt_status==0){
             if(!nstr.empty()){
-                vec.push_back(std::make_tuple(nstr,"",0));
+                vec.push_back(std::make_tuple(nstr,std::string(),0));       // 改动：将 "" 改为string的临时变量
                 nstr.clear();
             }
             vec.push_back(std::make_tuple(str,fmt,1));
             i=n-1;
         }else if(fmt_status==1){
             std::cout<<"patten parse error: "<<m_patten<<"-"<<m_patten.substr(i)<<std::endl;
-            vec.push_back(std::make_tuple("<<patten_error>>",fmt,1));
+            vec.push_back(std::make_tuple("<<patten_error>>",fmt,0));
             m_error=true;
         }
     }
@@ -306,7 +323,7 @@ void LogFomatter::init(){
 
     // 格式标识符和格式内容项映射表
     std::map<std::string,std::function<FormatItem::ptr(const std::string& str)> > s_format_items={
-        #define XX(str,C) {#str,[](const std::string& fmt){return FormatItem::ptr(new C(#str));}}
+        #define XX(str,C) {#str,[](const std::string& fmt){return FormatItem::ptr(new C(fmt));}}
             XX(m,MessageFormatItem),    // %m————消息体
             XX(p,LevelFormatItem),      // %p————优先级（level）
             XX(r,ElapseFormatItem),     // %r————累积毫秒数
@@ -316,7 +333,9 @@ void LogFomatter::init(){
             XX(d,DateTimeFormatItem),   // %d————时间
             XX(l,LineFormatItem),       // %l————行号
             XX(f,FilenameFormatItem),   // %f————文件名
-            XX(F,FiberIDFormatItem)     // %F————协程ID        
+            XX(F,FiberIDFormatItem),    // %F————协程ID     
+            XX(T,TabFormatItem)         // %T————Tab
+        
         #undef XX
     };
 
@@ -328,7 +347,7 @@ void LogFomatter::init(){
             if(iter==s_format_items.end()){
                 m_items.push_back(FormatItem::ptr(new StringFormatItem("<<error_format: "+std::get<0>(i)+" >>")));
             }else{
-                m_items.push_back(iter->second(std::get<1>(i)));
+                m_items.push_back(iter->second(std::get<1>(i)));        // 这里传参为什么不对???
             }
         }
         std::cout<<'{'<<std::get<0>(i)<<"}--{"<<std::get<1>(i)<<"}--{"<<std::get<2>(i)<<'}'<<std::endl;

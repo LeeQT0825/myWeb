@@ -7,7 +7,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)          # 显示原始编译信息，用于定�
 # -g是启用GDB调试
 set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -g -std=c++11 -Wall -Wno-depracated -Werror -Wno-unused-function")
 
-set(LIB_SCR code/log.cc)
+set(LIB_SCR code/log.cc code/util.cc)
 
 add_library(code SHARED ${LIB_SCR})     # 通过变量LIB-SCR生成库名为libcode.so的动态库
 

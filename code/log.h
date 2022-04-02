@@ -11,6 +11,18 @@
 #include <iostream>
 #include <time.h>
 
+#define INLOG_LEVEL(logger,level) \
+    if(level>=logger->getlevel())\
+        myWeb::LogEventWrap(myWeb::LogEvent::ptr(new myWeb::LogEvent(logger,__FILE__,\
+        level,__LINE__,"test",myWeb::GetThreadID(),\
+        myWeb::GetFiberID(),time(NULL),0))).GetSS()
+#define INLOG_UNKNOW(logger) INLOG_LEVEL(logger,myWeb::LogLevel::UNKNOW)
+#define INLOG_DEBUG(logger) INLOG_LEVEL(logger,myWeb::LogLevel::DEBUG)
+#define INLOG_INFO(logger) INLOG_LEVEL(logger,myWeb::LogLevel::INFO)
+#define INLOG_WARN(logger) INLOG_LEVEL(logger,myWeb::LogLevel::WARN)
+#define INLOG_ERROR(logger) INLOG_LEVEL(logger,myWeb::LogLevel::ERROR)
+#define INLOG_FATAL(logger) INLOG_LEVEL(logger,myWeb::LogLevel::FATAL)
+
 namespace myWeb{
 
 class Logger;
@@ -36,7 +48,7 @@ class LogEvent{
 public:
     typedef std::shared_ptr<LogEvent> ptr;
     LogEvent(std::shared_ptr<Logger> logger,const char* file,LogLevel::Level level,
-            int32_t line,const std::string& threadName,uint32_t threadID,
+            int32_t line,const std::string& threadName,int32_t threadID,
             uint32_t fiberID,uint64_t time,uint64_t elapse)
         :m_file(file),
         m_line(line),
@@ -60,7 +72,7 @@ public:
         return m_line;
     }
 
-    uint32_t getThreadID() const{
+    int32_t getThreadID() const{
         return m_threadID;
     }
 
@@ -96,9 +108,9 @@ private:
     // 文件名
     const char* m_file=nullptr;
     // 行号
-    int32_t m_line=0;
+    int32_t m_line=0; 
     // 线程号
-    uint32_t m_threadID=0;
+    int32_t m_threadID;     // std::thread::id 重载了<<，可以输出到流
     // 线程名称
     std::string m_Thread_Name;
     // 协程号
@@ -109,12 +121,25 @@ private:
     uint64_t m_elapse;
     // 日志等级
     LogLevel::Level m_level;
-    // log内容
+    // 日志内容
     std::stringstream m_ss;
     // 日志器
     std::shared_ptr<Logger> m_logger;
     // Logger::ptr m_logger;        // typedef 作用在编译阶段，从它定义的地方以后才可以使用，所以这里不能这么用
     
+};
+
+// 封装LogEvent智能指针，方便Logger::log()调用
+class LogEventWrap{
+public:
+    LogEventWrap(LogEvent::ptr event);
+    ~LogEventWrap();
+
+    std::stringstream& GetSS(){
+        return m_event->getSS();
+    }
+private:
+    LogEvent::ptr m_event;
 };
 
 // 日志格式器: 可以解析用户传入的模板
@@ -204,7 +229,7 @@ public:
     Logger(const std::string& name="root")
     :m_name(name),
     m_level(LogLevel::UNKNOW){
-        m_formatter.reset(new LogFomatter("%d [%p] <%f:%l> %m %n"));       // 定义一个默认的日志格式
+        m_formatter.reset(new LogFomatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%F%T[%p]%T[%c]<%f:%l> %m %n"));       // 定义一个默认的日志格式
     }
     void log(LogLevel::Level level,LogEvent::ptr event);
 
