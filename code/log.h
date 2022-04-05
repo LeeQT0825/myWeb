@@ -10,6 +10,7 @@
 #include <sstream>
 #include <iostream>
 #include <time.h>
+#include "util.h"
 
 #define INLOG_LEVEL(logger,level) \
     if(level>=logger->getlevel())\
@@ -192,10 +193,14 @@ public:
     }
     LogFomatter::ptr getFormatter() const { return m_formatter;}
 
-protected:      // 子类要用到的
-    LogLevel::Level m_level=LogLevel::UNKNOW;
-    LogFomatter::ptr m_formatter;
+    void setAppenderLevel(LogLevel::Level level){m_level=level;}
+    LogLevel::Level getAppenderLevel() const {return m_level;}
+    
     bool m_hasformatter=false;
+protected:      // 子类要用到的
+    LogLevel::Level m_level=LogLevel::DEBUG;    // 默认
+    LogFomatter::ptr m_formatter;
+
 };
 
 
@@ -212,7 +217,9 @@ class FileLogAppender:public LogAppender{
 public:
     typedef std::shared_ptr<FileLogAppender> ptr;
 
-    FileLogAppender(const std::string& filename):m_files(filename){}
+    FileLogAppender(const std::string& filename):m_files(filename){
+        reopen();
+    }
     void log(std::shared_ptr<Logger> logger,LogLevel::Level level,LogEvent::ptr event) override;   // override 证明确实是从父类继承来的重载的实现
     // 重新打开文件，打开成功返回true
     bool reopen();  
@@ -258,7 +265,7 @@ public:
 
 private: 
     std::string m_name;                             //日志名称
-    LogLevel::Level m_level=LogLevel::UNKNOW;       //日志级别
+    LogLevel::Level m_level=LogLevel::UNKNOW;       //日志级别限制
     std::list<LogAppender::ptr> m_appenders;        //路径列表(基类的指针)
     LogFomatter::ptr m_formatter;                   //格式器：默认格式器可分派给所有的appender
     Logger::ptr m_root;                             //主日志器

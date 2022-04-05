@@ -5,8 +5,14 @@
 
 int main(){
     myWeb::Logger::ptr logger(new myWeb::Logger("test"));
-    logger->addappender(myWeb::LogAppender::ptr(new myWeb::StdoutLogAppender));
-
+    myWeb::LogAppender::ptr fileAppender(new myWeb::FileLogAppender("log/log.txt"));
+    fileAppender->setAppenderLevel(myWeb::LogLevel::DEBUG);
+    fileAppender->setFormatter(myWeb::LogFomatter::ptr(new myWeb::LogFomatter("%d{%Y-%m-%d %H:%M:%S} [%p]%T<%f:%l> %m %n")));
+    myWeb::LogAppender::ptr StdoutAppender(new myWeb::StdoutLogAppender);
+    StdoutAppender->setAppenderLevel(myWeb::LogLevel::WARN);
+    logger->addappender(fileAppender);
+    logger->addappender(StdoutAppender);
+    
     // myWeb::LogEvent::ptr event(new myWeb::LogEvent(logger,__FILE__,myWeb::LogLevel::DEBUG,__LINE__,"threadName",myWeb::GetThreadID(),myWeb::GetFiberID(),time(NULL),4));
     // logger->log(myWeb::LogLevel::WARN,event);
     

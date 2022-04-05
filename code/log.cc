@@ -63,7 +63,7 @@ LogEventWrap::~LogEventWrap(){
 }
 
 void Logger::addappender(LogAppender::ptr appender){
-    if(!appender->getFormatter()){
+    if(!appender->m_hasformatter){
         appender->setFormatter(m_formatter);    // 如果传入的appender没有formatter，就把自己的给它
     }
     m_appenders.push_back(appender);
@@ -103,7 +103,7 @@ void Logger::setFormatter(const std::string& str){
 
 void StdoutLogAppender::log(std::shared_ptr<Logger> logger,LogLevel::Level level,LogEvent::ptr event){
     if(level>=m_level){
-        std::cout<<m_formatter->format(logger,level,event);
+        std::cout<<m_formatter->format(logger,level,event);   
     }
 }
 
@@ -111,14 +111,14 @@ bool FileLogAppender::reopen(){
     if(m_filestream){
         m_filestream.close();
     } 
-    m_filestream.open(m_files);
-    return !!m_filestream;      // ！！两个感叹号连用，将非0值转换为布尔值1
+    return myWeb::FileUtils::OpenForWrite(m_filestream,m_files,std::ios_base::app);
+
 }
 
 void FileLogAppender::log(std::shared_ptr<Logger> logger,LogLevel::Level level,LogEvent::ptr event){
     if(level>=m_level){
         m_filestream<<m_formatter->format(logger,level,event);
-    } 
+    }  
 }
 
 // 解析子模块
