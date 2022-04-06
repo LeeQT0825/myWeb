@@ -10,19 +10,27 @@
 #include <sstream>
 #include <iostream>
 #include <time.h>
+#include <map>
 #include "util.h"
+#include "singleton.h"
 
 #define INLOG_LEVEL(logger,level) \
     if(level>=logger->getlevel())\
         myWeb::LogEventWrap(myWeb::LogEvent::ptr(new myWeb::LogEvent(logger,__FILE__,\
         level,__LINE__,"test",myWeb::GetThreadID(),\
         myWeb::GetFiberID(),time(NULL),0))).GetSS()
+// 使用日志器的一般接口（需自定义 Logger）
 #define INLOG_UNKNOW(logger) INLOG_LEVEL(logger,myWeb::LogLevel::UNKNOW)
 #define INLOG_DEBUG(logger) INLOG_LEVEL(logger,myWeb::LogLevel::DEBUG)
 #define INLOG_INFO(logger) INLOG_LEVEL(logger,myWeb::LogLevel::INFO)
 #define INLOG_WARN(logger) INLOG_LEVEL(logger,myWeb::LogLevel::WARN)
 #define INLOG_ERROR(logger) INLOG_LEVEL(logger,myWeb::LogLevel::ERROR)
 #define INLOG_FATAL(logger) INLOG_LEVEL(logger,myWeb::LogLevel::FATAL)
+
+// 获取全局主日志器
+#define MYWEB_ROOT_LOG myWeb::logMgr::getInstance()->getRoot()
+// 获取指定日志器
+#define MYWEB_NAMED_LOG(name) myWeb::logMgr::getInsance()->getLogger(name)
 
 namespace myWeb{
 
@@ -269,6 +277,29 @@ private:
     LogFomatter::ptr m_formatter;                   //格式器：默认格式器可分派给所有的appender
     Logger::ptr m_root;                             //主日志器
 };
+
+// 应该是全局单例的
+// 封装多个Logger，提供默认构造的logger，创建宏，方便一步调用
+class LogManager{
+public:
+    // 创建默认主日志器
+    LogManager();
+
+    // 添加新的日志器
+    bool AddLogger(const std::string& name,Logger::ptr logger);
+    // 获取日志器(没有就加上一个)
+    Logger::ptr getLogger(const std::string& name);
+    // 获取主日志器
+    Logger::ptr getRoot() const {return m_root;}
+
+private:
+    // 日志容器
+    std::map<std::string,Logger::ptr> m_logMap;
+    // 根据 LogManager 中的主日志器设置
+    Logger::ptr m_root;
+};
+
+typedef myWeb::Singleton<LogManager> logMgr;
 
 }
 #endif

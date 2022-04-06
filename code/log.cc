@@ -361,4 +361,23 @@ std::string LogFomatter::format(std::shared_ptr<Logger> logger,LogLevel::Level l
     }
     return ss.str();
 }
+
+LogManager::LogManager(){
+    m_root.reset(new Logger());
+    m_root->addappender(LogAppender::ptr(new StdoutLogAppender));
+    m_logMap[m_root->getName()]=m_root;
+}
+
+Logger::ptr LogManager::getLogger(const std::string& name){
+    auto iter=m_logMap.find(name);
+    if(iter==m_logMap.end()){
+        // 不在就新建一个
+        Logger::ptr logger=std::make_shared<Logger>(Logger(name));
+        logger->addappender(LogAppender::ptr(new StdoutLogAppender));
+        m_logMap[name]=logger;
+    }
+    return m_logMap[name];
+}
+
+
 }
