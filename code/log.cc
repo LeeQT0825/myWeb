@@ -63,7 +63,7 @@ LogEventWrap::~LogEventWrap(){
 }
 
 void Logger::addappender(LogAppender::ptr appender){
-    if(!appender->m_hasformatter){
+    if(!appender->getFormatter()){
         appender->setFormatter(m_formatter);    // 如果传入的appender没有formatter，就把自己的给它
     }
     m_appenders.push_back(appender);

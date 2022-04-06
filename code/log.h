@@ -195,12 +195,11 @@ public:
 
     void setAppenderLevel(LogLevel::Level level){m_level=level;}
     LogLevel::Level getAppenderLevel() const {return m_level;}
-    
-    bool m_hasformatter=false;
+
 protected:      // 子类要用到的
     LogLevel::Level m_level=LogLevel::DEBUG;    // 默认
     LogFomatter::ptr m_formatter;
-
+    bool m_hasformatter=false;
 };
 
 
