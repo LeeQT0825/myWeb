@@ -33,8 +33,20 @@
 - 定义的地方实现解析
 - 配置文件用 *yaml* 格式（其他的格式有 *xml*，*json* 等），从 *yaml* 文件中读取配置数据，数据类型应支持与 *string* 的互相转化。
 - 配置模块主要有三个类：*ConfigBase* 基类（提供 *FromString()*,*ToString()* 两个模板函数），*ConfigVar* 类，*Config* 类。
-
+### boost/lexical_cast.hpp
+- Boost 库是一个开源的，可移植的“准”标准库，是 STL库 的补充
+- Boost 库中的 lexical_cast 为数值之间的转换（conversion）提供了一个更好的方案，建议忘掉std诸多的函数，直接使用lexical_cast，如果转换发生了意外，lexical_cast 会抛出一个 bad_lexical_cast 异常，因此程序中需要对其进行 try-catch 。
+### RTTI（Run-Time Type Identification）——运行时类型识别
+在C++中，为了支持RTTI提供了两个操作符：dynamic_cast 和 typeid：
+   - dynamic_cast允许运行时刻进行类型转换，从而使程序能够在一个类层次结构中安全地转化类型，与之相对应的还有一个非安全的转换操作符static_cast。
+   - typeid是C++的关键字之一，等同于sizeof这类的操作符。typeid操作符的返回结果是名为type_info的标准库类型的对象的引用（在头文件typeinfo中定义，稍后我们看一下vs和gcc库里面的源码），它的表达式有下图两种形式。
 ### yaml-cpp
+### 出现的问题
+- 在编译过程中出现 “undefined reference to `vtable for...' ”的问题，可能的原因如下：
+  - 子类没有实现父类的纯虚函数
+  - 父类的析构函数应为虚函数，以满足子类释放内存。
+      1）注意父类的析构函数、子类的构造函数不应只声明，必须要实现，哪怕仅仅是 {} 。
+      2）子类数据成员初始化时应先将父类的构造函数初始化。
 
 
 ## 线程模块

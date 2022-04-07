@@ -1,5 +1,4 @@
 #include "log.h"
-#include <map>
 #include <functional>
 #include <string.h>
 using namespace myWeb;
@@ -322,7 +321,7 @@ void LogFomatter::init(){
     // 日志格式解析到 m_items
 
     // 格式标识符和格式内容项映射表
-    std::map<std::string,std::function<FormatItem::ptr(const std::string& str)> > s_format_items={
+    std::unordered_map<std::string,std::function<FormatItem::ptr(const std::string& str)> > s_format_items={
         #define XX(str,C) {#str,[](const std::string& fmt){return FormatItem::ptr(new C(fmt));}}
             XX(m,MessageFormatItem),    // %m————消息体
             XX(p,LevelFormatItem),      // %p————优先级（level）
@@ -350,7 +349,7 @@ void LogFomatter::init(){
                 m_items.push_back(iter->second(std::get<1>(i)));        // 这里传参为什么不对???
             }
         }
-        std::cout<<'{'<<std::get<0>(i)<<"}--{"<<std::get<1>(i)<<"}--{"<<std::get<2>(i)<<'}'<<std::endl;
+        // std::cout<<'{'<<std::get<0>(i)<<"}--{"<<std::get<1>(i)<<"}--{"<<std::get<2>(i)<<'}'<<std::endl;
     }
 }
 

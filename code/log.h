@@ -10,7 +10,7 @@
 #include <sstream>
 #include <iostream>
 #include <time.h>
-#include <map>
+#include <unordered_map>
 #include "util.h"
 #include "singleton.h"
 
@@ -30,7 +30,7 @@
 // 获取全局主日志器
 #define MYWEB_ROOT_LOG myWeb::logMgr::getInstance()->getRoot()
 // 获取指定日志器
-#define MYWEB_NAMED_LOG(name) myWeb::logMgr::getInsance()->getLogger(name)
+#define MYWEB_NAMED_LOG(name) myWeb::logMgr::getInstance()->getLogger(name)
 
 namespace myWeb{
 
@@ -294,7 +294,7 @@ public:
 
 private:
     // 日志容器
-    std::map<std::string,Logger::ptr> m_logMap;
+    std::unordered_map<std::string,Logger::ptr> m_logMap;
     // 根据 LogManager 中的主日志器设置
     Logger::ptr m_root;
 };
