@@ -29,18 +29,13 @@
 ```
 
 
-## 配置模块
-- 定义的地方实现解析
+## 配置模块 
+- 约定优于配置：
+   系统有默认值，非必要可以不做配置。
 - 配置文件用 *yaml* 格式（其他的格式有 *xml*，*json* 等），从 *yaml* 文件中读取配置数据，数据类型应支持与 *string* 的互相转化。
 - 配置模块主要有三个类：*ConfigBase* 基类（提供 *FromString()*,*ToString()* 两个模板函数），*ConfigVar* 类，*Config* 类。
-### boost/lexical_cast.hpp
-- Boost 库是一个开源的，可移植的“准”标准库，是 STL库 的补充
-- Boost 库中的 lexical_cast 为数值之间的转换（conversion）提供了一个更好的方案，建议忘掉std诸多的函数，直接使用lexical_cast，如果转换发生了意外，lexical_cast 会抛出一个 bad_lexical_cast 异常，因此程序中需要对其进行 try-catch 。
-### RTTI（Run-Time Type Identification）——运行时类型识别
-在C++中，为了支持RTTI提供了两个操作符：dynamic_cast 和 typeid：
-   - dynamic_cast允许运行时刻进行类型转换，从而使程序能够在一个类层次结构中安全地转化类型，与之相对应的还有一个非安全的转换操作符static_cast。
-   - typeid是C++的关键字之一，等同于sizeof这类的操作符。typeid操作符的返回结果是名为type_info的标准库类型的对象的引用（在头文件typeinfo中定义，稍后我们看一下vs和gcc库里面的源码），它的表达式有下图两种形式。
-### yaml-cpp
+### 相关技术要点
+#### yaml-cpp
 - .yml 文件是层级结构，由 Map、Sequence、Schalar 组成。因为是层级的数据结构，所以可以通过DFS遍历Node方式读取全部数据
    ```cpp
    if(node.isMap()){
@@ -57,6 +52,23 @@
    ```
 - 加载.yml文件：YAML::NODE LoadFile(filename);    
 - 转换.yml文件：要根据层级结构转换成对应的数据结构关系。
+#### 类型转换
+##### boost/lexical_cast.hpp
+- Boost 库是一个开源的，可移植的“准”标准库，是 STL库 的补充
+- Boost 库中的 lexical_cast 为数值之间的转换（conversion）提供了一个更好的方案，建议忘掉std诸多的函数，直接使用lexical_cast，如果转换发生了意外，lexical_cast 会抛出一个 bad_lexical_cast 异常，因此程序中需要对其进行 try-catch 。
+##### RTTI（Run-Time Type Identification）——运行时类型识别
+在C++中，为了支持RTTI提供了两个操作符：dynamic_cast 和 typeid：
+   - dynamic_cast允许运行时刻进行类型转换，从而使程序能够在一个类层次结构中安全地转化类型，与之相对应的还有一个非安全的转换操作符static_cast。
+   - typeid是C++的关键字之一，等同于sizeof这类的操作符。typeid操作符的返回结果是名为type_info的标准库类型的对象的引用（在头文件typeinfo中定义，稍后我们看一下vs和gcc库里面的源码），它的表达式有下图两种形式。
+#### 回调
+当一个配置发生修改的时候，可以反向通知调用它的代码。实现方法：
+   - 配置的事件机制：
+      使用配置变量的函数向 cbMap 中注册函数指针，当配置变量值发生变化的时候，通过函数指针通知回调函数。
+   - **变更回调函数组** 用 *map* 而不用 *vector* 的原因：
+      因为 std::function<> 类没有比较函数（或比较操作符的重载），所以用 vector 无法判断两个 function 是否是一样的。
+      想要删除一个 function 的时候，map 可以通过删除 key 来删除。
+   - unit64_t 类型的 key 要求唯一，一般可以用hash值
+
 ### 出现的问题
 - 在编译过程中出现 “undefined reference to `vtable for...' ”的问题，可能的原因如下：
   - 子类没有实现父类的纯虚函数

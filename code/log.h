@@ -36,7 +36,7 @@ namespace myWeb{
 
 class Logger;
 
-// log等级
+// log等级 
 class LogLevel{
 public:
     enum Level{
@@ -48,7 +48,7 @@ public:
         FATAL
     };
 
-    static const char* ToString(LogLevel::Level level);     //TODO 为什么是静态类成员函数: 无需实例化，其他类可以直接访问
+    static const char* ToString(LogLevel::Level level);     //静态类成员函数: 无需实例化，其他类可以直接访问
 };
 
 

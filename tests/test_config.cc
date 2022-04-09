@@ -18,10 +18,22 @@ void test_config(){
     INLOG_INFO(MYWEB_ROOT_LOG)<< "after: " <<testVar2->getName()<<" "<<testVar2->ToString();
 }
 
+void test_cb(){
+    INLOG_INFO(MYWEB_ROOT_LOG)<< "before: " <<testVar1->getName()<<" "<<testVar1->getVal();
+
+    testVar1->addListener(1,[](const int& oldval,const int& newval){
+        INLOG_INFO(MYWEB_ROOT_LOG)<<"old: "<<oldval<<" new: "<<newval;
+    });
+    myWeb::Config::LoadFromYaml("../log.yml");
+
+    INLOG_INFO(MYWEB_ROOT_LOG)<< "after: " <<testVar1->getName()<<" "<<testVar1->getVal();
+}
+
 int main(){
     MYWEB_ROOT_LOG->setlevel(myWeb::LogLevel::INFO);
     // test_yaml();    
-    test_config();
+    // test_config();
+    test_cb();
     return 0;
 }
 
