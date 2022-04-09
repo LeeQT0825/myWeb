@@ -41,6 +41,22 @@
    - dynamic_cast允许运行时刻进行类型转换，从而使程序能够在一个类层次结构中安全地转化类型，与之相对应的还有一个非安全的转换操作符static_cast。
    - typeid是C++的关键字之一，等同于sizeof这类的操作符。typeid操作符的返回结果是名为type_info的标准库类型的对象的引用（在头文件typeinfo中定义，稍后我们看一下vs和gcc库里面的源码），它的表达式有下图两种形式。
 ### yaml-cpp
+- .yml 文件是层级结构，由 Map、Sequence、Schalar 组成。因为是层级的数据结构，所以可以通过DFS遍历Node方式读取全部数据
+   ```cpp
+   if(node.isMap()){
+      for(auto iter=node.begin();iter!=node.end();++iter){
+         iter->first    // string 类型
+         iter->second   // Node 类型
+      }
+   }
+   
+   if(node.isSequence()){
+      for(int i=0;i<node.size();++i){
+      }
+   }
+   ```
+- 加载.yml文件：YAML::NODE LoadFile(filename);    
+- 转换.yml文件：要根据层级结构转换成对应的数据结构关系。
 ### 出现的问题
 - 在编译过程中出现 “undefined reference to `vtable for...' ”的问题，可能的原因如下：
   - 子类没有实现父类的纯虚函数

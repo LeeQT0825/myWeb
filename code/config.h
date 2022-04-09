@@ -7,6 +7,7 @@
 #include <exception>
 #include <boost/lexical_cast.hpp>
 #include <unordered_map>
+#include <yaml-cpp/yaml.h>
 #include "log.h"
 #include "singleton.h"
 
@@ -120,24 +121,27 @@ public:
         }
 
         typename ConfigVar<T>::ptr arg(new ConfigVar<T>(name,val,discription));
-        getConfigVarMap()->at(name)=arg;
+        getConfigVarMap()->insert({name,arg});
         return arg;
     }
     // 重载二：有就返回，无就返回空指针
-    template <typename T>
-    static typename ConfigVar<T>::ptr Lookup(const std::string& name){
+    static ConfigVarBase::ptr Lookup(const std::string& name){
         auto iter=getConfigVarMap()->find(name);
         if(iter!=getConfigVarMap()->end()){
-            return std::dynamic_pointer_cast<ConfigVar<T> >(iter->second);      // 要返回子类类型，必须将父类指针强制转化为子类指针
+            return iter->second;      // 要返回子类类型，必须将父类指针强制转化为子类指针
         }
         return nullptr; 
     }
+
+    // 加载配置文件
+    static void LoadFromYaml(const std::string& filename);
 
 private:
     // 单例模式的配置管理器
     static ConfigVarMap* getConfigVarMap(){
         return Singleton<ConfigVarMap>::getInstance();
     }
+
 };
 
 

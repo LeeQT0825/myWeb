@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.0)     # 可用版本号 必写
 project(myProject)                      # 项目名称 必写
 
+include_directories(.)
+include_directories(/usr/local/lib)
+
+link_directories(/usr/local/lib)
+
 set(CMAKE_VERBOSE_MAKEFILE ON)          # 显示原始编译信息，用于定位一些连接错误
 # CMAKE_CXX_FLAGS———g++编译选项     
 # -O3是release版本；-O0是debug版本  O英文字母）
@@ -13,14 +18,16 @@ set(LIB_SCR code/log.cc
 
 add_library(code SHARED ${LIB_SCR})     # 通过变量LIB-SCR生成库名为libcode.so的动态库
 
+# 测试log的可执行文件
 add_executable(test tests/test.cc)      # 生成名为test的可执行文件
 add_dependencies(test code)
-target_link_libraries(test code)        # 为test可执行文件连接动态库（相当于g++的-l参数）
+target_link_libraries(test code yaml-cpp)        # 为test可执行文件连接动态库（相当于g++的-l参数）
 
+# 测试config的可执行文件
 add_executable(test_config tests/test_config.cc)      
 add_dependencies(test_config code)
-target_link_libraries(test_config code)        
-
+target_link_libraries(test_config code yaml-cpp)        # /usr/local/lib/ 中准标准库也要手动添加（可执行文件）
+ 
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径
