@@ -49,6 +49,26 @@ public:
     };
 
     static const char* ToString(LogLevel::Level level);     //静态类成员函数: 无需实例化，其他类可以直接访问
+    static Level FromString(const std::string& str){
+
+        #define XX(level,s) if(str==#s){\
+            return LogLevel::level;\
+        }
+        XX(UNKNOW,unknow);
+        XX(DEBUG,debug);
+        XX(INFO,info);
+        XX(WARN,warn);
+        XX(ERROR,error);
+        XX(FATAL,fatal);
+        XX(UNKNOW,UNKNOW);
+        XX(DEBUG,DEBUG);
+        XX(INFO,INFO);
+        XX(WARN,WARN);
+        XX(ERROR,ERROR);
+        XX(FATAL,FATAL);
+        #undef XX
+        return UNKNOW;
+    }
 };
 
 
@@ -275,7 +295,6 @@ private:
     LogLevel::Level m_level=LogLevel::UNKNOW;       //日志级别限制
     std::list<LogAppender::ptr> m_appenders;        //路径列表(基类的指针)
     LogFomatter::ptr m_formatter;                   //格式器：默认格式器可分派给所有的appender
-    Logger::ptr m_root;                             //主日志器
 };
 
 // 应该是全局单例的
@@ -285,8 +304,6 @@ public:
     // 创建默认主日志器
     LogManager();
 
-    // 添加新的日志器
-    bool AddLogger(const std::string& name,Logger::ptr logger);
     // 获取日志器(没有就加上一个)
     Logger::ptr getLogger(const std::string& name);
     // 获取主日志器

@@ -1,17 +1,16 @@
 logs: 
     - name: root
-      level: info
-      formatter: '%d%T%m%n'
-      appender: 
-        - type: FileLogAppender
-          path: log.txt
-        - type: StdoutLogAppender
-    - name: system
       level: debug
       formatter: '%d%T%m%n'
       appender: 
+        - type: StdoutLogAppender
+    - name: system
+      level: debug
+      appender: 
         - type: FileLogAppender
-          path: log.txt
+          level: warn
+          file: /home/lee/projects/VScode/myProject/log/log.txt
+          formatter: '%d%T%m%n'
         - type: StdoutLogAppender
 
 system:

@@ -34,7 +34,7 @@ static int __mkdir(const char* dir){
 // 创建路径
 bool FileUtils::Mkdir(std::string& dir){
     if(__lstat(dir.c_str())==0) {return true;}
-    char* path=strdup(dir.c_str());          //字符串拷贝，与free() 搭配
+    char* path=strdup(dir.c_str());          // 字符串拷贝，与free() 搭配
     char* pos=strchr(path+1,'/');            // 为找到返回nullptr,默认dir首字符是'/'
     for(;pos;*pos='/',pos=strchr(pos+1,'/')){
         *pos='\0';

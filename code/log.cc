@@ -1,4 +1,5 @@
 #include "log.h"
+#include "config.h"
 #include <functional>
 #include <string.h>
 using namespace myWeb;
@@ -362,7 +363,7 @@ std::string LogFomatter::format(std::shared_ptr<Logger> logger,LogLevel::Level l
 }
 
 LogManager::LogManager(){
-    m_root.reset(new Logger());
+    m_root.reset(new Logger());     // 清理智能指针，并新建rootLogger
     m_root->addappender(LogAppender::ptr(new StdoutLogAppender));
     m_logMap[m_root->getName()]=m_root;
 }
@@ -377,6 +378,215 @@ Logger::ptr LogManager::getLogger(const std::string& name){
     }
     return m_logMap[name];
 }
+ 
 
+// 配置部分
+
+// 封装创建一个log所需要的方法和所需要的配置参数：
+        // 1. 创建一个类，集合定义一个logger的全部变量和方法
+        // 2. 定义这个类与yaml的类型转化
+
+// 封装创建 LogAppender 所需的变量和方法
+struct LogAppenderDefine
+{
+    int type=2;     // 1:File 2:Stdout
+    LogLevel::Level level=LogLevel::UNKNOW;
+    std::string formatter="%d{%Y-%m-%d %H:%M:%S}%T%t%T%F%T[%p]%T[%c]<%f:%l> %m %n";
+    std::string filename;
+
+    bool operator==(const LogAppenderDefine& other) const {
+        return type==other.type
+            && level==other.level
+            && formatter==other.formatter
+            && filename==other.filename;
+    }
+};
+// 封装创建 Logger 所需的变量和方法
+struct LogDefine
+{
+    std::string name;
+    LogLevel::Level level=LogLevel::UNKNOW;
+    std::string formatter;
+    std::vector<LogAppenderDefine> vec_appenders;
+
+    bool operator==(const LogDefine& other) const {
+        return name==other.name
+            && level==other.level
+            && formatter==other.formatter
+            && vec_appenders==other.vec_appenders;
+    }
+    // 使该类能够放入set并成功索引。（使LogConfiginit成功的关键）
+    bool operator<(const LogDefine& other) const {
+        return name<other.name;
+    }
+    bool isValid(){
+        return !name.empty();
+    }
+};
+
+// logs: 
+//     - name: root
+//       level: info
+//       formatter: '%d%T%m%n'
+//       appender: 
+//         - type: FileLogAppender
+//           file: /home/lee/projects/myWeb/log.txt
+//         - type: StdoutLogAppender
+//     - name: system
+//       level: debug
+//       formatter: '%d%T%m%n'
+//       appender: 
+//         - type: FileLogAppender
+//           file: /home/lee/projects/myWeb/system.txt
+//         - type: StdoutLogAppender
+
+// 与yaml类的类型转换
+template<>
+class LexicalCast<std::string,LogDefine>{
+public:
+    LogDefine operator()(const std::string& fval){
+        YAML::Node n=YAML::Load(fval);
+        LogDefine ld;
+        if(!n["name"].IsDefined()){
+            std::cout<<"Log config error: name is null, "<<n<<std::endl;
+            throw std::logic_error("Log Config Error");
+        }
+        ld.name=n["name"].as<std::string>();
+        ld.level=LogLevel::FromString(n["level"].IsDefined()?n["level"].as<std::string>():"");
+        if(n["formatter"].IsDefined()){
+            ld.formatter=n["formatter"].as<std::string>();
+        }
+        if(n["appender"].IsDefined()){
+            for(auto i:n["appender"]){
+                // 配置LogAppenderDefine
+                if(!i["type"].IsDefined()){
+                    std::cout<<"Log config error: appender's type is null, "<<n<<std::endl;
+                    continue;
+                }
+                LogAppenderDefine lad;
+                std::string type=i["type"].as<std::string>();
+                if(type=="FileLogAppender"){
+                    lad.type=1;
+                    if(!i["file"].IsDefined()){
+                        std::cout<<"Log config error: appender's file is null, "<<n<<std::endl;
+                        throw std::logic_error("Log Config Error");
+                    }
+                    lad.filename=i["file"].as<std::string>();
+                    if(i["formatter"].IsDefined()){
+                        lad.formatter=i["formatter"].as<std::string>();
+                    }
+                    if(i["level"].IsDefined()){
+                        lad.level=LogLevel::FromString(i["level"].as<std::string>());
+                    }
+                }else if(type=="StdoutLogAppender"){
+                    lad.type=2;
+                    if(i["formatter"].IsDefined()){
+                        lad.formatter=i["formatter"].as<std::string>();
+                    }
+                    if(i["level"].IsDefined()){
+                        lad.level=LogLevel::FromString(i["level"].as<std::string>());
+                    }
+                }else{
+                    std::cout<<"Log config error: appender's type is invalid, "<<n<<std::endl;
+                    throw std::logic_error("Log Config Error");
+                }
+                ld.vec_appenders.push_back(lad);
+            }
+        }
+        return ld;
+    }
+};
+template<>
+class LexicalCast<LogDefine,std::string>{
+public:
+    std::string operator()(const LogDefine& fval){
+        YAML::Node n;
+        n["name"]=fval.name;
+        if(fval.level!=LogLevel::UNKNOW){
+            n["level"]=LogLevel::ToString(fval.level);
+        }
+        if(!fval.formatter.empty()){
+            n["formatter"]=fval.formatter;
+        }
+        for(auto lad:fval.vec_appenders){
+            YAML::Node nd;
+            if(lad.type==1){
+                nd["type"]="FileLogAppender";
+                if(!lad.filename.empty()){
+                    nd["file"]=lad.filename;
+                }
+                
+            }else if(lad.type==2){
+                nd["type"]="StdoutLogAppender";
+            }
+            if(!lad.formatter.empty()){
+                nd["formatter"]=lad.formatter;
+            }
+            if(lad.level!=LogLevel::UNKNOW){
+                nd["level"]=LogLevel::ToString(lad.level);
+            }
+            n["appender"].push_back(nd);
+        }
+        std::stringstream ss;
+        ss<<n;
+        return ss.str();
+    }
+};
+
+// 配置文件与log关联的配置变量是 ConfigVar<std::set<LogDefine> > ，所以需要设定该配置变量的回调函数
+myWeb::ConfigVar<std::set<LogDefine> >::ptr config_log=myWeb::Config::Lookup("logs",std::set<LogDefine>(),"Logs Config");
+
+// 初始化日志系统的配置变量
+struct LogConfigInit{
+    LogConfigInit(){
+        config_log->addListener([](const std::set<LogDefine>& oldval,const std::set<LogDefine>& newval){
+            INLOG_INFO(MYWEB_ROOT_LOG)<<"Logs Config Changed.";
+            for(auto& ns:newval){
+                // 创建或更新logger
+                auto pos=oldval.find(ns);
+                Logger::ptr logger;
+                if(pos==oldval.end() || !(ns==*pos)){
+                    logger=MYWEB_NAMED_LOG(ns.name);
+                }else{
+                    continue;
+                }
+                logger->setlevel(ns.level);
+                if(!ns.formatter.empty()){
+                    logger->setFormatter(ns.formatter);
+                }
+                logger->clearAppenders();
+                for(auto& lad:ns.vec_appenders){
+                    LogAppender::ptr ap;
+                    if(lad.type==1){
+                        ap.reset(new FileLogAppender(lad.filename));
+                    }else if(lad.type==2){
+                        ap.reset(new StdoutLogAppender());
+                    }
+                    ap->setAppenderLevel(lad.level);
+                    if(!lad.formatter.empty()){
+                        LogFomatter::ptr fmt(new LogFomatter(lad.formatter));
+                        if(!fmt->isError()){
+                            ap->setFormatter(fmt);
+                        }else{
+                            INLOG_DEBUG(MYWEB_ROOT_LOG)<<"LogInit error: appender's formatter is invalid: "<<lad.formatter;
+                        }
+                    }
+                    logger->addappender(ap);
+                }
+            }
+            // 删除多余的旧日志器（不可以删除LogAppender::ptr）
+            for(auto& os:oldval){
+                auto pos=newval.find(os);
+                if(pos==newval.end()){
+                    auto logger=MYWEB_NAMED_LOG(os.name);
+                    logger->setlevel(LogLevel::UNKNOW);
+                    logger->clearAppenders();
+                }
+            }
+        });
+    }
+};
+
+static LogConfigInit __logInit;
 
 }

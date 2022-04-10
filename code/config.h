@@ -267,7 +267,7 @@ public:
     void setVal(const T& val){
         if(val==m_val)  return;
         for(auto i:m_cbs){
-            i.second(m_val,val);
+            i.second(m_val,val);    // 回调
         }
         m_val=val; 
     }
@@ -298,8 +298,11 @@ public:
     }
 
     // TODO：配置变量的回调函数
-    void addListener(uint64_t key,on_change_cb cb){
-        m_cbs[key]=cb;
+    uint64_t addListener(on_change_cb cb){
+        static uint64_t func_id=0;      // 局部静态变量，初始化不会影响后续的读取
+        ++func_id;
+        m_cbs[func_id]=cb;
+        return func_id;
     }
     void delListener(uint64_t key){
         m_cbs.erase(key);
