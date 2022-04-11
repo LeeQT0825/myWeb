@@ -68,13 +68,15 @@
       因为 std::function<> 类没有比较函数（或比较操作符的重载），所以用 vector 无法判断两个 function 是否是一样的。
       想要删除一个 function 的时候，map 可以通过删除 key 来删除。
    - unit64_t 类型的 key 要求唯一，一般可以用hash值
+  
 每个模块实现从配置变量回调：
    - 确定每个模块需要配置的变量。如log模块：LogAppenderDefine类、LogDefine类
    - 上述类均要提供 "=="、"<" 等符号的重载。
       "==": 提供新旧配置变量值的对比
       "<": 提供在set、map等容器内的 Find() 的地层实现。
    - 要提供上述类和 YAML::string 的类型转换
-   - 每个模块初始化配置变量，向 Config 类中 addListener(std::function<>()) 。
+   - 每个模块要定义自己的 ConfigVar 。
+   - 每个模块初始化配置变量（这里用全局变量，因为全局变量在 main() 前初始化，一定会触发），初始化的内容是向 Config 类中 addListener(std::function<>()) 。
 ### 出现的问题
 - 在编译过程中出现 “undefined reference to `vtable for...' ”的问题，可能的原因如下：
   - 子类没有实现父类的纯虚函数

@@ -34,12 +34,13 @@ void test_cb(){
 // 测试日志系统的配置变量及回调函数
 void test_log_cb(){
     // 默认rootlog:
-    INLOG_INFO(MYWEB_ROOT_LOG)<< "before: " <<"level: "<<myWeb::LogLevel::ToString(MYWEB_ROOT_LOG->getlevel());
-    INLOG_DEBUG(MYWEB_NAMED_LOG("system"))<< "before: " <<"level: "<<myWeb::LogLevel::ToString(MYWEB_NAMED_LOG("system")->getlevel());
-    myWeb::Config::LoadFromYaml("../log.yml");
-    INLOG_INFO(MYWEB_ROOT_LOG)<< "after: " <<"level: "<<myWeb::LogLevel::ToString(MYWEB_ROOT_LOG->getlevel());
-    INLOG_DEBUG(MYWEB_NAMED_LOG("system"))<< "after: " <<"level: "<<myWeb::LogLevel::ToString(MYWEB_NAMED_LOG("system")->getlevel());
-    INLOG_WARN(MYWEB_NAMED_LOG("system"))<< "after: " <<"level: "<<myWeb::LogLevel::ToString(MYWEB_NAMED_LOG("system")->getlevel())<<" infile.";
+    std::cout<<myWeb::logMgr::getInstance()->toYamlString()<<std::endl;
+    std::cout<<"---------------------------------------------"<<std::endl;
+    myWeb::Config::LoadFromYaml("/home/lee/projects/VScode/myProject/log.yml");
+    std::cout<<myWeb::Config::Lookup("logs")->ToString()<<std::endl;
+    std::cout<<"---------------------------------------------"<<std::endl;
+    myWeb::Config::LoadFromYaml("/home/lee/projects/VScode/myProject/log2.yml"); 
+    std::cout<<myWeb::Config::Lookup("logs")->ToString()<<std::endl;
 
 }
 

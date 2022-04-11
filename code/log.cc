@@ -99,12 +99,41 @@ void Logger::setFormatter(const std::string& str){
     setFormatter(newFormat);
 }
 
-
+std::string Logger::toYamlString() const{
+    YAML::Node node;
+    node["name"]=m_name;
+    if(m_level!=LogLevel::UNKNOW){
+        node["level"]=LogLevel::ToString(m_level);
+    }
+    if(m_formatter){
+        node["formatter"]=m_formatter->getPatten();
+    }
+    for(auto ap:m_appenders){
+        node["appender"].push_back(YAML::Load(ap->toYamlString()));
+    }
+    std::stringstream ss;
+    ss<<node;
+    return ss.str();
+}
 
 void StdoutLogAppender::log(std::shared_ptr<Logger> logger,LogLevel::Level level,LogEvent::ptr event){
     if(level>=m_level){
         std::cout<<m_formatter->format(logger,level,event);   
     }
+}
+
+std::string StdoutLogAppender::toYamlString() const{
+    YAML::Node node;
+    node["type"]="StdoutLogAppender";
+    if(m_level!=LogLevel::UNKNOW){
+        node["level"]=LogLevel::ToString(m_level);
+    }
+    if(m_hasformatter){
+        node["formatter"]=m_formatter->getPatten();
+    }
+    std::stringstream ss;
+    ss<<node;
+    return ss.str();
 }
 
 bool FileLogAppender::reopen(){
@@ -119,6 +148,21 @@ void FileLogAppender::log(std::shared_ptr<Logger> logger,LogLevel::Level level,L
     if(level>=m_level){
         m_filestream<<m_formatter->format(logger,level,event);
     }  
+}
+
+std::string FileLogAppender::toYamlString() const{
+    YAML::Node node;
+    node["type"]="FileLogAppender";
+    node["file"]=m_files;
+    if(m_level!=LogLevel::UNKNOW){
+        node["level"]=LogLevel::ToString(m_level);
+    }
+    if(m_hasformatter){
+        node["formatter"]=m_formatter->getPatten();
+    }
+    std::stringstream ss;
+    ss<<node;
+    return ss.str();
 }
 
 // 解析子模块
@@ -362,6 +406,10 @@ std::string LogFomatter::format(std::shared_ptr<Logger> logger,LogLevel::Level l
     return ss.str();
 }
 
+std::string LogFomatter::getPatten() const{
+    return m_patten;
+}
+
 LogManager::LogManager(){
     m_root.reset(new Logger());     // 清理智能指针，并新建rootLogger
     m_root->addappender(LogAppender::ptr(new StdoutLogAppender));
@@ -377,6 +425,16 @@ Logger::ptr LogManager::getLogger(const std::string& name){
         m_logMap[name]=logger;
     }
     return m_logMap[name];
+}
+
+std::string LogManager::toYamlString() const{
+    YAML::Node node;
+    for(auto logger:m_logMap){
+        node.push_back(YAML::Load(logger.second->toYamlString()));
+    }
+    std::stringstream ss;
+    ss<<node;
+    return ss.str();
 }
  
 
@@ -541,6 +599,7 @@ struct LogConfigInit{
     LogConfigInit(){
         config_log->addListener([](const std::set<LogDefine>& oldval,const std::set<LogDefine>& newval){
             INLOG_INFO(MYWEB_ROOT_LOG)<<"Logs Config Changed.";
+            std::cout<<"---------------------------------------------"<<std::endl;
             for(auto& ns:newval){
                 // 创建或更新logger
                 auto pos=oldval.find(ns);
@@ -559,7 +618,7 @@ struct LogConfigInit{
                     LogAppender::ptr ap;
                     if(lad.type==1){
                         ap.reset(new FileLogAppender(lad.filename));
-                    }else if(lad.type==2){
+                    }else if(lad.type==2){ 
                         ap.reset(new StdoutLogAppender());
                     }
                     ap->setAppenderLevel(lad.level);
@@ -574,7 +633,7 @@ struct LogConfigInit{
                     logger->addappender(ap);
                 }
             }
-            // 删除多余的旧日志器（不可以删除LogAppender::ptr）
+            // 删除多余的旧日志器（不可以删除LogAppender::ptr）：删除该日志器的所有的appender，将其他设置回默认
             for(auto& os:oldval){
                 auto pos=newval.find(os);
                 if(pos==newval.end()){

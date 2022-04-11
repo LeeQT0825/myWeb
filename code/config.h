@@ -276,7 +276,7 @@ public:
         return typeid(m_val).name();
     }
 
-    // 将参数值转换为YAML String（为后续输出yaml配置文档作铺垫）
+    // 将参数值转换为YAML String-----将一整个模块配置打印出来（不同于 LogManager::toYamlString() ）
     std::string ToString() override {
         try{
             return LexicalCast<T,std::string>()(m_val);     // 用于基础类型的转化
@@ -297,9 +297,9 @@ public:
         return false;
     }
 
-    // TODO：配置变量的回调函数
+    // 配置变量的回调函数
     uint64_t addListener(on_change_cb cb){
-        static uint64_t func_id=0;      // 局部静态变量，初始化不会影响后续的读取
+        static uint64_t func_id=0;      // 局部静态变量，只初始化一次
         ++func_id;
         m_cbs[func_id]=cb;
         return func_id;
@@ -314,6 +314,7 @@ public:
     void clearCallBacks(){
         m_cbs.clear();
     }
+
 private:
     // 配置变量值
     T m_val;

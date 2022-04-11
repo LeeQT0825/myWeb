@@ -182,6 +182,8 @@ public:
     // 返回格式化日志文本（重载）
     std::string format(std::shared_ptr<Logger> logger, LogLevel::Level level,LogEvent::ptr event);
 
+    std::string getPatten() const;
+
 public:
     // 初始化，解析日志模板 
     void init();
@@ -224,6 +226,8 @@ public:
     void setAppenderLevel(LogLevel::Level level){m_level=level;}
     LogLevel::Level getAppenderLevel() const {return m_level;}
 
+    virtual std::string toYamlString() const =0;
+
 protected:      // 子类要用到的
     LogLevel::Level m_level=LogLevel::DEBUG;    // 默认
     LogFomatter::ptr m_formatter;
@@ -237,6 +241,8 @@ public:
     typedef std::shared_ptr<StdoutLogAppender> ptr; 
 
     void log(std::shared_ptr<Logger> logger,LogLevel::Level level,LogEvent::ptr event) override;
+
+    std::string toYamlString() const override;
 };
 
 // 输出到文件
@@ -250,6 +256,9 @@ public:
     void log(std::shared_ptr<Logger> logger,LogLevel::Level level,LogEvent::ptr event) override;   // override 证明确实是从父类继承来的重载的实现
     // 重新打开文件，打开成功返回true
     bool reopen();  
+
+    std::string toYamlString() const override;
+
 private:
     std::string m_files;        //唯一性
     std::ofstream m_filestream;
@@ -290,6 +299,8 @@ public:
         m_level=val;
     }
 
+    std::string toYamlString() const;
+
 private: 
     std::string m_name;                             //日志名称
     LogLevel::Level m_level=LogLevel::UNKNOW;       //日志级别限制
@@ -309,6 +320,8 @@ public:
     // 获取主日志器
     Logger::ptr getRoot() const {return m_root;}
 
+    // 输出所有日志器配置
+    std::string toYamlString() const ;
 private:
     // 日志容器
     std::unordered_map<std::string,Logger::ptr> m_logMap;

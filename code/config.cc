@@ -4,7 +4,7 @@
 
 namespace myWeb{
     
-static Logger::ptr config_logger(MYWEB_NAMED_LOG("config_log"));
+// static Logger::ptr config_logger(MYWEB_NAMED_LOG("config_log"));
 
 // 根据层级关系转换为相应的数据结构
 // 为什么没有Sequence的转换？？？
