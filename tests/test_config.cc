@@ -39,8 +39,10 @@ void test_log_cb(){
     myWeb::Config::LoadFromYaml("/home/lee/projects/VScode/myProject/log.yml");
     std::cout<<myWeb::Config::Lookup("logs")->ToString()<<std::endl;
     std::cout<<"---------------------------------------------"<<std::endl;
-    myWeb::Config::LoadFromYaml("/home/lee/projects/VScode/myProject/log2.yml"); 
-    std::cout<<myWeb::Config::Lookup("logs")->ToString()<<std::endl;
+    // myWeb::Config::LoadFromYaml("/home/lee/projects/VScode/myProject/log2.yml"); 
+    // std::cout<<myWeb::Config::Lookup("logs")->ToString()<<std::endl;
+    // std::cout<<"---------------------------------------------"<<std::endl;
+    std::cout<<myWeb::logMgr::getInstance()->toYamlString()<<std::endl;    // 单独使用和 ConfigVar::ToString() 功能一样
 
 }
 
