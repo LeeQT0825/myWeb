@@ -2,8 +2,8 @@
 ## log
 - 输出流式风格日志，支持日志格式、日志级别自定义，支持多日志输出路径。
 - 支持时间,线程id,线程名称,日志级别,日志名称,文件名,行号等内容的自由配置。
-#### 类图
-#### 实现逻辑
+### 类图
+### 实现逻辑
 1. Logger是最终的日志生成接口，LogEvent为日志事件，包含所有信息。但是LogEvent中包含了Logger的智能指针，为了防止循环引用就不能再在Logger中添加LogEvent智能指针。但是为满足：
 - `logger->log(myWeb::LogLevel::WARN,event);`中需要event指针作为参数。
 - 使用方便，最好是一个接口。
@@ -13,7 +13,12 @@
    - 文件读写类
    - 获取线程号的系统调用：gettid()系统调用；pthread_self() 获取的是用户线程；std::thread::get_id()获取的是用户线程。
 3. 时间的输出：重点在一个结构体：struct tm；两个函数：localtime_r(),strftime()。
-#### 出现的问题
+### 接口
+见 test.cc：
+```cpp
+   SYLAR_LOG_INFO(g_logger) << “this is a log”;
+```
+### 出现的问题
 1. 类的值成员都应该是 'private' 的，所以都应该通过函数接口来访问。
 2. 定义宏避免重复 include ：
    ```cpp
@@ -22,17 +27,12 @@
       ...
    #endif
    ``` 
-#### 接口
-见 test.cc：
-```cpp
-   SYLAR_LOG_INFO(g_logger) << “this is a log”;
-```
-
 
 ## 配置模块 
 - 约定优于配置：
 &emsp;系统有默认值，非必要可以不做配置。
 - 配置文件用 *yaml* 格式（其他的格式有 *xml*，*json* 等），从 *yaml* 文件中读取配置数据，数据类型应支持与 *string* 的互相转化。
+### 实现逻辑
 - 配置模块主要有三个类：*ConfigBase* 基类（提供 *FromString()*,*ToString()* 两个模板函数），*ConfigVar* 类，*Config* 类。
 ### 相关技术要点
 #### yaml-cpp
@@ -90,7 +90,10 @@
 * C++11中提供了std::thread, std::mutex, std::condition_variable等线程相关的类。但是还是不够完善，比如没有提供读写锁。没有提供spinlock，虽然c++11里面的atomic可以用来实现CAS锁。
 * 对于高并发服务器来说，很多数据，大多数时候，都是写少读多的场景。如果没有读写锁的话，那么性能上的损失会非常大。
 * thread库也是基于pthread实现的，所以不如自己封装一个适合本项目的线程类。
-
+### 实现逻辑
+- 线程由 pthread_create() 创建。
+- Thread 类的静态成员函数 static void Th_Create(void*) 用来满足 pthread_create() 的第三个参数：void* (*start_routine)(void*) ，第四个参数是第三个参数的参数值，就是 Thread 类的 this 。
+- this 的类成员变量初始化在构造函数阶段完成。
 ### 相关技术要点
 #### pthread 和 thread
 - pthread 早于 thread。
@@ -100,10 +103,13 @@
    - C++11 thread库居然没有executor之类的thread pool
    - 在Linux下，C++11 thread库居然强制动态连接pthread，如果你编译连接的时候忘了-pthread参数，一直要到运行的时候才会报错
 - pthread是一个C的API，因此它不提供任何RAII，这使得它更难使用，更容易出错，特别是就异常安全性而言（除非你自己编写了包装，你现在必须调试 并保持）。
+- 线程从它被创建的时候就开始执行它的新线程了。
+- pthread_setname_np() 函数可用于为线程（或其他线程）设置唯一名称，这对于调试多线程应用程序非常有用。 线程名称是一个有意义的 C 语言字符串，包括终止空字节 ('\0')在内，其长度限制为 16 个字符。成功时，这些函数返回 0； 出错时，它们返回一个非零错误号。
 #### 自定义的线程类
 &emsp;自定义的线程类应具备一下特点：
 1. 不可被拷贝（拷贝构造函数设置为 private ，且函数声明后加“ ***=delete*** ”---不可被调用）
-2. 
+2. 该类在构造函数中就执行新的线程，从类的静态函数进入，所以类对象的作用域依然是父线程。
+3. 类的析构函数需要在子线程执行结束前决定到底是 join 还是 detach 。
 
 ## 协程
 &emsp;协程是在两个执行栈上切换的，表现为从一个函数的某处**切换到**（并非调用）另一个函数的**某处**（而不是入口）。

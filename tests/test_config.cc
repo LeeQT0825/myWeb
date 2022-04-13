@@ -6,7 +6,7 @@ myWeb::ConfigVar<int>::ptr testVar1=myWeb::Config::Lookup<int>("system.port",808
 myWeb::ConfigVar<float>::ptr testVar2=myWeb::Config::Lookup<float>("system.value",15.4f,"system value");
 
 void test_yaml(){
-    YAML::Node yml_node=YAML::LoadFile("../log.yml");       // 这里最好用绝对路径 
+    YAML::Node yml_node=YAML::LoadFile("/home/lee/projects/VScode/myProject/log.yml");       // 这里最好用绝对路径 
     INLOG_INFO(MYWEB_ROOT_LOG)<<yml_node;
 }
 
@@ -14,7 +14,7 @@ void test_yaml(){
 void test_config(){
     INLOG_INFO(MYWEB_ROOT_LOG)<< "before: " <<testVar1->getName()<<" "<<testVar1->getVal();
     INLOG_INFO(MYWEB_ROOT_LOG)<< "before: " <<testVar2->getName()<<" "<<testVar2->getVal();
-    myWeb::Config::LoadFromYaml("../log.yml");
+    myWeb::Config::LoadFromYaml("/home/lee/projects/VScode/myProject/log.yml");
     INLOG_INFO(MYWEB_ROOT_LOG)<< "after: " <<testVar1->getName()<<" "<<testVar1->getVal();
     INLOG_INFO(MYWEB_ROOT_LOG)<< "after: " <<testVar2->getName()<<" "<<testVar2->ToString();
 }
@@ -26,7 +26,7 @@ void test_cb(){
     testVar1->addListener([](const int& oldval,const int& newval){
         INLOG_INFO(MYWEB_ROOT_LOG)<<"old: "<<oldval<<" new: "<<newval;
     });
-    myWeb::Config::LoadFromYaml("../log.yml");
+    myWeb::Config::LoadFromYaml("/home/lee/projects/VScode/myProject/log.yml");
 
     INLOG_INFO(MYWEB_ROOT_LOG)<< "after: " <<testVar1->getName()<<" "<<testVar1->getVal();
 }
