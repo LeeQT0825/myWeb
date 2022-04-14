@@ -1,11 +1,11 @@
 #ifndef __MYWEB_MTHREAD_H__
 #define __MYWEB_MTHREAD_H__
 
-// #include <thread>
 #include <pthread.h>
 #include <functional>
 #include <memory>
 #include <string>
+#include "mmutex.h"
 
 namespace myWeb{
 
@@ -26,6 +26,9 @@ public:
     }
     // 等待线程完成
     void join();
+    // pthread_t get_pthreadID(){
+    //     return m_thread;
+    // }
 
     // 获取当前线程的指针
     static Thread* getThisThread();
@@ -47,6 +50,7 @@ private:
     pthread_t m_thread=0;        // 用户线程号，由pthread_create()创建
     std::function<void()> m_cb;
     std::string m_name;
+    Semaphore m_sem;
 };
 
 }

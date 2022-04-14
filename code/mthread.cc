@@ -1,12 +1,14 @@
 #include "mthread.h"
 #include "log.h"
 #include "util.h"
+#include <iostream>
 
 namespace myWeb{
 
 static thread_local Thread* t_thread=nullptr;
 static thread_local std::string t_thread_name="UNKNOW";
 
+// 构造函数应该在陷入新线程的函数入口之前结束，也就是该Thread对象(完全建立实在执行func()之前)应该建立在新线程执行函数之前，所以这里应该加入信号量 
 Thread::Thread(std::function<void()> cb,const std::string& name)
     :m_cb(cb){
     if(name.empty()){
@@ -19,6 +21,9 @@ Thread::Thread(std::function<void()> cb,const std::string& name)
         INLOG_ERROR(MYWEB_ROOT_LOG)<<"pthread_create failed,name: "<<name;
         throw std::logic_error("pthread_create error");
     }
+
+    m_sem.wait();   // 等待 Th_Create 中将Thread成员变量初始化完成才能完成构造函数
+    std::cout<<"Thread "<<m_name<<" Finished."<<std::endl;      // 测试
 }
 
 Thread::~Thread(){
@@ -54,7 +59,10 @@ void* Thread::Th_Create(void* args){
     }
 
     std::function<void()> func=th->m_cb;
-    func();     // 执行函数入口
+    std::cout<<"new thread "<<th->m_name<<" member finished."<<std::endl;   // 测试
+
+    th->m_sem.post();       // 释放信号量，表示完成了Thread类成员变量的初始化
+    func();                 // 执行函数入口
     return 0;
 }
 
@@ -73,7 +81,5 @@ void Thread::setThisThreadName(const std::string& name){
     }
     t_thread_name=name;
 }
-
-
 
 }

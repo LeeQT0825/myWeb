@@ -15,7 +15,8 @@ set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -g -std=c++11 -Wall -Wno-depra
 set(LIB_SCR code/log.cc 
             code/util.cc
             code/config.cc
-            code/mthread.cc)
+            code/mthread.cc
+            code/mmutex.cc)
 
 add_library(code SHARED ${LIB_SCR})     # 通过变量LIB-SCR生成库名为libcode.so的动态库
 set(LIBLIB  code
@@ -32,6 +33,10 @@ add_executable(test_config tests/test_config.cc)
 add_dependencies(test_config code)
 target_link_libraries(test_config ${LIBLIB})        # /usr/local/lib/ 中准标准库也要手动添加（可执行文件）
  
+# 测试thread的可执行文件
+add_executable(test_thread tests/test_thread.cc)      
+add_dependencies(test_thread code)
+target_link_libraries(test_thread ${LIBLIB})        # /usr/local/lib/ 中准标准库也要手动添加（可执行文件）
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径
