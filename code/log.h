@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include "util.h"
 #include "singleton.h"
+#include "mmutex.h"
 
 #define INLOG_LEVEL(logger,level) \
     if(level>=logger->getlevel())\
@@ -232,6 +233,8 @@ protected:      // 子类要用到的
     LogLevel::Level m_level=LogLevel::DEBUG;    // 默认
     LogFomatter::ptr m_formatter;
     bool m_hasformatter=false;
+    RWmutex m_rw_mutex;
+    MutexLock m_mutex;
 };
 
 
@@ -306,6 +309,7 @@ private:
     LogLevel::Level m_level=LogLevel::UNKNOW;       //日志级别限制
     std::list<LogAppender::ptr> m_appenders;        //路径列表(基类的指针)
     LogFomatter::ptr m_formatter;                   //格式器：默认格式器可分派给所有的appender
+    MutexLock m_mutex;
 };
 
 // 应该是全局单例的
@@ -327,6 +331,7 @@ private:
     std::unordered_map<std::string,Logger::ptr> m_logMap;
     // 根据 LogManager 中的主日志器设置
     Logger::ptr m_root;
+    MutexLock m_mutex;
 };
 
 typedef myWeb::Singleton<LogManager> logMgr;
