@@ -127,7 +127,7 @@ private:
 // 互斥量
 class MutexLock{
 public:
-    typedef ScopedLockImpl<MutexLock> mutex_lock;
+    typedef ScopedLockImpl<MutexLock> scoped_lock;
 
     MutexLock(){
         pthread_mutex_init(&m_mutex,nullptr);
@@ -157,9 +157,9 @@ private:
 class RWmutex{
 public:
     // 局部读锁类
-    typedef ReadScopedLockImpl<RWmutex> ReadLock;
+    typedef ReadScopedLockImpl<RWmutex> read_lock;
     // 局部写锁类
-    typedef WriteScopedLockImpl<RWmutex> WriteLock;
+    typedef WriteScopedLockImpl<RWmutex> write_lock;
 
     RWmutex(){
         pthread_rwlock_init(&m_rwlock,nullptr);
@@ -192,7 +192,7 @@ private:
 // 自旋锁
 class SpinLock{
 public:
-    typedef ScopedLockImpl<SpinLock> spin_lock;
+    typedef ScopedLockImpl<SpinLock> scoped_lock;
 
     SpinLock(){
         pthread_spin_init(&m_spinlock,0);

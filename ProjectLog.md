@@ -168,4 +168,6 @@
 
 ## Question
 1. 如何保证STL容器的迭代器在多线程中不会失效？如 Logger 中的 appenders 成员变量，在 log() 和 addAppender() 都会对appenders进行修改，这时 log() 中的迭代器是否会失效？
-2. 
+2. 在 Logger 类中加入互斥锁后，在 LogManager::getLogger() 中使用 make_shared 创建 Logger ，显示 “error: use of deleted function ‘myWeb::Logger::Logger(myWeb::Logger&&)’” ？
+   - A: 互斥锁是不可赋值、不可移动构造、不可赋值构造的，作为 Logger 的成员变量，向上影响到 Logger 也变为不可赋值、不可移动构造、不可赋值构造的。而 make_shared 的可变参数传入的是移动构造的对象，所以发生错误。
+   - S: 将 make_shared 改为 shared_ptr<> obj() 直接构造智能指针。

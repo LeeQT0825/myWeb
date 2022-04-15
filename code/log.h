@@ -214,6 +214,7 @@ class LogAppender{
 friend class Logger;
 public:
     typedef std::shared_ptr<LogAppender> ptr;
+    typedef SpinLock lock_type;     // 方便统一更换锁
 
     virtual ~LogAppender(){}
     virtual void log(std::shared_ptr<Logger> logger, LogLevel::Level level,LogEvent::ptr event)=0;      // 子类必须实现
@@ -234,7 +235,7 @@ protected:      // 子类要用到的
     LogFomatter::ptr m_formatter;
     bool m_hasformatter=false;
     RWmutex m_rw_mutex;
-    MutexLock m_mutex;
+    lock_type m_lock;
 };
 
 
@@ -271,10 +272,11 @@ private:
 class Logger:public std::enable_shared_from_this<Logger>{
 public:
     typedef std::shared_ptr<Logger> ptr;
+    typedef SpinLock lock_type;
 
     Logger(const std::string& name="root")
     :m_name(name),
-    m_level(LogLevel::UNKNOW){
+    m_level(LogLevel::DEBUG){
         m_formatter.reset(new LogFomatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%F%T[%p]%T[%c]<%f:%l> %m %n"));       // 定义一个默认的日志格式
     }
     void log(LogLevel::Level level,LogEvent::ptr event);
@@ -309,13 +311,14 @@ private:
     LogLevel::Level m_level=LogLevel::UNKNOW;       //日志级别限制
     std::list<LogAppender::ptr> m_appenders;        //路径列表(基类的指针)
     LogFomatter::ptr m_formatter;                   //格式器：默认格式器可分派给所有的appender
-    MutexLock m_mutex;
+    lock_type m_lock;
 };
 
 // 应该是全局单例的
 // 封装多个Logger，提供默认构造的logger，创建宏，方便一步调用
 class LogManager{
 public:
+    typedef SpinLock lock_type;
     // 创建默认主日志器
     LogManager();
 
@@ -331,7 +334,7 @@ private:
     std::unordered_map<std::string,Logger::ptr> m_logMap;
     // 根据 LogManager 中的主日志器设置
     Logger::ptr m_root;
-    MutexLock m_mutex;
+    lock_type m_lock;
 };
 
 typedef myWeb::Singleton<LogManager> logMgr;

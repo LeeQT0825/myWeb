@@ -23,7 +23,7 @@ Thread::Thread(std::function<void()> cb,const std::string& name)
     }
 
     m_sem.wait();   // 等待 Th_Create 中将Thread成员变量初始化完成才能完成构造函数
-    std::cout<<"Thread "<<m_name<<" Finished."<<std::endl;      // 测试
+    // std::cout<<"Thread "<<m_name<<" Finished."<<std::endl;      // 测试
 }
 
 Thread::~Thread(){
@@ -59,7 +59,7 @@ void* Thread::Th_Create(void* args){
     }
 
     std::function<void()> func=th->m_cb;
-    std::cout<<"new thread "<<th->m_name<<" member finished."<<std::endl;   // 测试
+    // std::cout<<"new thread "<<th->m_name<<" member finished."<<std::endl;   // 测试
 
     th->m_sem.post();       // 释放信号量，表示完成了Thread类成员变量的初始化
     func();                 // 执行函数入口

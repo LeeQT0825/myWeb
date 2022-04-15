@@ -4,6 +4,7 @@ logs:
       formatter: '%d%T%m%n'
       appender: 
         - type: StdoutLogAppender
+          formatter: '%d %t%T%m%n'
     - name: system
       level: debug
       appender: 
@@ -12,7 +13,18 @@ logs:
           file: /home/lee/projects/VScode/myProject/log/log.txt
           formatter: '%d%T%m%n'
         - type: StdoutLogAppender
+    - name: test
+      level: debug
+      appender: 
+        - type: FileLogAppender
+          level: debug
+          file: /home/lee/projects/VScode/myProject/log/test_log.txt
+          formatter: '%d{%Y-%m-%d %H:%M:%S}%T%p%T%m%n'
+    - name: mutex
+      level: debug
+      appender: 
+        - type: FileLogAppender
+          level: debug
+          file: /home/lee/projects/VScode/myProject/log/mutex.txt
+          formatter: '%p%m%n'
 
-system:
-    port: 0099
-    value: 192.8
