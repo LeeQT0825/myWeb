@@ -153,6 +153,7 @@ void FileLogAppender::log(std::shared_ptr<Logger> logger,LogLevel::Level level,L
     RWmutex::write_lock r_lock(m_rw_mutex);
     if(level>=m_level){
         m_filestream<<m_formatter->format(logger,level,event);
+        // TODO：如果写入过程中文件突然被删掉了该怎么办？
     }  
 }
 
@@ -460,6 +461,7 @@ struct LogAppenderDefine
     std::string formatter="%d{%Y-%m-%d %H:%M:%S}%T%t%T%F%T[%p]%T[%c]<%f:%l> %m %n";
     std::string filename;
 
+    // 用来比较新旧值
     bool operator==(const LogAppenderDefine& other) const {
         return type==other.type
             && level==other.level
@@ -606,8 +608,9 @@ myWeb::ConfigVar<std::set<LogDefine> >::ptr config_log=myWeb::Config::Lookup("lo
 struct LogConfigInit{
     LogConfigInit(){
         config_log->addListener([](const std::set<LogDefine>& oldval,const std::set<LogDefine>& newval){
+            std::cout<<"-------------------------------------------------"<<std::endl;
             INLOG_INFO(MYWEB_ROOT_LOG)<<"Logs Config Changed.";
-            std::cout<<"---------------------------------------------"<<std::endl;
+            std::cout<<"-------------------------------------------------"<<std::endl;
             for(auto& ns:newval){
                 // 创建或更新logger
                 auto pos=oldval.find(ns);

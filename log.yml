@@ -27,4 +27,6 @@ logs:
           level: debug
           file: /home/lee/projects/VScode/myProject/log/mutex.txt
           formatter: '%p%m%n'
-
+system:
+    port: 999
+    value: 000

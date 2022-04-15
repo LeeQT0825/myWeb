@@ -15,6 +15,7 @@
 #include <boost/lexical_cast.hpp>
 #include <unordered_map>
 #include <yaml-cpp/yaml.h>
+#include "mmutex.h"
 #include "log.h"
 #include "singleton.h"
 
@@ -253,6 +254,7 @@ class ConfigVar:public ConfigVarBase {
 public:
     typedef std::shared_ptr<ConfigVar> ptr;
     typedef std::function<void (const T& oldval,const T& newval)> on_change_cb;     // 回调接口
+    typedef RWmutex lock_type;
 
     // 这里有个小细节：默认参数要放到后面！！！
     ConfigVar(const std::string& name,const T& val,const std::string& discription=""):
@@ -286,7 +288,7 @@ public:
         }
         return "";
     }
-    // 读取yaml文件，将YAML String转换为本来的类型
+    // 读取yaml文件，将YAML String转换为本来的类型，接入回调函数
     bool FromString(const std::string& val) override {
         try{
             setVal(LexicalCast<std::string,T>()(val)); 
@@ -300,6 +302,7 @@ public:
     // 配置变量的回调函数
     uint64_t addListener(on_change_cb cb){
         static uint64_t func_id=0;      // 局部静态变量，只初始化一次
+        lock_type::write_lock rlock(m_lock);
         ++func_id;
         m_cbs[func_id]=cb;
         return func_id;
@@ -320,17 +323,20 @@ private:
     T m_val;
     // 变更回调函数组
     std::map<uint64_t,on_change_cb> m_cbs;
+    lock_type m_lock;
 };
 
 // 配置管理类，单例模式
 class Config{
 public:
     typedef std::unordered_map<std::string,ConfigVarBase::ptr> ConfigVarMap;
+    typedef RWmutex lock_type;
 
     // 根据配置变量查询，返回配置变量值
     // 重载一：有就返回，没有就用val创建
     template <typename T>
     static typename ConfigVar<T>::ptr Lookup(const std::string& name,const T& val,const std::string& discription=""){
+        lock_type::write_lock wlock(getLock());
         auto iter=getConfigVarMap()->find(name);
         if(iter!=getConfigVarMap()->end()){
             if(iter->second){
@@ -338,7 +344,9 @@ public:
                 return std::dynamic_pointer_cast<ConfigVar<T> >(iter->second);      // 要返回子类类型，必须将父类指针强制转化为子类指针
             }
         }
+        wlock.unLock();
 
+        lock_type::read_lock rlock(getLock());
         // 检验name是否合法
         if(name.find_first_not_of("abcdefghijklmnopqrstuvwxyz._1234567890")!=std::string::npos){
             INLOG_ERROR(MYWEB_ROOT_LOG)<<"Lookup name: "<<name<<" is ivalid"<<std::endl;
@@ -351,6 +359,7 @@ public:
     }
     // 重载二：有就返回，无就返回空指针
     static ConfigVarBase::ptr Lookup(const std::string& name){
+        lock_type::read_lock rlock(getLock());
         auto iter=getConfigVarMap()->find(name);
         if(iter!=getConfigVarMap()->end()){
             return iter->second;      // 要返回子类类型，必须将父类指针强制转化为子类指针
@@ -367,6 +376,11 @@ private:
         return Singleton<ConfigVarMap>::getInstance();
     }
 
+    // 单例模式的锁
+    static lock_type& getLock(){
+        static lock_type m_lock;
+        return m_lock;
+    }
 };
 
 

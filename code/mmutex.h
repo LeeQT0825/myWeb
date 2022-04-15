@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <mutex>
 #include <pthread.h>
+#include <atomic>
 
 namespace myWeb{
 
@@ -220,7 +221,27 @@ private:
 
 // 原子锁
 class AtomicLock{
+public:
+    typedef ScopedLockImpl<AtomicLock> scoped_lock;
 
+    AtomicLock(){}
+    ~AtomicLock(){}
+
+    // 上锁
+    void lock(){
+        m_atomiclock.test_and_set();
+    }
+    // 释放锁
+    void unlock(){
+        m_atomiclock.clear();
+    }
+
+private:
+    AtomicLock(const AtomicLock&)=delete;
+    AtomicLock(const AtomicLock&&)=delete;
+    AtomicLock& operator=(const AtomicLock&)=delete;
+private:
+    std::atomic_flag m_atomiclock=ATOMIC_FLAG_INIT;
 };
 
 }

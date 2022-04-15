@@ -32,13 +32,21 @@
 
 ## 配置模块 
 - 约定优于配置：
-&emsp;系统有默认值，非必要可以不做配置。
+  - 系统有默认值，非必要可以不做配置。
+  - 系统原本没有的配置变量，及时 .yml 文件中有，也不会配置（即只配置已存在的配置变量）。
+  - 为实现第二点，在加入配置模块的时候应该初始化配置：
+    - 即定义一个配置变量对象，考虑配置值的类型：配置值本身做配置系统一个map元素键值对中的值，但配置值分支是 map 还是 sequence 。
 - 配置文件用 *yaml* 格式（其他的格式有 *xml*，*json* 等），从 *yaml* 文件中读取配置数据，数据类型应支持与 *string* 的互相转化。
 ### 实现逻辑
 - 配置模块主要有三个类：*ConfigBase* 基类（提供 *FromString()*,*ToString()* 两个模板函数），*ConfigVar* 类，*Config* 类。
+- 如果配置变量是 Sequence ，则定义配置变量的时候应该定义成 set<T> （如 set<LogDefine>）。
+- 初始化配置变量：
+  - 通过 Config::Lookup() 的重载定义一个配置变量 ConfigVar<T> ；
+  - 定义一个形如 LogConfigInit 的类，来 addListener() ;
+- Config 类基本都是静态成员，静态成员的初始化顺序是随机的，所以如果 m_lock 锁不是静态变量的话，会导致其他函数进行的时候他还没初始化好的情况。
 ### 相关技术要点
 #### yaml-cpp
-- .yml 文件是层级结构，由 Map、Sequence、Schalar 组成。因为是层级的数据结构，所以可以通过DFS遍历Node方式读取全部数据
+- .yml 文件是层级结构，由 Map(使用‘:’表示键值对(注意：一个键值对是一个map元素))、Sequence(使用‘-’)、Schalar 组成。因为是层级的数据结构，所以可以通过DFS遍历Node方式读取全部数据
    ```cpp
    if(node.isMap()){
       for(auto iter=node.begin();iter!=node.end();++iter){
@@ -70,7 +78,6 @@
       因为 std::function<> 类没有比较函数（或比较操作符的重载），所以用 vector 无法判断两个 function 是否是一样的。
       想要删除一个 function 的时候，map 可以通过删除 key 来删除。
    - unit64_t 类型的 key 要求唯一，一般可以用hash值
-  
 &emsp;每个模块实现从配置变量回调：
    - 确定每个模块需要配置的变量。如log模块：LogAppenderDefine类、LogDefine类
    - 上述类均要提供 "= ="、"<" 等符号的重载。

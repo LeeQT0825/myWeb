@@ -46,12 +46,21 @@ void test_log_cb(){
 
 }
 
+// 测试配置系统的特性
+void test_config_character(){
+    INLOG_INFO(MYWEB_ROOT_LOG)<<myWeb::logMgr::getInstance()->toYamlString();
+    myWeb::Config::LoadFromYaml("/home/lee/projects/VScode/myProject/log.yml");
+    INLOG_INFO(MYWEB_ROOT_LOG)<<myWeb::Config::Lookup("system")->ToString();
+
+}
+
 int main(){
     // MYWEB_ROOT_LOG->setlevel(myWeb::LogLevel::INFO);
     // test_yaml();    
     // test_config();
     // test_cb();
-    test_log_cb();
+    // test_log_cb();
+    test_config_character();
     return 0;
 }
 
