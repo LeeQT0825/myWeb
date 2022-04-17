@@ -18,7 +18,7 @@ void func1(){
                               <<"name: "<<myWeb::Thread::getThisThread()->getName();
                             //   <<"pthreadID: "<<myWeb::Thread::getThisThread()->get_pthreadID();
     std::cout<<"+++++++++++++++++++++++++++++++++++++++++++++++"<<std::endl;
-
+    sleep(1);
     func2();
 
     // for(int i=0;i<100000;++i){
@@ -39,7 +39,7 @@ void func2(){
 
 int main(){
     std::vector<myWeb::Thread::ptr> thrds;
-    myWeb::Config::LoadFromYaml("/home/lee/projects/VScode/myProject/log.yml");
+    myWeb::Config::LoadFromYaml("/home/lee/projects/VScode/myProject/myconfig.yml");
     std::cout<<myWeb::Config::Lookup("logs")->ToString()<<std::endl;
     std::cout<<"-----------------------------------------------"<<std::endl;
 

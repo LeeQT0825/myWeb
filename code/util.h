@@ -33,5 +33,7 @@ public:
     static bool OpenForRead(std::ifstream& ifs,const std::string& filename,std::ios_base::openmode mode);
 };
 
+std::string BacktraceToString(int size,int skip=1,const std::string& prefix="\n---");
+
 }
 #endif

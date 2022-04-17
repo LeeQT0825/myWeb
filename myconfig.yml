@@ -10,8 +10,8 @@ logs:
       appender: 
         - type: FileLogAppender
           level: warn
-          file: /home/lee/projects/VScode/myProject/log/log.txt
-          formatter: '%d%T%m%n'
+          file: /home/lee/projects/VScode/myProject/log/sys_log.txt
+          formatter: '[%p]%T%d{%Y-%m-%d %H:%M:%S} %t %F%T<%f:%l> %m %n'
         - type: StdoutLogAppender
     - name: test
       level: debug

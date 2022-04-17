@@ -36,7 +36,12 @@ target_link_libraries(test_config ${LIBLIB})        # /usr/local/lib/ 中准标�
 # 测试thread的可执行文件
 add_executable(test_thread tests/test_thread.cc)      
 add_dependencies(test_thread code)
-target_link_libraries(test_thread ${LIBLIB})        # /usr/local/lib/ 中准标准库也要手动添加（可执行文件）
+target_link_libraries(test_thread ${LIBLIB})
+
+# 测试assert的可执行文件
+add_executable(test_assert tests/test_assert.cc)      
+add_dependencies(test_assert code)
+target_link_libraries(test_assert ${LIBLIB})
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径

@@ -1,6 +1,8 @@
 #include "util.h"
 #include <string.h>
-
+#include <execinfo.h>       // backtrace() 系列函数
+#include <sstream>
+#include <cxxabi.h>
 namespace myWeb{
 
 pid_t GetThreadID(){
@@ -85,6 +87,57 @@ bool FileUtils::OpenForRead(std::ifstream& ifs,const std::string& filename,std::
     return ifs.is_open();
 }
 
+// 调试相关
+// demangle 字符转换
+std::string demangle(const char* s){
+    size_t size = 0;
+    int status = 0;
+    std::string temp(256,0);
+    char *demangled = NULL;
+    // C++样式
+    if (sscanf(s, "%*[^(]%*[^_]%255[^)+]", &temp[0]) == 1) {
+        if ((demangled = abi::__cxa_demangle(&temp[0], NULL, &size,
+                        &status)) != NULL) {
+            std::string result(demangled);
+            free(demangled);
+            return result;
+        }
+    }
+    // C样式
+    if (sscanf(s, "%255s", &temp[0]) == 1) {
+        return temp;
+    }
+    // 原样式
+    return s;
+}
+// 返回栈 bt--存储栈内容的数组  size--最大栈层数 skip--跳过几层栈（比如跳过自己）
+void Backtrace(std::vector<std::string>& bt,int size,int skip=1){
+    void** array=(void**)malloc(sizeof(void*)*size);
+    int s=::backtrace(array,size);       // 实际返回栈层数
 
+    char** strings=::backtrace_symbols(array,s);
+    if(strings==nullptr){
+        std::cout<<"backtrace_symbols error"<<std::endl;
+        free(array);
+        free(strings);
+        return;
+    }
+    for(int i=skip;i<s;++i){
+        bt.push_back(demangle(strings[i]));
+    }
+    free(array);
+    free(strings);
+}
+// 返回栈接口
+std::string BacktraceToString(int size,int skip,const std::string& prefix){
+    std::vector<std::string> bt;
+    Backtrace(bt,size,skip);
+    std::stringstream ss;
+    for(auto& i:bt){
+        ss<<prefix<<i;
+    }
+    ss<<std::endl;
+    return ss.str();
+}
 
 }
