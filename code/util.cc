@@ -1,4 +1,5 @@
 #include "util.h"
+#include "fiber.h"
 #include <string.h>
 #include <execinfo.h>       // backtrace() 系列函数
 #include <sstream>
@@ -13,8 +14,8 @@ pid_t GetThreadID(){
     return syscall(__NR_gettid);       
 }
 
-int32_t GetFiberID(){
-    return 0;
+uint64_t GetFiberID(){
+    return Fiber::getThisFiberID();
 }
 
 // 封装lstat()系统调用，获取软链接（符号链接）本身的属性，存储到st中。0表示成功，-1表示错误

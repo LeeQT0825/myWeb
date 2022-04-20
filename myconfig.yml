@@ -11,8 +11,9 @@ logs:
         - type: FileLogAppender
           level: warn
           file: /home/lee/projects/VScode/myProject/log/sys_log.txt
-          formatter: '[%p]%T%d{%Y-%m-%d %H:%M:%S} %t %F%T<%f:%l> %m %n'
+          formatter: '[%p]%T%d{%Y-%m-%d %H:%M:%S} %t %F <%f:%l>%T%m %n'
         - type: StdoutLogAppender
+          formatter: '[%p]%T%d{%Y-%m-%d %H:%M:%S} %t %F <%f:%l>%T%m %n'
     - name: test
       level: debug
       appender: 

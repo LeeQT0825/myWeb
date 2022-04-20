@@ -16,7 +16,8 @@ set(LIB_SCR code/log.cc
             code/util.cc
             code/config.cc
             code/mthread.cc
-            code/mmutex.cc)
+            code/mmutex.cc
+            code/fiber.cc)
 
 add_library(code SHARED ${LIB_SCR})     # 通过变量LIB-SCR生成库名为libcode.so的动态库
 set(LIBLIB  code
@@ -42,6 +43,11 @@ target_link_libraries(test_thread ${LIBLIB})
 add_executable(test_assert tests/test_assert.cc)      
 add_dependencies(test_assert code)
 target_link_libraries(test_assert ${LIBLIB})
+
+# 测试fiber的可执行文件
+add_executable(test_fiber tests/test_fiber.cc)      
+add_dependencies(test_fiber code)
+target_link_libraries(test_fiber ${LIBLIB})
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径

@@ -192,38 +192,43 @@
    协程 A 调用了协程 B，如果只有 B 完成之后才能调用 A 。此时 A 和 B 是非对称协程。
 - 无栈协程
    A/B 被调用的概率相同。此时 A 和 B 是对称协程。
-
 ### 协程模块
 - 一个线程的栈大小比较大，但是一个协程的栈大小通常比较小（因为需要快速切换协程，且通常具有好几个协程）且可以设置。因此**通常不会在协程中创建很大的对象**，因为自动对象都是创建在栈上，对象过大会产生栈溢出的错误。**能用指针的尽量用指针**。
 - ucontext 机制是 GNU C 库提供的一组用于创建、保存、切换用户态执行“上下文”（context）的API。
+- 基于 ucontext_t 实现：
+  - ucontext_t 结构体包的内容：
+     ```cpp
+     - ucontext_t *uc_link        //next context，指向当前 context 结束时待恢复的上下文
+     - sigset_t uc_sigmask        //信号掩码
+     - stack_t uc_stack           //当前上下文所使用的栈
+     - mcontext_t uc_mcontext     //实际保存 CPU 上下文的变量，这个变量与平台&机器相关，最好不要访问这个变量
+     ```
+  - 定义了四个函数：
+     ```cpp
+     - int  getcontext(ucontext_t * ucp);        // 使用当前 CPU 上下文初始化 ucp 所指向的结构体，成功返回0，失败返回-1
+     - int  setcontext(const ucontext_t *);      // 重置当前 CPU 上下文
+     - void makecontext(ucontext_t *, (void *)(), int, ...);   // 修改由 getcontext 创建的上下文信息，比如设置栈指针
+     - int  swapcontext(ucontext_t *, const ucontext_t *);     // 切换两个上下文
+     ```
+   https://www.jianshu.com/p/a96b31da3ab0
+- 对 ucontext_t 类型的理解：
+  1. 这个对象就相当于"传送门"：从一个运行状态传送到另一个状态，且两边的运行状态发现不了执行权已经易主————所以我们需要保存当前状态的栈空间 uc_stack（栈指针和栈大小）。
+  2. 由于这是在同一个线程中来回切换，而"传送门"一定要和某个可运行的程序绑定，所以"传送门"一定要和某个function绑定。（这就是 makecontext() 的作用）
+  3. 线程执行完有 join() 或 detach() 来辅助线程的关闭。而"传送门"所绑定的function总有执行完的时候，function执行完，"传送门"的另一端就是一片虚无，所以要手动设置function执行完后"传送门"的归宿（设置 uc_link 的作用：设置为 nullptr 则整个线程直接关闭，设置为其他 ucontext_t 对象则传送到其他"传送门"）。
 #### 实现逻辑
 - 需要实现：
   - 协程的数据结构，用于保存上下文
   - 调度器，用于调度协程————设置一个 mainFiber 用来创建管理调度其他子协程。（可以改进的点：直接由本协程调度）
     - 主协程：负责创建、调度
+      - 是线程中第一个协程，由 getThis() 创建并返回主协程智能指针。
       - 不分配栈空间
+      - 没有回调
       - 状态保持在EXEC。
     - 子协程：执行完或者让出时间片只能回到主协程，再由主协程调度。
       - 有回调函数，需要分配栈空间。
   - resume语义，运行某个特定的协程（从他上次让出心爱的时间片处开始）
   - yield语义，协程主动让出CPU。
-- 基于 ucontext_t 实现：
-  - ucontext_t 结构体包的内容：
-   ```cpp
-    - ucontext_t *uc_link        //next context
-    - sigset_t uc_sigmask        //信号掩码
-    - stack_t uc_stack           //当前上下文所使用的栈
-    - mcontext_t uc_mcontext     //实际保存 CPU 上下文的变量，这个变量与平台&机器相关，最好不要访问这个变量
-   ```
-  - 定义了四个函数：
-   ```cpp
-    - int  getcontext(ucontext_t *);            // 获得当前 CPU 上下文，成功返回0，失败返回-1
-    - int  setcontext(const ucontext_t *);      // 重置当前 CPU 上下文
-    - void makecontext(ucontext_t *, (void *)(), int, ...);       // 修改上下文信息，比如设置栈指针
-    - int  swapcontext(ucontext_t *, const ucontext_t *);         // 切换两个上下文
-   ```
-   https://www.jianshu.com/p/a96b31da3ab0
-- 
+
 ### 协程调度模块
 &emsp;负责协程的生命周期、创建、销毁、调度。
 
@@ -265,12 +270,13 @@
   - 使用函数指针需要对不同的可调用类型(callable object)进行单独声明，将函数指针作为函数参数只能接收某种具体类型，非常不灵活。而function<>满足了兼容所有可调用类型的需求，提高了程序设计的灵活性
 - std::atomic<> 是不可复制的，所以只能用列表初始化。
 - 类的非静态成员函数可以访问静态成员函数，反之不可以（除非通过对象访问）。但是静态成员函数可以通过类**私有的构造函数**创建对象。
+- 类的对象A和B，B可以通过类的成员函数访问对象A的私有变量。————类的成员函数是不占用对象的空间的，成员函数是属于类的，而不是属于变量，这也就是说，私有变量可以直接被类的成员函数访问，无论是通过哪个对象调用这个成员函数。
 - 类继承 enable_shared_from_this<> ，可以通过 shared_from_this() 返回类的 this 的智能指针：
   - 把当前类对象作为参数传给其他函数时，为什么要传递 share_ptr 呢？直接传递 this 指针不可以吗？
       一个裸指针传递给调用者，谁也不知道调用者会干什么。假如调用者 delete 了该对象，而传出的指针此时还指向该对象，会产生野指针。
   - 通过 share_ptr<this> 传递可以吗?
       不可以，这样会造成2个非共享的share_ptr指向一个对象，最后造成2次析构该对象。
-  - 所以通过 shared_from_this() 传递的智能指针与外界指向该对象的智能指针是共享的。
+  - 所以通过 shared_from_this() 传递的智能指针与外界指向该对象的智能指针是**共享**的。
 
 ## Question
 1. 如何保证STL容器的迭代器在多线程中不会失效？如 Logger 中的 appenders 成员变量，在 log() 和 addAppender() 都会对appenders进行修改，这时 log() 中的迭代器是否会失效？

@@ -23,6 +23,7 @@
                 <<myWeb::BacktraceToString(5); \
         assert(x); \
     }
-#undef x,y
+#undef x
+#undef y
 
 #endif 

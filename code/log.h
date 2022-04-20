@@ -79,7 +79,7 @@ public:
     typedef std::shared_ptr<LogEvent> ptr;
     LogEvent(std::shared_ptr<Logger> logger,const char* file,LogLevel::Level level,
             int32_t line,const std::string& threadName,int32_t threadID,
-            uint32_t fiberID,uint64_t time,uint64_t elapse)
+            uint64_t fiberID,uint64_t time,uint64_t elapse)
         :m_file(file),
         m_line(line),
         m_threadID(threadID),
@@ -110,7 +110,7 @@ public:
         return m_Thread_Name;
     }
 
-    uint32_t getFiberID() const{
+    uint64_t getFiberID() const{
         return m_fiberID;
     }
 
@@ -144,7 +144,7 @@ private:
     // 线程名称
     std::string m_Thread_Name;
     // 协程号
-    uint32_t m_fiberID=0;
+    uint64_t m_fiberID=0;
     // 时间戳
     uint64_t m_time;
     // 程序启动到现在的毫秒数

@@ -18,7 +18,7 @@ namespace myWeb{
 // 获取当前的系统线程号
 pid_t GetThreadID();
 // 获取协程ID
-int32_t GetFiberID();
+uint64_t GetFiberID();
 
 // 文件相关
 class FileUtils{
