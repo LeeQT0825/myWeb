@@ -1,36 +1,36 @@
-#include "schedule.h"
+#include "scheduler.h"
 #include "log.h"
 #include "macro.h"
 
 namespace myWeb{
 
 // 
-static thread_local Schedule* t_Master_Schedule=nullptr;
-// 声明主协程
+static thread_local Scheduler* t_Master_Scheduler=nullptr;
+// 调度协程————执行run（每个执行线程里都有一个）
 static thread_local Fiber* t_Master_Fiber=nullptr;
 
 // 静态函数
 
-Schedule* Schedule::getSchedule(){
-    return t_Master_Schedule;
+Scheduler* Scheduler::getScheduler(){
+    return t_Master_Scheduler;
 }
 
-Fiber* Schedule::getMasterFiber(){
+Fiber* Scheduler::getMasterFiber(){
     return t_Master_Fiber;
 }
 
 
 // 成员函数
 
-Schedule::Schedule(size_t num_of_thread,bool use_caller,const std::string& name)
+Scheduler::Scheduler(size_t num_of_thread,bool use_caller,const std::string& name)
         :m_name(name){
     MYWEB_ASSERT(num_of_thread>0);
-    MYWEB_ASSERT_2(getSchedule()==nullptr,"Schedule already exist");
+    MYWEB_ASSERT_2(getScheduler()==nullptr,"Scheduler already exist");
     if(use_caller){
         --num_of_thread;
         Fiber::getThis();
-        t_Master_Schedule=this;     // 当前线程的调度器
-        m_rootFiber.reset(new Fiber(std::bind(&Schedule::run,this)));       
+        t_Master_Scheduler=this;     // 当前线程的调度器
+        m_rootFiber.reset(new Fiber(std::bind(&Scheduler::run,this)));       
         t_Master_Fiber=m_rootFiber.get();       // 当前线程的调度协程
         m_rootThreadID=GetThreadID();
         m_ThreadIDs.push_back(m_rootThreadID);
@@ -39,28 +39,28 @@ Schedule::Schedule(size_t num_of_thread,bool use_caller,const std::string& name)
     }
     m_ThrPoolCount=num_of_thread;
 }
-Schedule::~Schedule(){
+Scheduler::~Scheduler(){
     MYWEB_ASSERT(!m_running);
-    if(getSchedule()==this){
-        t_Master_Schedule=nullptr;
+    if(getScheduler()==this){
+        t_Master_Scheduler=nullptr;
     }
 }
 
-void Schedule::setThis(){
-    t_Master_Schedule=this;
+void Scheduler::setThis(){
+    t_Master_Scheduler=this;
 }
 
-void Schedule::tickle(){
+void Scheduler::tickle(){
     INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle";
 }
 
-void Schedule::run(){
+void Scheduler::run(){
     setThis();
     if(GetThreadID()!=m_rootThreadID){
         t_Master_Fiber=Fiber::getThis().get();
     }
 
-    Fiber::ptr idle_fiber(new Fiber(std::bind(&Schedule::idle,this)));      // 如果调度任务执行完，要执行的东西
+    Fiber::ptr idle_fiber(new Fiber(std::bind(&Scheduler::idle,this)));      // 如果调度任务执行完，要执行的东西
     Fiber::ptr cb_fiber;        // 承接 FiberAndThread::func
     bool tickle_me=false;
 
@@ -144,7 +144,7 @@ void Schedule::run(){
     
 }
 
-void Schedule::start(){
+void Scheduler::start(){
     lock_type::scoped_lock lck(m_lock);
     if(m_running){
         return;
@@ -155,12 +155,12 @@ void Schedule::start(){
     // 创建线程池
     m_Threadpool.resize(m_ThrPoolCount);
     for(size_t i=0;i<m_ThrPoolCount;++i){
-        m_Threadpool[i].reset(new Thread(std::bind(&Schedule::run,this),m_name+"_"+std::to_string(i)));
+        m_Threadpool[i].reset(new Thread(std::bind(&Scheduler::run,this),m_name+"_"+std::to_string(i)));
         m_ThreadIDs.push_back(m_Threadpool[i]->getID());
     }
 }
 
-void Schedule::stop(){
+void Scheduler::stop(){
     m_self_stopping=true;
     m_running=false;
 
@@ -168,7 +168,7 @@ void Schedule::stop(){
         // 非 use_caller 模式
     }else{
         // use_caller 模式————必须在调用 Schedule 类的线程中停止
-        MYWEB_ASSERT(getSchedule()==this);
+        MYWEB_ASSERT(getScheduler()==this);
 
         if(m_rootFiber && m_ThrPoolCount==0
                         && (m_rootFiber->getState()==Fiber::State::TERM
@@ -202,11 +202,11 @@ void Schedule::stop(){
     }
 }
 
-bool Schedule::stopping(){
+bool Scheduler::stopping(){
     return true;
 }
 
-void Schedule::idle(){
+void Scheduler::idle(){
 
 }
 

@@ -1,5 +1,5 @@
-#ifndef __MYWEB_SCHEDULE_H__
-#define __MYWEB_SCHEDULE_H__
+#ifndef __MYWEB_SCHEDULER_H__
+#define __MYWEB_SCHEDULER_H__
 
 #include <memory>
 #include <vector>
@@ -14,14 +14,14 @@
 namespace myWeb{
 
 // 协程调度器———可调度 Fiber 或 function 到指定线程中执行
-class Schedule{
+class Scheduler{
 public:
-    typedef std::shared_ptr<Schedule> ptr;
+    typedef std::shared_ptr<Scheduler> ptr;
     typedef MutexLock lock_type;
     
     // use_caller ：是否将调用 Schedule 对象的当前线程加入到线程池
-    Schedule(size_t num_of_thread=1,bool use_caller=true,const std::string& name=" ");
-    virtual ~Schedule();
+    Scheduler(size_t num_of_thread=1,bool use_caller=true,const std::string& name=" ");
+    virtual ~Scheduler();
 
     // 获取调度器名称
     const std::string& getName() const{
@@ -64,7 +64,7 @@ public:
     }
 
     // 获取当前调度器
-    static Schedule* getSchedule();
+    static Scheduler* getScheduler();
     // 返回当前协程调度器的调度协程
     static Fiber* getMasterFiber();
 
