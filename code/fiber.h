@@ -10,6 +10,7 @@
 namespace myWeb{
 
 class Fiber: public std::enable_shared_from_this<Fiber>{
+    friend class Schedule;
 public:
     typedef std::shared_ptr<Fiber> ptr;
     // 协程状态

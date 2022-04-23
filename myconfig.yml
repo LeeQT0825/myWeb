@@ -9,7 +9,7 @@ logs:
       level: debug
       appender: 
         - type: FileLogAppender
-          level: warn
+          level: debug
           file: /home/lee/projects/VScode/myProject/log/sys_log.txt
           formatter: '[%p]%T%d{%Y-%m-%d %H:%M:%S} %t %F <%f:%l>%T%m %n'
         - type: StdoutLogAppender

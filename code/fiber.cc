@@ -87,7 +87,7 @@ uint64_t Fiber::FibersInTotal(){
 }
 void Fiber::MainFunc(){
     Fiber::ptr cur=getThis();
-    MYWEB_ASSERT_2(cur!=t_main_fiber,"MainFunc from MainFiber");
+    MYWEB_ASSERT_2(cur!=t_main_fiber,"MainFunc from MainFiber,maybe haven't construct MainFiber");
     try{
         cur->m_cb();        // 执行函数入口
         cur->m_cb=nullptr;
