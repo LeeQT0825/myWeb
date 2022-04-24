@@ -4,6 +4,7 @@
 #include "macro.h"
 #include "fiber.h"
 #include "log.h"
+#include "scheduler.h"
 
 namespace myWeb{
 
@@ -92,7 +93,7 @@ void Fiber::MainFunc(){
         cur->m_cb();        // 执行函数入口
         cur->m_cb=nullptr;
         cur->m_state=TERM;
-        t_main_fiber->m_state=EXEC;     // 切换回主协程
+        // t_main_fiber->m_state=EXEC;     // 切换回主协程
     }catch(std::exception& exp){
         cur->m_state=EXCEPT;
         INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"Fiber Except: "<<exp.what()
@@ -105,7 +106,36 @@ void Fiber::MainFunc(){
                         <<BacktraceToString(5);
     }
     // 重置 t_this_fiber
+    auto temp=cur.get();
+    cur.reset();
+    temp->swapOut();
 
+    MYWEB_ASSERT_2(false,"never reach here"+std::to_string(getThisFiberID()));
+}
+void Fiber::CallMainFunc(){
+    Fiber::ptr cur=getThis();
+    MYWEB_ASSERT_2(cur!=t_main_fiber,"MainFunc from MainFiber,maybe haven't construct MainFiber");
+    try{
+        cur->m_cb();        // 执行函数入口
+        cur->m_cb=nullptr;
+        cur->m_state=TERM;
+    }catch(std::exception& exp){
+        cur->m_state=EXCEPT;
+        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"Fiber Except: "<<exp.what()
+                        <<" fiberID: "<<cur->getThisFiberID()
+                        <<BacktraceToString(5);
+    }catch(...){
+        cur->m_state=EXCEPT;
+        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"Fiber unknow Except."
+                        <<" fiberID: "<<cur->getThisFiberID()
+                        <<BacktraceToString(5);
+    }
+    // 重置 t_this_fiber
+    auto temp=cur.get();
+    cur.reset();
+    temp->back();
+
+    MYWEB_ASSERT_2(false,"never reach here"+std::to_string(getThisFiberID()));
 }
 
 Fiber::Fiber(){
@@ -118,7 +148,7 @@ Fiber::Fiber(){
     INLOG_DEBUG(MYWEB_NAMED_LOG("system"))<<"Main Fiber Established";
 }
 
-Fiber::Fiber(std::function<void()> cb,size_t stacksize)
+Fiber::Fiber(std::function<void()> cb,size_t stacksize,bool usecaller)
         :m_id(++s_fiber_id)
         ,m_cb(cb){
     ++s_fiber_count;
@@ -128,12 +158,18 @@ Fiber::Fiber(std::function<void()> cb,size_t stacksize)
     if(getcontext(&m_context)){
         MYWEB_ASSERT_2(false,"getcontext");
     }
-    m_context.uc_link=&t_main_fiber->m_context;              // 关联的上下文
+    // m_context.uc_link=&t_main_fiber->m_context;              // 关联的上下文
+    m_context.uc_link=nullptr;
     m_context.uc_stack.ss_sp=m_stk;         // 保存关联上下文的栈指针
     m_context.uc_stack.ss_size=m_stacksize; // 保存关联上下文的栈大小
 
-    makecontext(&m_context,&MainFunc,0);
-    INLOG_DEBUG(MYWEB_NAMED_LOG("system"))<<"Fiber ID: "<<m_id;
+    if(usecaller){
+        makecontext(&m_context,&MainFunc,0);
+    }else{
+        makecontext(&m_context,&CallMainFunc,0);
+    }
+    
+    // INLOG_DEBUG(MYWEB_NAMED_LOG("system"))<<"Fiber ID: "<<m_id;
 }
 
 Fiber::~Fiber(){
@@ -154,41 +190,54 @@ Fiber::~Fiber(){
     // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<getID();
 }
 
-void Fiber::reset(std::function<void()> cb){
+void Fiber::reset(std::function<void()> cb,bool usecaller){
     MYWEB_ASSERT_2(m_stk,"Main Fiber Reset");
     MYWEB_ASSERT_2(m_state==TERM || m_state==INIT,"Wrong State Reset");
     m_cb=cb;
     if(getcontext(&m_context)){
         MYWEB_ASSERT_2(false,"getcontext");
     }
-    m_context.uc_link=&t_main_fiber->m_context;              // 关联的上下文
+    m_context.uc_link=nullptr;              // 关联的上下文
     m_context.uc_stack.ss_sp=m_stk;         // 保存关联上下文的栈指针
     m_context.uc_stack.ss_size=m_stacksize; // 保存关联上下文的栈大小
 
-    makecontext(&m_context,&MainFunc,0);
+    if(usecaller){
+        makecontext(&m_context,&MainFunc,0);
+    }else{
+        makecontext(&m_context,&CallMainFunc,0);
+    }
+    
     m_state=INIT;
+}
+
+void Fiber::call(){
+    setThis(this);
+    m_state=EXEC;
+    int ret=swapcontext(&t_main_fiber->m_context,&m_context);
+    MYWEB_ASSERT_2(!ret,"swapcontext");
+}
+
+void Fiber::back(){
+    setThis(t_main_fiber.get());
+    m_state=HOLD;
+    int ret=swapcontext(&m_context,&t_main_fiber->m_context);
+    MYWEB_ASSERT_2(!ret,"swapcontext");
 }
 
 void Fiber::swapIn(){
     MYWEB_ASSERT_2(m_state!=EXEC,"Repeat swapIn");
     setThis(this);
     m_state=EXEC;
-    if(this!=t_main_fiber.get()){
-        t_main_fiber->m_state=HOLD;
-    }
-    // 从主协程上下文切换
-    int ret=swapcontext(&t_main_fiber->m_context,&m_context);
+    // 从该线程的调度协程上下文切换
+    int ret=swapcontext(&Scheduler::getMasterFiber()->m_context,&m_context);
     MYWEB_ASSERT_2(!ret,"swapcontext");
 }
 
 void Fiber::swapOut(){
-    // 切换到主协程
-    setThis(t_main_fiber.get());         //TODO : 这里是危险的，智能指针对象的普通指针泄露
-    m_state=HOLD;
-    if(this!=t_main_fiber.get()){
-        t_main_fiber->m_state=EXEC;
-    }
-    int ret=swapcontext(&m_context,&t_main_fiber->m_context);
+    setThis(Scheduler::getMasterFiber());         //TODO : 这里是危险的，智能指针对象的普通指针泄露
+    Scheduler::getMasterFiber()->m_state=EXEC;
+    // 切换到该线程的调度协程上
+    int ret=swapcontext(&m_context,&Scheduler::getMasterFiber()->m_context);
     MYWEB_ASSERT_2(!ret,"swapcontext");
 }
 

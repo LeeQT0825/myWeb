@@ -50,5 +50,10 @@ add_executable(test_fiber tests/test_fiber.cc)
 add_dependencies(test_fiber code)
 target_link_libraries(test_fiber ${LIBLIB})
 
+# 测试Scheduler的可执行文件
+add_executable(test_scheduler tests/test_scheduler.cc)      
+add_dependencies(test_scheduler code)
+target_link_libraries(test_scheduler ${LIBLIB})
+
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径

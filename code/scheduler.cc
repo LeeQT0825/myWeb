@@ -4,7 +4,7 @@
 
 namespace myWeb{
 
-// 
+// 调度器
 static thread_local Scheduler* t_Master_Scheduler=nullptr;
 // 调度协程————执行run（每个执行线程里都有一个）
 static thread_local Fiber* t_Master_Fiber=nullptr;
@@ -40,7 +40,7 @@ Scheduler::Scheduler(size_t num_of_thread,bool use_caller,const std::string& nam
     m_ThrPoolCount=num_of_thread;
 }
 Scheduler::~Scheduler(){
-    MYWEB_ASSERT(!m_running);
+    MYWEB_ASSERT(!m_running); 
     if(getScheduler()==this){
         t_Master_Scheduler=nullptr;
     }
@@ -51,7 +51,7 @@ void Scheduler::setThis(){
 }
 
 void Scheduler::tickle(){
-    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle";
+    // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle";
 }
 
 void Scheduler::run(){
@@ -62,11 +62,12 @@ void Scheduler::run(){
 
     Fiber::ptr idle_fiber(new Fiber(std::bind(&Scheduler::idle,this)));      // 如果调度任务执行完，要执行的东西
     Fiber::ptr cb_fiber;        // 承接 FiberAndThread::func
-    bool tickle_me=false;
 
     FiberAndThread ft;
     while (1)
     {
+        bool tickle_me=false;
+        bool is_active=false;
         ft.reset();
 
         // 从执行队列中取出
@@ -89,12 +90,16 @@ void Scheduler::run(){
                 ft=*iter;
                 m_executions.erase(iter++);
                 ++m_activeThreadCount;
+                is_active=true;
                 break;
             }
+            tickle_me |= iter!=m_executions.end();
         }
+        
         if(tickle_me){
             // 通知其他线程
             tickle();
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle in run";
         }
 
         // 待执行的是协程
@@ -102,6 +107,7 @@ void Scheduler::run(){
                     && ft.fiber->getState()!=Fiber::State::EXCEPT)){
             ft.fiber->swapIn();
             --m_activeThreadCount;
+
             if(ft.fiber->getState()==Fiber::State::READY){
                 schedule<Fiber::ptr>(ft.fiber);     // 任意线程都可以
             }else if(ft.fiber->getState()!=Fiber::State::TERM 
@@ -118,6 +124,7 @@ void Scheduler::run(){
             }
             cb_fiber->swapIn();
             --m_activeThreadCount;
+
             if(cb_fiber->getState()==Fiber::State::READY){
                 schedule<Fiber::ptr>(cb_fiber);     // 任意线程都可以
             }else if(cb_fiber->getState()==Fiber::State::TERM 
@@ -127,13 +134,19 @@ void Scheduler::run(){
                 cb_fiber->m_state=Fiber::State::HOLD;
             }
         }else{
+            if(is_active){  // 进入执行队列了，但未拿到任务
+                --m_activeThreadCount;
+                continue;
+            }
 
-            // 线程空闲时间（当 ft.fiber 的状态是 TERM 或者 EXCEPT 的时候）
+            // 如果执行队列为空，则检查是否是处于关闭状态（当 ft.fiber 的状态是 TERM 或者 EXCEPT 的时候）
             if(idle_fiber->getState()==Fiber::State::TERM){
+                INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"idle fiber terminate";
                 break;
             }
             ++m_idleThreadCount;
             idle_fiber->swapIn();
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"idle out";
             --m_idleThreadCount;
             if(idle_fiber->getState()!=Fiber::State::TERM 
                     && idle_fiber->getState()!=Fiber::State::EXCEPT){
@@ -146,6 +159,8 @@ void Scheduler::run(){
 
 void Scheduler::start(){
     lock_type::scoped_lock lck(m_lock);
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"Scheduler start";
+
     if(m_running){
         return;
     }
@@ -157,6 +172,11 @@ void Scheduler::start(){
     for(size_t i=0;i<m_ThrPoolCount;++i){
         m_Threadpool[i].reset(new Thread(std::bind(&Scheduler::run,this),m_name+"_"+std::to_string(i)));
         m_ThreadIDs.push_back(m_Threadpool[i]->getID());
+    }
+    lck.unLock();
+
+    if(m_rootFiber){
+        m_rootFiber->call();      // 这里不解锁的话会产生死锁
     }
 }
 
@@ -181,7 +201,8 @@ void Scheduler::stop(){
         if(m_ThrPoolCount){
             // 唤醒线程，跑完剩下的任务
             for(size_t i=0;i<m_ThrPoolCount;++i){
-                tickle();       
+                tickle();
+                INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle in stop to threads";
             }
             // 释放线程池
             std::vector<Thread::ptr> thrs;
@@ -198,16 +219,21 @@ void Scheduler::stop(){
         if(m_rootFiber->getState()!=Fiber::State::INIT 
                 || m_rootFiber->getState()!=Fiber::State::TERM){
             tickle();
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle in stop to rootFiber";
         }
     }
 }
 
 bool Scheduler::stopping(){
-    return true;
+    lock_type::scoped_lock lck(m_lock);
+    return (!m_running) && m_self_stopping && m_executions.empty() && m_activeThreadCount==0;
 }
 
 void Scheduler::idle(){
-
+    while(!stopping()){
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"in idle: "<<m_running<<m_self_stopping<<m_executions.empty()<<m_activeThreadCount;
+        Fiber::yieldToHold();
+    }
 }
 
 

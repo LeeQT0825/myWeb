@@ -27,14 +27,18 @@ private:
     // 设为私有，只允许类内部成员函数调用；用于构造mainFiber
     Fiber();
 public:
-    Fiber(std::function<void()> cb,size_t stacksize=0);
+    Fiber(std::function<void()> cb,size_t stacksize=0,bool usecaller=true);
     ~Fiber();
 
     // 重置协程绑定的执行函数(减少协程创建和销毁时内存的创建和释放)
-    void reset(std::function<void()> cb);
-    // 将当前操作的协程切换到运行状态
+    void reset(std::function<void()> cb,bool usecaller=true);
+    // 从主协程调度到当前协程
+    void call();
+    // 从当前协程切回主协程
+    void back();
+    // 将当前操作的协程切换到运行状态(从该线程的调度协程)
     void swapIn();
-    // 将当前操作的协程切换到后台
+    // 将当前操作的协程切换到后台(到该线程的调度协程)
     void swapOut();
     // 获取ID
     const uint64_t& getID() const {
@@ -59,6 +63,8 @@ public:
     static uint64_t FibersInTotal();
     // 协程执行函数，执行完成返回到主协程上
     static void MainFunc();
+    // 协程执行函数，执行完成返回到调度协程上
+    static void CallMainFunc();
 
 private:
     // 协程ID

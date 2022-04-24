@@ -32,7 +32,6 @@ public:
     // 主动停止协程调度器（如果有未执行完的任务，要等到它们都完成后才退出）
     void stop();
 
-
     // 添加到执行队列  (thread参数表示目标线程，-1表示任意线程)
     template<typename EXECS>
     void schedule(EXECS fc,pid_t thread=-1){
@@ -69,12 +68,13 @@ public:
     static Fiber* getMasterFiber();
 
 protected:
-    // 设置当前调度器
-    void setThis();
-    // 执行队列中新加入执行任务时，提醒线程池中所有线程以及 m_rootFiber 执行run
-    virtual void tickle();
     // 调度器执行入口
     void run();
+    // 设置当前调度器
+    void setThis();
+    
+    // 执行队列中新加入执行任务时，提醒线程池中所有线程以及 m_rootFiber 执行run
+    virtual void tickle();
     // 子类实现具体清理操作
     virtual bool stopping();
     // 空闲任务 (调度器又没任务可调度，又不能使线程终止时的操作————忙等待或者sleep)
