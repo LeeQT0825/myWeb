@@ -30,7 +30,7 @@ Scheduler::Scheduler(size_t num_of_thread,bool use_caller,const std::string& nam
         --num_of_thread;
         Fiber::getThis();
         t_Master_Scheduler=this;     // 当前线程的调度器
-        m_rootFiber.reset(new Fiber(std::bind(&Scheduler::run,this)));       
+        m_rootFiber.reset(new Fiber(std::bind(&Scheduler::run,this),0,false));       
         t_Master_Fiber=m_rootFiber.get();       // 当前线程的调度协程
         m_rootThreadID=GetThreadID();
         m_ThreadIDs.push_back(m_rootThreadID);
@@ -131,22 +131,23 @@ void Scheduler::run(){
                         || cb_fiber->getState()==Fiber::State::EXCEPT){
                 cb_fiber->reset(nullptr);       // 防止该协程析构
             }else{
-                cb_fiber->m_state=Fiber::State::HOLD;
+                cb_fiber->m_state=Fiber::State::HOLD;       // TODO 这里有问题，不重新加入队列么？？？
             }
         }else{
-            if(is_active){  // 进入执行队列了，但未拿到任务
+            if(is_active){  
+            // 执行队列未空，但未匹配到任务
                 --m_activeThreadCount;
                 continue;
             }
 
-            // 如果执行队列为空，则检查是否是处于关闭状态（当 ft.fiber 的状态是 TERM 或者 EXCEPT 的时候）
+            // 执行队列为空，检查是否是处于关闭状态（当 ft.fiber 的状态是 TERM 或者 EXCEPT 的时候）
             if(idle_fiber->getState()==Fiber::State::TERM){
                 INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"idle fiber terminate";
                 break;
             }
             ++m_idleThreadCount;
             idle_fiber->swapIn();
-            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"idle out";
+            // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"idle out";
             --m_idleThreadCount;
             if(idle_fiber->getState()!=Fiber::State::TERM 
                     && idle_fiber->getState()!=Fiber::State::EXCEPT){
@@ -174,54 +175,64 @@ void Scheduler::start(){
         m_ThreadIDs.push_back(m_Threadpool[i]->getID());
     }
     lck.unLock();
-
-    if(m_rootFiber){
-        m_rootFiber->call();      // 这里不解锁的话会产生死锁
-    }
 }
 
 void Scheduler::stop(){
+    // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"stop()";
     m_self_stopping=true;
-    m_running=false;
+    if(m_rootFiber && m_ThrPoolCount==0
+                    && (m_rootFiber->getState()==Fiber::State::TERM
+                    || m_rootFiber->getState()==Fiber::State::INIT)){
+        m_running=false;
+        bool ret=stopping();
+        MYWEB_ASSERT_2(ret,"stopping error");
+    }
 
     if(m_rootThreadID==-1){
         // 非 use_caller 模式
+        MYWEB_ASSERT(getScheduler()!=this);
     }else{
         // use_caller 模式————必须在调用 Schedule 类的线程中停止
         MYWEB_ASSERT(getScheduler()==this);
-
-        if(m_rootFiber && m_ThrPoolCount==0
-                        && (m_rootFiber->getState()==Fiber::State::TERM
-                        || m_rootFiber->getState()==Fiber::State::INIT)){
-            bool ret=stopping();
-            MYWEB_ASSERT_2(ret,"stopping error");
-        }
-
-        // 处理线程池
-        if(m_ThrPoolCount){
-            // 唤醒线程，跑完剩下的任务
-            for(size_t i=0;i<m_ThrPoolCount;++i){
-                tickle();
-                INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle in stop to threads";
-            }
-            // 释放线程池
-            std::vector<Thread::ptr> thrs;
-            {
-                lock_type::scoped_lock lck(m_lock);
-                thrs.swap(m_Threadpool);
-                m_ThrPoolCount=0;
-            }
-            for(auto i:thrs){
-                i->join();
-            }
-        }
-        
-        if(m_rootFiber->getState()!=Fiber::State::INIT 
-                || m_rootFiber->getState()!=Fiber::State::TERM){
-            tickle();
-            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle in stop to rootFiber";
-        }
     }
+    m_running=false;
+
+    // 处理主调度协程
+    if(m_rootFiber){
+       if(!stopping()){
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"m_rootFiber come";
+            m_rootFiber->call();
+        }    
+    }
+    while(m_rootFiber && m_rootFiber->getState()!=Fiber::State::TERM 
+                && m_rootFiber->getState()!=Fiber::State::INIT 
+                && m_rootFiber->getState()!=Fiber::State::EXCEPT){
+        if(!stopping()){
+            m_rootFiber->call();
+        }
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle in stop to rootFiber";
+    }
+
+    // 处理线程池
+
+    // 唤醒线程，跑完剩下的任务
+    if(m_activeThreadCount){
+        tickle();
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle in stop to threads";
+    }
+
+    // 释放线程池
+    std::vector<Thread::ptr> thrs;
+    {
+        lock_type::scoped_lock lck(m_lock);
+        thrs.swap(m_Threadpool);
+        m_ThrPoolCount=0;
+    }
+    for(auto i:thrs){
+        i->join();
+    }
+    
+    // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"m_rootFiber state: "<<m_rootFiber->getState();
 }
 
 bool Scheduler::stopping(){
@@ -231,7 +242,7 @@ bool Scheduler::stopping(){
 
 void Scheduler::idle(){
     while(!stopping()){
-        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"in idle: "<<m_running<<m_self_stopping<<m_executions.empty()<<m_activeThreadCount;
+        // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"in idle: "<<m_running<<m_self_stopping<<m_executions.empty()<<m_activeThreadCount;
         Fiber::yieldToHold();
     }
 }

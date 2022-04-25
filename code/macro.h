@@ -12,15 +12,15 @@
     if(!(x)){\
         INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"ASSERTION: " \
                 <<#x<<"\n backtrace:" \
-                <<myWeb::BacktraceToString(5); \
+                <<myWeb::BacktraceToString(10); \
         assert(x); \
     }
 #undef x
 #define MYWEB_ASSERT_2(x,y) \
     if(!(x)){\
         INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"ASSERTION: " \
-                <<#y<<"\n backtrace:" \
-                <<myWeb::BacktraceToString(5); \
+                <<y<<"\n backtrace:" \
+                <<myWeb::BacktraceToString(10); \
         assert(x); \
     }
 #undef x

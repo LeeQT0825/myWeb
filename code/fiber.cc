@@ -110,7 +110,7 @@ void Fiber::MainFunc(){
     cur.reset();
     temp->swapOut();
 
-    MYWEB_ASSERT_2(false,"never reach here"+std::to_string(getThisFiberID()));
+    MYWEB_ASSERT_2(false,"never reach here: "+std::to_string(getThisFiberID()));
 }
 void Fiber::CallMainFunc(){
     Fiber::ptr cur=getThis();
@@ -135,7 +135,7 @@ void Fiber::CallMainFunc(){
     cur.reset();
     temp->back();
 
-    MYWEB_ASSERT_2(false,"never reach here"+std::to_string(getThisFiberID()));
+    MYWEB_ASSERT_2(false,"never reach here: "+std::to_string(getThisFiberID()));
 }
 
 Fiber::Fiber(){
@@ -187,7 +187,7 @@ Fiber::~Fiber(){
             setThis(nullptr);
         }
     }
-    // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<getID();
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"~Fiber"<<getID();
 }
 
 void Fiber::reset(std::function<void()> cb,bool usecaller){
@@ -211,6 +211,7 @@ void Fiber::reset(std::function<void()> cb,bool usecaller){
 }
 
 void Fiber::call(){
+    MYWEB_ASSERT_2(m_state!=EXEC,"Repeat swapIn");
     setThis(this);
     m_state=EXEC;
     int ret=swapcontext(&t_main_fiber->m_context,&m_context);
@@ -218,8 +219,11 @@ void Fiber::call(){
 }
 
 void Fiber::back(){
+    if(getThis()==t_main_fiber){
+        return;
+    }
     setThis(t_main_fiber.get());
-    m_state=HOLD;
+    t_main_fiber->m_state=EXEC;
     int ret=swapcontext(&m_context,&t_main_fiber->m_context);
     MYWEB_ASSERT_2(!ret,"swapcontext");
 }
@@ -234,6 +238,9 @@ void Fiber::swapIn(){
 }
 
 void Fiber::swapOut(){
+    if(getThis().get()==Scheduler::getMasterFiber()){
+        return;
+    }
     setThis(Scheduler::getMasterFiber());         //TODO : 这里是危险的，智能指针对象的普通指针泄露
     Scheduler::getMasterFiber()->m_state=EXEC;
     // 切换到该线程的调度协程上
