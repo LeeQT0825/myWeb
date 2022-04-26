@@ -155,7 +155,6 @@ void Scheduler::run(){
             }
         }
     }
-    
 }
 
 void Scheduler::start(){
@@ -168,7 +167,7 @@ void Scheduler::start(){
     m_running=true;
     MYWEB_ASSERT(m_Threadpool.empty());
 
-    // 创建线程池
+    // 创建线程池，固定大小
     m_Threadpool.resize(m_ThrPoolCount);
     for(size_t i=0;i<m_ThrPoolCount;++i){
         m_Threadpool[i].reset(new Thread(std::bind(&Scheduler::run,this),m_name+"_"+std::to_string(i)));
@@ -212,8 +211,6 @@ void Scheduler::stop(){
         }
         INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle in stop to rootFiber";
     }
-
-    // 处理线程池
 
     // 唤醒线程，跑完剩下的任务
     if(m_activeThreadCount){
