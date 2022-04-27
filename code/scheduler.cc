@@ -151,7 +151,7 @@ void Scheduler::run(){
             --m_idleThreadCount;
             if(idle_fiber->getState()!=Fiber::State::TERM 
                     && idle_fiber->getState()!=Fiber::State::EXCEPT){
-                idle_fiber->m_state=Fiber::State::HOLD;
+                idle_fiber->m_state=Fiber::State::HOLD;23
             }
         }
     }
@@ -183,8 +183,8 @@ void Scheduler::stop(){
                     && (m_rootFiber->getState()==Fiber::State::TERM
                     || m_rootFiber->getState()==Fiber::State::INIT)){
         m_running=false;
-        bool ret=stopping();
-        MYWEB_ASSERT_2(ret,"stopping error");
+        bool ret=isStopping();
+        MYWEB_ASSERT_2(ret,"stop error");
     }
 
     if(m_rootThreadID==-1){
@@ -198,7 +198,7 @@ void Scheduler::stop(){
 
     // 处理主调度协程
     if(m_rootFiber){
-       if(!stopping()){
+       if(!isStopping()){
             INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"m_rootFiber come";
             m_rootFiber->call();
         }    
@@ -206,7 +206,7 @@ void Scheduler::stop(){
     while(m_rootFiber && m_rootFiber->getState()!=Fiber::State::TERM 
                 && m_rootFiber->getState()!=Fiber::State::INIT 
                 && m_rootFiber->getState()!=Fiber::State::EXCEPT){
-        if(!stopping()){
+        if(!isStopping()){
             m_rootFiber->call();
         }
         INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tickle in stop to rootFiber";
@@ -232,13 +232,13 @@ void Scheduler::stop(){
     // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"m_rootFiber state: "<<m_rootFiber->getState();
 }
 
-bool Scheduler::stopping(){
+bool Scheduler::isStopping(){
     lock_type::scoped_lock lck(m_lock);
     return (!m_running) && m_self_stopping && m_executions.empty() && m_activeThreadCount==0;
 }
 
 void Scheduler::idle(){
-    while(!stopping()){
+    while(!isStopping()){
         // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"in idle: "<<m_running<<m_self_stopping<<m_executions.empty()<<m_activeThreadCount;
         Fiber::yieldToHold();
     }

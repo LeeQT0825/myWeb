@@ -27,9 +27,9 @@ public:
 
     // 添加并注册事件(描述符fd发生了event事件，则回调cb，ret=0——成功，ret=-1——失败)
     int addEvent(int fd,Event event,std::function<void()> cb=nullptr);
-    // 删除事件
+    // 删除事件（不会触发执行）
     bool delEvent(int fd,Event event);
-    // 取消事件
+    // 取消事件（找到对应事件，并强制触发执行）
     bool cancelEvent(int fd,Event event);
     // 取消所有事件
     bool cancelAllEvent(int fd);
@@ -38,11 +38,11 @@ public:
     static IOManager* getThis();
 
 protected:
-    // 通知
+    // 通知线程，使线程从 idle() 中 yield 出来
     void tickle() override;
     // 判断结束状态
-    bool stopping() override;
-    // 空闲线程执行函数
+    bool isStopping() override;
+    // 空闲线程执行函数（阻塞在 epoll_wait 上等待 tickle() 或其他就绪事件）
     void idle() override;
     // 重置事件池大小
     void fdContextResize(size_t size);
@@ -53,17 +53,23 @@ private:
     {
         typedef MutexLock fd_lock_type;
         // 事件回调类
-        struct EventContext
+        struct EventCallBack
         {
-            Scheduler::ptr e_scheduler;     // 事件执行的调度器
+            Scheduler* e_scheduler=nullptr;     // 事件执行的调度器
             Fiber::ptr e_fiber;             // 事件协程
             std::function<void()> e_func;   // 事件回调函数
         };
+        // 获取某一事件的回调
+        EventCallBack& getEventCB(Event event);
+        // 重置某一事件的回调
+        void resetEventCB(EventCallBack& event_cb);
+        // 根据事件触发回调
+        void triggerEvent(Event event);
         
         int fd=0;                     // 事件句柄   
         Event fd_event=NONE;          // 当前事件状态 
-        EventContext read_event;    // 读事件调度        
-        EventContext write_event;   // 写事件调度
+        EventCallBack read_cb;    // 读事件调度        
+        EventCallBack write_cb;   // 写事件调度
         fd_lock_type f_lock;
     };
 
@@ -72,7 +78,7 @@ private:
     lock_type m_lock;
     // epoll事件表句柄
     int m_epfd;
-    // 通知管道
+    // 通知管道(tickle() 和 idle() 之间的通知)
     int m_ticklefd[2];
     // 等待执行的事件数量
     std::atomic<size_t> m_pendingEventCount{0};

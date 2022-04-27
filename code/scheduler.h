@@ -72,11 +72,15 @@ protected:
     void run();
     // 设置当前调度器
     void setThis();
+    // 是否还有闲置线程
+    bool hasIdleThread(){
+        return m_idleThreadCount>0 ;
+    }
     
     // 执行队列中新加入执行任务时，提醒线程池中所有线程以及 m_rootFiber 执行run
     virtual void tickle();
     // 子类实现具体清理操作
-    virtual bool stopping();
+    virtual bool isStopping();
     // 空闲任务 (调度器又没任务可调度，又不能使线程终止时的操作————忙等待或者sleep)
     virtual void idle();
 
