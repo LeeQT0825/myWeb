@@ -18,7 +18,8 @@ set(LIB_SCR code/log.cc
             code/mthread.cc
             code/mmutex.cc
             code/fiber.cc
-            code/scheduler.cc)
+            code/scheduler.cc
+            code/iomanager.cc)
 
 add_library(code SHARED ${LIB_SCR})     # 通过变量LIB-SCR生成库名为libcode.so的动态库
 set(LIBLIB  code
@@ -54,6 +55,11 @@ target_link_libraries(test_fiber ${LIBLIB})
 add_executable(test_scheduler tests/test_scheduler.cc)      
 add_dependencies(test_scheduler code)
 target_link_libraries(test_scheduler ${LIBLIB})
+
+# 测试IOManager的可执行文件
+add_executable(test_iomanager tests/test_iomanager.cc)      
+add_dependencies(test_iomanager code)
+target_link_libraries(test_iomanager ${LIBLIB})
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径

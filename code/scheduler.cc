@@ -151,7 +151,7 @@ void Scheduler::run(){
             --m_idleThreadCount;
             if(idle_fiber->getState()!=Fiber::State::TERM 
                     && idle_fiber->getState()!=Fiber::State::EXCEPT){
-                idle_fiber->m_state=Fiber::State::HOLD;23
+                idle_fiber->m_state=Fiber::State::HOLD;
             }
         }
     }
@@ -179,12 +179,15 @@ void Scheduler::start(){
 void Scheduler::stop(){
     // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"stop()";
     m_self_stopping=true;
+
+    // 直接停止的条件
     if(m_rootFiber && m_ThrPoolCount==0
                     && (m_rootFiber->getState()==Fiber::State::TERM
                     || m_rootFiber->getState()==Fiber::State::INIT)){
         m_running=false;
-        bool ret=isStopping();
-        MYWEB_ASSERT_2(ret,"stop error");
+        if(isStopping()){
+            return;
+        }
     }
 
     if(m_rootThreadID==-1){
@@ -239,6 +242,7 @@ bool Scheduler::isStopping(){
 
 void Scheduler::idle(){
     while(!isStopping()){
+        // 测试————0110
         // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"in idle: "<<m_running<<m_self_stopping<<m_executions.empty()<<m_activeThreadCount;
         Fiber::yieldToHold();
     }

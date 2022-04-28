@@ -60,11 +60,9 @@ IOManager::~IOManager(){
 
 int IOManager::addEvent(int fd,Event event,std::function<void()> cb){
     FdContext* fd_ctx=nullptr;
-    if(fd>=m_fdcontexts.size()){
+    if(fd>=(int)m_fdcontexts.size()){
         lock_type::write_lock wr_lck(m_lock);
-        if(fd>m_fdcontexts.size()){
-            fdContextResize(fd*1.5);
-        }
+        fdContextResize(fd*1.5);
     }
     lock_type::read_lock rd_lck(m_lock);
     fd_ctx=m_fdcontexts[fd];
@@ -79,7 +77,7 @@ int IOManager::addEvent(int fd,Event event,std::function<void()> cb){
     }
     
     // 注册事件
-    int op=fd_ctx->fd_event?EPOLL_CTL_MOD:EPOLL_CTL_ADD;
+    int op=fd_ctx->fd_event? EPOLL_CTL_MOD :  EPOLL_CTL_ADD ;
     epoll_event ep_event;
     memset(&ep_event,0,sizeof(ep_event));
     ep_event.data.ptr=fd_ctx;
@@ -112,7 +110,7 @@ int IOManager::addEvent(int fd,Event event,std::function<void()> cb){
 
 bool IOManager::delEvent(int fd,Event event){
     lock_type::read_lock rd_lck(m_lock);
-    if(fd>=m_fdcontexts.size()){
+    if(fd>=(int)m_fdcontexts.size()){
         return false;
     }
     FdContext* fd_ctx=m_fdcontexts[fd];
@@ -148,7 +146,7 @@ bool IOManager::delEvent(int fd,Event event){
 
 bool IOManager::cancelEvent(int fd,Event event){
     lock_type::read_lock rd_lck(m_lock);
-    if(fd>=m_fdcontexts.size()){
+    if(fd>=(int)m_fdcontexts.size()){
         return false;
     }
     FdContext* fd_ctx=m_fdcontexts[fd];
@@ -172,17 +170,17 @@ bool IOManager::cancelEvent(int fd,Event event){
                             <<"("<<errno<<")-("<<strerror(errno)<<")";
         return false;
     }
-    --m_pendingEventCount;
 
     // 触发回调（完善FdContext类）
     fd_ctx->triggerEvent(event);
+    --m_pendingEventCount;
     
     return true;
 }
 
 bool IOManager::cancelAllEvent(int fd){
     lock_type::read_lock rd_lck(m_lock);
-    if(fd>=m_fdcontexts.size()){
+    if(fd>=(int)m_fdcontexts.size()){
         return false;
     }
     FdContext* fd_ctx=m_fdcontexts[fd];
@@ -233,14 +231,19 @@ bool IOManager::isStopping(){
 }
 
 void IOManager::idle(){
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"get in idle";
     epoll_event* ep_events=new epoll_event[MAX_EVENTSIZE]();
     std::shared_ptr<epoll_event> sh_epEvent(ep_events,[](epoll_event* ptr){delete[] ptr;});      // 用智能指针接管裸指针
     
     while(!isStopping()){
+        // 测试——0100
+        // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"in idle: "<<m_running<<m_self_stopping<<m_pendingEventCount<<m_activeThreadCount;
+        
         int ret=0;
         while(true){
             ret=epoll_wait(m_epfd,sh_epEvent.get(),MAX_EVENTSIZE,MAX_TIMEOUT);   //阻塞在 epoll_wait ,毫秒级
             if(ret>0){
+                // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"epoll ready: "<<ret;
                 break;
             }
         }
@@ -259,7 +262,8 @@ void IOManager::idle(){
             if(ready_event.events & (EPOLLERR | EPOLLHUP)){
                 ready_event.events |= (EPOLLIN | EPOLLOUT) & fd_ctx->fd_event;
             }
-            // 转换为自己定义 Event
+
+            // 真实要触发的事件
             int event=NONE;     // 细节，类型要设为支持 | 的类型
             if(ready_event.events & EPOLLIN){
                 event |= READ ;
@@ -271,9 +275,9 @@ void IOManager::idle(){
             // 修改ready_event，再注册到 epoll_wait 里
             int left_event=fd_ctx->fd_event & (~event);
             int op=left_event? EPOLL_CTL_MOD : EPOLL_CTL_DEL ;
-            ready_event.events=left_event | EPOLLET;
-            int ret=epoll_ctl(m_epfd,op,fd_ctx->fd,&ready_event);
-            if(ret==-1){
+            ready_event.events= left_event | EPOLLET;
+            int ret2=epoll_ctl(m_epfd,op,fd_ctx->fd,&ready_event);
+            if(ret2==-1){
                 INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"epoll_ctl("<<m_epfd<<","
                                     <<op<<","<<fd_ctx->fd<<","<<(EPOLL_EVENTS)ready_event.events<<"): "
                                     <<"("<<errno<<")-("<<strerror(errno)<<")";
@@ -331,7 +335,7 @@ void IOManager::FdContext::triggerEvent(Event event){
 
     // 执行回调
     // 细节：执行trigger后要将回调删除，可以通过传指针的方式，类型会直接传到 FIberAndThread 里调用 swap ，
-    // 这样 FdContext::EventCallBack 中的回调就会置位 nullptr 。
+    //      这样 FdContext::EventCallBack 中的回调就会置位 nullptr 。
     EventCallBack& event_cb=getEventCB(event);
     if(event_cb.e_fiber){
         event_cb.e_scheduler->schedule(&event_cb.e_fiber);      

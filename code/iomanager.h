@@ -17,21 +17,21 @@ public:
         // 无事件
         NONE=0x0,
         // 读事件
-        READ=0x1,
+        READ=0x001,
         // 无事件
-        WRITE=0x2,
+        WRITE=0x004,
     };
 
     IOManager(size_t num_of_thread=1,bool use_caller=true,const std::string& name=" ");
     ~IOManager();
 
-    // 添加并注册事件(描述符fd发生了event事件，则回调cb，ret=0——成功，ret=-1——失败)
+    // 给句柄添加并注册事件(描述符fd发生了event事件，则回调cb，ret=0——成功，ret=-1——失败)
     int addEvent(int fd,Event event,std::function<void()> cb=nullptr);
-    // 删除事件（不会触发执行）
+    // 给句柄删除事件（不会触发执行）
     bool delEvent(int fd,Event event);
-    // 取消事件（找到对应事件，并强制触发执行）
+    // 给句柄取消事件（找到对应事件，并强制触发执行）
     bool cancelEvent(int fd,Event event);
-    // 取消所有事件
+    // 给句柄取消所有事件
     bool cancelAllEvent(int fd);
 
     // 返回当前 IOManager
