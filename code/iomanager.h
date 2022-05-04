@@ -2,12 +2,13 @@
 #define __MYWEB_IOMANAGER_H__
 
 #include "scheduler.h"
+#include "timer.h"
 #include <sys/epoll.h>
 
 namespace myWeb{
 
 // IO协程调度器
-class IOManager: public Scheduler{
+class IOManager: public Scheduler,public TimerManager{
 public:
     typedef std::shared_ptr<IOManager> ptr;
     typedef RWmutex lock_type;
@@ -42,10 +43,14 @@ protected:
     void tickle() override;
     // 判断结束状态
     bool isStopping() override;
+    // 判断结束状态
+    bool isStopping(uint64_t& timeout);
     // 空闲线程执行函数（阻塞在 epoll_wait 上等待 tickle() 或其他就绪事件）
     void idle() override;
     // 重置事件池大小
     void fdContextResize(size_t size);
+    // 通知 epoll_wait 修改其超时时间
+    void frontTimerChanged() override;
 
 private:
     // 句柄分发模块（IO事件调度：支持为描述符注册可读或可写事件的回调函数）

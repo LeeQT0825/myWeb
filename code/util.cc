@@ -1,9 +1,12 @@
 #include "util.h"
 #include "fiber.h"
+#include "macro.h"
 #include <string.h>
 #include <execinfo.h>       // backtrace() 系列函数
 #include <sstream>
 #include <cxxabi.h>
+#include <time.h>
+
 namespace myWeb{
 
 pid_t GetThreadID(){
@@ -139,6 +142,20 @@ std::string BacktraceToString(int size,int skip,const std::string& prefix){
     }
     ss<<std::endl;
     return ss.str();
+}
+
+uint64_t GetCurrentMS(){
+    timespec ts;
+    int ret=clock_gettime(CLOCK_MONOTONIC_RAW,&ts);
+    MYWEB_ASSERT(ret==0);
+    return ts.tv_sec*1000ul+ts.tv_nsec/(1000*1000ul);
+}
+
+uint64_t GetCurrentUS(){
+    timespec ts;
+    int ret=clock_gettime(CLOCK_MONOTONIC_RAW,&ts);
+    MYWEB_ASSERT(ret==0);
+    return ts.tv_sec*1000*1000ul+ts.tv_nsec/(1000ul);
 }
 
 }

@@ -19,7 +19,8 @@ set(LIB_SCR code/log.cc
             code/mmutex.cc
             code/fiber.cc
             code/scheduler.cc
-            code/iomanager.cc)
+            code/iomanager.cc
+            code/timer.cc)
 
 add_library(code SHARED ${LIB_SCR})     # 通过变量LIB-SCR生成库名为libcode.so的动态库
 set(LIBLIB  code

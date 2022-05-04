@@ -35,5 +35,12 @@ public:
 
 std::string BacktraceToString(int size,int skip=1,const std::string& prefix="\n---");
 
+// 时间相关ms
+// 毫秒
+uint64_t GetCurrentMS();
+// 微秒
+uint64_t GetCurrentUS();
+
+
 }
 #endif

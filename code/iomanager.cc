@@ -227,7 +227,12 @@ void IOManager::tickle(){
 }
 
 bool IOManager::isStopping(){
-    return m_pendingEventCount==0 && Scheduler::isStopping();
+    uint64_t timeout=0;
+    return isStopping(timeout);
+}
+bool IOManager::isStopping(uint64_t& timeout){
+    timeout=getNextTime();
+    return timeout==~0ull && m_pendingEventCount==0 && Scheduler::isStopping();
 }
 
 void IOManager::idle(){
@@ -238,15 +243,30 @@ void IOManager::idle(){
     while(!isStopping()){
         // 测试——0100
         // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"in idle: "<<m_running<<m_self_stopping<<m_pendingEventCount<<m_activeThreadCount;
-        
         int ret=0;
+        uint64_t timeout=0;
+
         while(true){
-            ret=epoll_wait(m_epfd,sh_epEvent.get(),MAX_EVENTSIZE,MAX_TIMEOUT);   //阻塞在 epoll_wait ,毫秒级
-            if(ret>0){
-                // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"epoll ready: "<<ret;
+            if(!isStopping(timeout)){
+                timeout= (int)timeout<MAX_TIMEOUT ? timeout : MAX_TIMEOUT ;
+                ret=epoll_wait(m_epfd,ep_events,MAX_EVENTSIZE,(int)timeout);   //阻塞在 epoll_wait ,毫秒级
+                if(ret<0 && errno!= EINTR){
+                    MYWEB_ASSERT_2(false,"epoll_wait failed");
+                }
+                if(ret>0)   break;
+            }else{
                 break;
             }
         }
+        
+        // 处理定时器回调
+        std::vector<std::function<void()> > cbs;
+        ExpiredCB(cbs);
+        if(!cbs.empty()){
+            schedule(cbs.begin(),cbs.end());
+            cbs.clear();
+        }
+
         // 遍历处理就绪事件
         for(int i=0;i<ret;++i){
             epoll_event& ready_event=ep_events[i];
@@ -308,6 +328,10 @@ void IOManager::fdContextResize(size_t size){
             m_fdcontexts[i]->fd=i;
         }
     }
+}
+
+void IOManager::frontTimerChanged(){
+    tickle();
 }
 
 IOManager::FdContext::EventCallBack& IOManager::FdContext::getEventCB(Event event){
