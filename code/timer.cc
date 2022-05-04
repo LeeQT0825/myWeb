@@ -15,8 +15,8 @@ Timer::Timer(uint64_t next)
 
 bool Timer::cancelTimer(){
     if(m_cb){
-        m_cb=nullptr;
         TimerManager::lock_type::write_lock wr_lck(m_manager->m_lock);
+        m_cb=nullptr;
         auto iter=m_manager->m_timers.find(shared_from_this());
         m_manager->m_timers.erase(iter);
         return true;
@@ -89,7 +89,7 @@ Timer::ptr TimerManager::addTimer(uint64_t ms,std::function<void()> cb,bool iscy
     return timer;
 }
 
-void TimerManager::addTimer(Timer::ptr timer,lock_type::write_lock wr_lck){
+void TimerManager::addTimer(Timer::ptr timer,lock_type::write_lock& wr_lck){
     auto iter=m_timers.insert(timer).first;
     bool at_front=(iter==m_timers.begin()) && !is_tickled;
     is_tickled=true;

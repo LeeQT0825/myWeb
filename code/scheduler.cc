@@ -237,13 +237,12 @@ void Scheduler::stop(){
 
 bool Scheduler::isStopping(){
     lock_type::scoped_lock lck(m_lock);
+    // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"isStopping: "<<!m_running<<m_self_stopping<<m_executions.empty()<<m_activeThreadCount;
     return (!m_running) && m_self_stopping && m_executions.empty() && m_activeThreadCount==0;
 }
 
 void Scheduler::idle(){
     while(!isStopping()){
-        // 测试————0110
-        // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"in idle: "<<m_running<<m_self_stopping<<m_executions.empty()<<m_activeThreadCount;
         Fiber::yieldToHold();
     }
 }

@@ -60,7 +60,7 @@ public:
     // 添加定时器（ms:定时间隔时间，iscycle：是否循环）
     Timer::ptr addTimer(uint64_t ms,std::function<void()> cb,bool iscycle=false);
     // 添加定时器（传入指针）
-    void addTimer(Timer::ptr timer,lock_type::write_lock wr_lck);
+    void addTimer(Timer::ptr timer,lock_type::write_lock& wr_lck);
     // 添加条件定时器——当超时时，仅当条件存在的时候才会触发（ms:定时间隔时间，weak_cond：触发条件，iscurring：是否循环）
     Timer::ptr addCondTimer(uint64_t ms,std::function<void()> cb,std::weak_ptr<void> weak_cond,bool iscycle=false);
     // 获取下一个定时器的时间间隔

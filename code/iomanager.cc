@@ -248,12 +248,17 @@ void IOManager::idle(){
 
         while(true){
             if(!isStopping(timeout)){
-                timeout= (int)timeout<MAX_TIMEOUT ? timeout : MAX_TIMEOUT ;
+                if(timeout != ~0ull){   // 这里防止类型转换时将timeout转为负值，造成epoll_wait阻塞
+                    timeout= (int)timeout<MAX_TIMEOUT ? timeout : MAX_TIMEOUT ;
+                }else{
+                    timeout=MAX_TIMEOUT;
+                }
+                // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"timeout: "<<(int)timeout;
                 ret=epoll_wait(m_epfd,ep_events,MAX_EVENTSIZE,(int)timeout);   //阻塞在 epoll_wait ,毫秒级
                 if(ret<0 && errno!= EINTR){
                     MYWEB_ASSERT_2(false,"epoll_wait failed");
                 }
-                if(ret>0)   break;
+                if(ret>=0)   break;
             }else{
                 break;
             }
@@ -294,7 +299,7 @@ void IOManager::idle(){
 
             // 修改ready_event，再注册到 epoll_wait 里
             int left_event=fd_ctx->fd_event & (~event);
-            int op=left_event? EPOLL_CTL_MOD : EPOLL_CTL_DEL ;
+            int op=left_event ? EPOLL_CTL_MOD : EPOLL_CTL_DEL ;
             ready_event.events= left_event | EPOLLET;
             int ret2=epoll_ctl(m_epfd,op,fd_ctx->fd,&ready_event);
             if(ret2==-1){

@@ -1,0 +1,318 @@
+[DEBUG]	2022-05-04 18:33:58 29428 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 18:33:58 29428 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:162>	Scheduler start 
+[DEBUG]	2022-05-04 18:33:58 29429 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:33:58 29430 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:33:58 29431 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:33:58 29432 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 18:33:58 29428 0 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:85>	listenfd: 9 
+[INFO]	2022-05-04 18:33:58 29429 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:234>	get in idle 
+[INFO]	2022-05-04 18:33:58 29432 5 </home/lee/projects/VScode/myProject/code/iomanager.cc:234>	get in idle 
+[INFO]	2022-05-04 18:33:58 29428 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:205>	m_rootFiber come 
+[INFO]	2022-05-04 18:33:58 29431 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:234>	get in idle 
+[INFO]	2022-05-04 18:33:58 29428 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:234>	get in idle 
+[INFO]	2022-05-04 18:33:58 29430 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:234>	get in idle 
+[INFO]	2022-05-04 18:33:58 29430 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:12>	get in test_listen 
+[INFO]	2022-05-04 18:33:58 29430 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:19>	connect success: 10 
+[INFO]	2022-05-04 18:34:03 29430 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:29>	shutdown success: 10 
+[INFO]	2022-05-04 18:34:03 29430 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:34:03 29430 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber7 
+[INFO]	2022-05-04 18:34:03 29430 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber3 
+[INFO]	2022-05-04 18:34:03 29430 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:34:04 29429 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:34:04 29429 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber2 
+[INFO]	2022-05-04 18:34:04 29429 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:34:04 29432 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:34:04 29432 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber5 
+[INFO]	2022-05-04 18:34:04 29432 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:34:04 29431 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:34:04 29431 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber4 
+[INFO]	2022-05-04 18:34:04 29431 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:34:04 29428 1 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:34:04 29428 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber6 
+[INFO]	2022-05-04 18:34:04 29428 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber1 
+[INFO]	2022-05-04 18:34:04 29428 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[DEBUG]	2022-05-04 18:38:34 29507 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 18:38:34 29507 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:162>	Scheduler start 
+[DEBUG]	2022-05-04 18:38:34 29508 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:38:34 29509 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:38:34 29510 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:38:34 29511 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 18:38:34 29508 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:234>	get in idle 
+[INFO]	2022-05-04 18:38:34 29510 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:234>	get in idle 
+[INFO]	2022-05-04 18:38:34 29511 5 </home/lee/projects/VScode/myProject/code/iomanager.cc:234>	get in idle 
+[INFO]	2022-05-04 18:38:34 29507 0 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:85>	listenfd: 9 
+[INFO]	2022-05-04 18:38:34 29509 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:234>	get in idle 
+[INFO]	2022-05-04 18:38:34 29507 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:205>	m_rootFiber come 
+[INFO]	2022-05-04 18:38:34 29507 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:234>	get in idle 
+[INFO]	2022-05-04 18:38:35 29507 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:12>	get in test_listen 
+[INFO]	2022-05-04 18:38:35 29507 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:19>	connect success: 10 
+[INFO]	2022-05-04 18:38:40 29507 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:29>	shutdown success: 10 
+[INFO]	2022-05-04 18:38:40 29507 1 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:38:40 29507 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber7 
+[INFO]	2022-05-04 18:38:40 29507 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber6 
+[INFO]	2022-05-04 18:38:40 29511 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:38:40 29510 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:38:40 29511 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber5 
+[INFO]	2022-05-04 18:38:40 29510 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber4 
+[INFO]	2022-05-04 18:38:40 29511 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:38:40 29510 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:38:40 29508 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:38:40 29508 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber2 
+[INFO]	2022-05-04 18:38:40 29508 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:38:41 29509 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:38:41 29509 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber3 
+[INFO]	2022-05-04 18:38:41 29509 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:38:41 29507 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber1 
+[INFO]	2022-05-04 18:38:41 29507 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[DEBUG]	2022-05-04 18:40:40 29621 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 18:40:40 29621 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:162>	Scheduler start 
+[DEBUG]	2022-05-04 18:40:40 29622 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:40:40 29623 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:40:40 29624 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:40:40 29625 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 18:40:40 29621 0 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:85>	listenfd: 9 
+[INFO]	2022-05-04 18:40:40 29622 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 18:40:40 29624 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 18:40:40 29622 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:40:40 29624 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:40:40 29625 5 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 18:40:40 29623 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 18:40:40 29621 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:205>	m_rootFiber come 
+[INFO]	2022-05-04 18:40:40 29625 5 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:40:40 29623 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:40:40 29621 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 18:40:40 29621 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:40:42 29621 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:12>	get in test_listen 
+[INFO]	2022-05-04 18:40:42 29623 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:40:42 29621 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:19>	connect success: 10 
+[INFO]	2022-05-04 18:40:47 29621 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:29>	shutdown success: 10 
+[INFO]	2022-05-04 18:40:47 29621 1 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:40:47 29621 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber7 
+[INFO]	2022-05-04 18:40:47 29621 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber6 
+[INFO]	2022-05-04 18:48:55 29622 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:48:55 29623 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:48:55 29622 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber2 
+[INFO]	2022-05-04 18:48:55 29623 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber3 
+[INFO]	2022-05-04 18:48:55 29622 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:48:55 29623 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:48:55 29624 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:48:55 29625 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:48:55 29624 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber4 
+[INFO]	2022-05-04 18:48:55 29625 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber5 
+[INFO]	2022-05-04 18:48:55 29624 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:48:55 29625 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:48:55 29621 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber1 
+[INFO]	2022-05-04 18:48:55 29621 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[DEBUG]	2022-05-04 18:53:15 29979 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 18:53:15 29979 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:162>	Scheduler start 
+[DEBUG]	2022-05-04 18:53:15 29980 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:53:15 29981 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:53:15 29982 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 18:53:15 29983 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 18:53:15 29983 5 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 18:53:15 29979 0 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:85>	listenfd: 9 
+[INFO]	2022-05-04 18:53:15 29981 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 18:53:15 29983 5 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:53:15 29979 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:205>	m_rootFiber come 
+[INFO]	2022-05-04 18:53:15 29981 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:53:15 29980 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 18:53:15 29979 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 18:53:15 29980 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:53:15 29982 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 18:53:15 29979 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:53:15 29982 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:53:23 29982 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:12>	get in test_listen 
+[INFO]	2022-05-04 18:53:23 29979 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:252>	epoll_wait timeout: 18446744073709551615 
+[INFO]	2022-05-04 18:53:23 29982 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:19>	connect success: 10 
+[INFO]	2022-05-04 18:53:28 29982 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:29>	shutdown success: 10 
+[INFO]	2022-05-04 18:53:28 29982 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:53:28 29982 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber7 
+[INFO]	2022-05-04 18:53:28 29982 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber4 
+[INFO]	2022-05-04 18:53:28 29982 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:58:51 29981 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:58:51 29983 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:58:51 29980 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:58:51 29979 1 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 18:58:51 29981 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber3 
+[INFO]	2022-05-04 18:58:51 29980 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber2 
+[INFO]	2022-05-04 18:58:51 29983 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber5 
+[INFO]	2022-05-04 18:58:51 29980 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:58:51 29983 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:58:51 29979 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber6 
+[INFO]	2022-05-04 18:58:51 29981 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 18:58:51 29979 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber1 
+[INFO]	2022-05-04 18:58:51 29979 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[DEBUG]	2022-05-04 19:03:49 30313 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 19:03:49 30313 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:162>	Scheduler start 
+[DEBUG]	2022-05-04 19:03:49 30314 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:03:49 30315 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:03:49 30316 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:03:49 30317 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 19:03:49 30317 5 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:03:49 30313 0 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:85>	listenfd: 9 
+[INFO]	2022-05-04 19:03:49 30315 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:03:49 30314 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:03:49 30313 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:205>	m_rootFiber come 
+[INFO]	2022-05-04 19:03:49 30316 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:03:49 30313 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:03:55 30313 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:12>	get in test_listen 
+[INFO]	2022-05-04 19:03:55 30313 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:19>	connect success: 10 
+[INFO]	2022-05-04 19:04:00 30313 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:29>	shutdown success: 10 
+[INFO]	2022-05-04 19:04:00 30313 1 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:04:00 30313 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber7 
+[INFO]	2022-05-04 19:04:00 30313 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber6 
+[INFO]	2022-05-04 19:04:01 30316 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:04:01 30316 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber4 
+[INFO]	2022-05-04 19:04:01 30316 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:04:01 30317 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:04:01 30315 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:04:01 30317 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber5 
+[INFO]	2022-05-04 19:04:01 30315 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber3 
+[INFO]	2022-05-04 19:04:01 30317 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:04:01 30315 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:04:01 30314 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:04:01 30314 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber2 
+[INFO]	2022-05-04 19:04:01 30314 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:04:01 30313 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber1 
+[INFO]	2022-05-04 19:04:01 30313 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[DEBUG]	2022-05-04 19:04:46 30321 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 19:04:46 30321 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:162>	Scheduler start 
+[DEBUG]	2022-05-04 19:04:46 30322 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:04:46 30323 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:04:46 30324 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:04:46 30325 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 19:04:46 30323 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:04:46 30322 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:04:46 30324 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:04:46 30325 5 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:04:46 30321 0 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:85>	listenfd: 9 
+[INFO]	2022-05-04 19:04:46 30321 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:205>	m_rootFiber come 
+[INFO]	2022-05-04 19:04:46 30321 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:04:51 30321 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:12>	get in test_listen 
+[INFO]	2022-05-04 19:04:51 30321 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:19>	connect success: 10 
+[INFO]	2022-05-04 19:04:56 30321 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:29>	shutdown success: 10 
+[INFO]	2022-05-04 19:04:56 30321 1 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:04:56 30321 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber7 
+[INFO]	2022-05-04 19:04:56 30321 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber6 
+[INFO]	2022-05-04 19:04:57 30323 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:04:57 30323 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber3 
+[INFO]	2022-05-04 19:04:57 30323 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:04:58 30324 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:04:58 30324 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber4 
+[INFO]	2022-05-04 19:04:58 30324 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:04:58 30322 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:04:58 30322 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber2 
+[INFO]	2022-05-04 19:04:58 30322 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:04:58 30325 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:04:58 30325 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber5 
+[INFO]	2022-05-04 19:04:58 30325 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:04:58 30321 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber1 
+[INFO]	2022-05-04 19:04:58 30321 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[DEBUG]	2022-05-04 19:06:20 30437 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 19:06:20 30437 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:162>	Scheduler start 
+[DEBUG]	2022-05-04 19:06:20 30438 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:06:20 30439 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:06:20 30440 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:06:20 30441 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 19:06:20 30438 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:06:20 30440 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:06:20 30441 5 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:06:20 30439 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:06:20 30437 0 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:85>	listenfd: 9 
+[INFO]	2022-05-04 19:06:20 30437 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:205>	m_rootFiber come 
+[INFO]	2022-05-04 19:06:20 30437 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:06:20 30437 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:12>	get in test_listen 
+[INFO]	2022-05-04 19:06:20 30437 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:19>	connect success: 10 
+[INFO]	2022-05-04 19:06:50 30437 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:29>	shutdown success: 10 
+[INFO]	2022-05-04 19:06:50 30437 1 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:06:50 30437 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber7 
+[INFO]	2022-05-04 19:06:50 30437 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber6 
+[INFO]	2022-05-04 19:06:50 30439 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:06:50 30439 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber3 
+[INFO]	2022-05-04 19:06:50 30439 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:06:53 30441 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:06:53 30441 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber5 
+[INFO]	2022-05-04 19:06:53 30441 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:06:53 30438 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:06:53 30438 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber2 
+[INFO]	2022-05-04 19:06:53 30438 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:06:53 30440 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:06:53 30440 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber4 
+[INFO]	2022-05-04 19:06:53 30440 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:06:53 30437 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber1 
+[INFO]	2022-05-04 19:06:53 30437 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[DEBUG]	2022-05-04 19:08:15 30544 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 19:08:15 30544 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:162>	Scheduler start 
+[DEBUG]	2022-05-04 19:08:15 30545 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:08:15 30546 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:08:15 30547 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 19:08:15 30548 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 19:08:15 30548 5 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:08:15 30545 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:08:15 30544 0 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:85>	listenfd: 9 
+[INFO]	2022-05-04 19:08:15 30547 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:08:15 30546 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:08:15 30544 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:205>	m_rootFiber come 
+[INFO]	2022-05-04 19:08:15 30544 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 19:08:20 30544 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:12>	get in test_listen 
+[INFO]	2022-05-04 19:08:20 30544 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:19>	connect success: 10 
+[INFO]	2022-05-04 19:09:20 30544 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:29>	shutdown success: 10 
+[INFO]	2022-05-04 19:09:20 30544 1 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:09:20 30544 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber7 
+[INFO]	2022-05-04 19:09:20 30544 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber6 
+[INFO]	2022-05-04 19:09:21 30548 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:09:21 30548 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber5 
+[INFO]	2022-05-04 19:09:21 30548 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:09:21 30546 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:09:21 30546 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber3 
+[INFO]	2022-05-04 19:09:21 30546 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:09:21 30547 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:09:21 30547 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber4 
+[INFO]	2022-05-04 19:09:21 30547 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:09:21 30545 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 19:09:21 30545 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber2 
+[INFO]	2022-05-04 19:09:21 30545 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 19:09:21 30544 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber1 
+[INFO]	2022-05-04 19:09:21 30544 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[DEBUG]	2022-05-04 23:45:44 35585 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 23:45:44 35585 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:162>	Scheduler start 
+[DEBUG]	2022-05-04 23:45:44 35586 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 23:45:44 35587 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 23:45:44 35588 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[DEBUG]	2022-05-04 23:45:44 35589 0 </home/lee/projects/VScode/myProject/code/fiber.cc:148>	Main Fiber Established 
+[INFO]	2022-05-04 23:45:44 35589 5 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 23:45:44 35586 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 23:45:44 35587 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 23:45:44 35588 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 23:45:44 35585 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:205>	m_rootFiber come 
+[INFO]	2022-05-04 23:45:44 35585 6 </home/lee/projects/VScode/myProject/code/iomanager.cc:239>	get in idle 
+[INFO]	2022-05-04 23:45:45 35586 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:42>	hello timer_1: 119083674 
+[INFO]	2022-05-04 23:45:45 35586 7 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:42>	hello timer_1: 119084174 
+[INFO]	2022-05-04 23:45:46 35587 8 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:42>	hello timer_1: 119084673 
+[INFO]	2022-05-04 23:45:46 35587 8 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:42>	hello timer_1: 119085174 
+[INFO]	2022-05-04 23:45:47 35589 9 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:42>	hello timer_1: 119085675 
+[INFO]	2022-05-04 23:45:47 35589 9 </home/lee/projects/VScode/myProject/tests/test_iomanager.cc:45>	timer cancel 
+[INFO]	2022-05-04 23:45:47 35589 5 </home/lee/projects/VScode/myProject/code/scheduler.cc:240>	isStopping: 1110 
+[INFO]	2022-05-04 23:45:47 35589 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 23:45:47 35585 6 </home/lee/projects/VScode/myProject/code/scheduler.cc:240>	isStopping: 1110 
+[INFO]	2022-05-04 23:45:47 35589 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber9 
+[INFO]	2022-05-04 23:45:47 35585 1 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 23:45:47 35589 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber5 
+[INFO]	2022-05-04 23:45:47 35585 1 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber6 
+[INFO]	2022-05-04 23:45:47 35589 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 23:45:47 35588 4 </home/lee/projects/VScode/myProject/code/scheduler.cc:240>	isStopping: 1110 
+[INFO]	2022-05-04 23:45:47 35587 3 </home/lee/projects/VScode/myProject/code/scheduler.cc:240>	isStopping: 1110 
+[INFO]	2022-05-04 23:45:47 35587 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 23:45:47 35586 2 </home/lee/projects/VScode/myProject/code/scheduler.cc:240>	isStopping: 1110 
+[INFO]	2022-05-04 23:45:47 35587 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber8 
+[INFO]	2022-05-04 23:45:47 35586 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 23:45:47 35587 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber3 
+[INFO]	2022-05-04 23:45:47 35588 0 </home/lee/projects/VScode/myProject/code/scheduler.cc:145>	idle fiber terminate 
+[INFO]	2022-05-04 23:45:47 35586 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber7 
+[INFO]	2022-05-04 23:45:47 35588 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber4 
+[INFO]	2022-05-04 23:45:47 35586 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber2 
+[INFO]	2022-05-04 23:45:47 35588 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 23:45:47 35587 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 23:45:47 35586 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
+[INFO]	2022-05-04 23:45:47 35585 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber1 
+[INFO]	2022-05-04 23:45:47 35585 0 </home/lee/projects/VScode/myProject/code/fiber.cc:190>	~Fiber0 
