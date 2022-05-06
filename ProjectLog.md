@@ -328,6 +328,10 @@ schedule ————> thread ————> fiber
 ### 实现逻辑
 - 线程粒度，在 Scheduler::run() 中将hook使能。
 
+## 句柄管理器
+&emsp;应用hook的场景应该先确定 fd 是否是socketfd、是否阻塞、是否有超时时间等。所以应该有一个句柄管理类来管理 fd 的属性。
+- 用 ```int fstat(int fd, struct stat *statbuf)``` 来判断句柄属性。判断 fd 是否为 socketfd 可以通过 S_ISSOCK(fd_stat.st_mode) 来判断。
+
 
 ## 知识碎片
 - &emsp;在 Linux 下的异步 I/O 是不完善的， aio 系列函数是由 POSIX 定义的异步操作接口，不是真正的操作系统级别支持的，而是在用户空间模拟出来的异步，并且仅仅支持基于本地文件的 aio 异步操作，网络编程中的 socket 是不支持的，这也使得基于 Linux 的高性能网络程序都是使用 Reactor 方案。

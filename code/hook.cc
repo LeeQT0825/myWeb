@@ -14,27 +14,26 @@ static thread_local bool t_hook_enable=false;
 // 宏定义：所有要HOOK的系统调用
 #define HOOK_FUNC(XX) \
     XX(sleep) \
-    XX(usleep)
-
-    // XX(nanosleep)
-    // XX(socket)
-    // XX(connect)
-    // XX(accept)
-    // XX(read)
-    // XX(write)
-    // XX(readv)
-    // XX(writev)
-    // XX(recv)
-    // XX(send)
-    // XX(recvfrom)
-    // XX(sendto)
-    // XX(recvmsg)
-    // XX(sendmsg)
-    // XX(close)
-    // XX(fcntl)
-    // XX(ioctl)
-    // XX(getsockopt)
-    // XX(setsockopt) 
+    XX(usleep) \
+    XX(nanosleep) \
+    XX(socket) \
+    XX(connect) \
+    XX(accept) \
+    XX(read) \
+    XX(write) \
+    XX(readv) \
+    XX(writev) \
+    XX(recv) \
+    XX(send) \
+    XX(recvfrom) \
+    XX(sendto) \
+    XX(recvmsg) \
+    XX(sendmsg) \
+    XX(close) \
+    XX(fcntl) \
+    XX(ioctl) \
+    XX(getsockopt) \
+    XX(setsockopt)
 
 // 初始化HOOK
 void hook_init(){
@@ -65,8 +64,10 @@ void set_hook_enable(bool flag){
     t_hook_enable=flag;
 }
 
-
 }
+
+
+// HOOK 函数定义
 
 extern "C"{
 
@@ -93,7 +94,7 @@ unsigned int sleep(unsigned int seconds){
 }
 
 int usleep(unsigned int usec){
-    if(!myWeb::t_hook_enable)   return sleep_f(usec);
+    if(!myWeb::t_hook_enable)   return usleep_f(usec);
 
     myWeb::Fiber::ptr fiber=myWeb::Fiber::getThis();
     myWeb::IOManager* iomanager=myWeb::IOManager::getThis();
@@ -105,5 +106,90 @@ int usleep(unsigned int usec){
     return 0;
 }
 
+int nanosleep(const struct timespec *req, struct timespec *rem){
+    if(!myWeb::t_hook_enable)   return nanosleep_f(req,rem);
+
+    int timeout_ms=req->tv_sec*1000+rem->tv_nsec/1000/1000;
+    myWeb::Fiber::ptr fiber=myWeb::Fiber::getThis();
+    myWeb::IOManager* iomanager=myWeb::IOManager::getThis();
+    iomanager->addTimer(timeout_ms,std::bind(
+                (void(myWeb::Scheduler::*)(myWeb::Fiber::ptr,pid_t))&myWeb::IOManager::schedule,
+                iomanager,fiber,-1));
+                
+    myWeb::Fiber::yieldToHold();
+    return 0;    
+}
+
+int socket(int domain, int type, int protocol){
+
+}
+
+int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen){
+
+}
+
+int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen){
+
+}
+
+ssize_t read(int fd, void *buf, size_t count){
+
+}
+
+ssize_t write(int fd, const void *buf, size_t count){
+
+}
+
+ssize_t readv(int fd, const struct iovec *iov, int iovcnt){
+
+}
+
+ssize_t writev(int fd, const struct iovec *iov, int iovcnt){
+
+}
+
+ssize_t recv(int sockfd, void *buf, size_t len, int flags){
+
+}
+
+ssize_t send(int sockfd, const void *buf, size_t len, int flags){
+
+}
+
+ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen){
+
+}
+
+ssize_t sendto(int sockfd, const void *buf, size_t len, int flags, const struct sockaddr *dest_addr, socklen_t addrlen){
+
+}
+
+ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags){
+
+}
+
+ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags){
+
+}
+
+int close(int fd){
+
+}
+
+int fcntl(int fd, int cmd, ...){
+
+}
+
+int ioctl(int fd, unsigned long request, ...){
+
+}
+
+int getsockopt(int sockfd, int level, int optname, void *optval, socklen_t *optlen){
+
+}
+
+int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen){
+    
+}
 
 }
