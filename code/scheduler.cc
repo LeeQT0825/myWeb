@@ -1,6 +1,7 @@
 #include "scheduler.h"
 #include "log.h"
 #include "macro.h"
+#include "hook.h"
 
 namespace myWeb{
 
@@ -56,6 +57,7 @@ void Scheduler::tickle(){
 
 void Scheduler::run(){
     setThis();
+    set_hook_enable(true);
     if(GetThreadID()!=m_rootThreadID){
         t_Master_Fiber=Fiber::getThis().get();
     }
@@ -129,9 +131,10 @@ void Scheduler::run(){
                 schedule<Fiber::ptr>(cb_fiber);     // 任意线程都可以
             }else if(cb_fiber->getState()==Fiber::State::TERM 
                         || cb_fiber->getState()==Fiber::State::EXCEPT){
-                cb_fiber->reset(nullptr);       // 防止该协程析构
+                cb_fiber->reset(nullptr);           // 防止该协程析构
             }else{
-                cb_fiber->m_state=Fiber::State::HOLD;       // TODO 这里有问题，不重新加入队列么？？？
+                cb_fiber->m_state=Fiber::State::HOLD;
+                cb_fiber.reset();                   // 不丢掉原来指向的fiber，重新添加一个fiber，这里很细节~
             }
         }else{
             if(is_active){  

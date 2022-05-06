@@ -192,7 +192,7 @@ Fiber::~Fiber(){
 
 void Fiber::reset(std::function<void()> cb,bool usecaller){
     MYWEB_ASSERT_2(m_stk,"Main Fiber Reset");
-    MYWEB_ASSERT_2(m_state==TERM || m_state==INIT,"Wrong State Reset");
+    MYWEB_ASSERT_2(m_state==TERM || m_state==INIT || m_state==EXCEPT,"Wrong State Reset");
     m_cb=cb;
     if(getcontext(&m_context)){
         MYWEB_ASSERT_2(false,"getcontext");

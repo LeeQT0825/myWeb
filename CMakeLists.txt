@@ -20,12 +20,14 @@ set(LIB_SCR code/log.cc
             code/fiber.cc
             code/scheduler.cc
             code/iomanager.cc
-            code/timer.cc)
+            code/timer.cc
+            code/hook.cc)
 
 add_library(code SHARED ${LIB_SCR})     # 通过变量LIB-SCR生成库名为libcode.so的动态库
 set(LIBLIB  code
             pthread
-            yaml-cpp)
+            yaml-cpp
+            dl)
 
 # 测试log的可执行文件
 add_executable(test tests/test.cc)      # 生成名为test的可执行文件
