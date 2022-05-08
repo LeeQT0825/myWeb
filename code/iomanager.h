@@ -26,7 +26,7 @@ public:
     IOManager(size_t num_of_thread=1,bool use_caller=true,const std::string& name=" ");
     ~IOManager();
 
-    // 给句柄添加并注册事件(描述符fd发生了event事件，则回调cb，ret=0——成功，ret=-1——失败)
+    // 给句柄添加并注册事件(描述符fd发生了event事件，则回调cb，如果cb为空，则返回到当前协程，ret=0——成功，ret=-1——失败)
     int addEvent(int fd,Event event,std::function<void()> cb=nullptr);
     // 给句柄删除事件（不会触发执行）
     bool delEvent(int fd,Event event);

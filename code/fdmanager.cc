@@ -17,7 +17,7 @@ FDctx::FDctx(int fd)
 }
 
 bool FDctx::init(){
-    if(m_isInit)    return;
+    if(m_isInit)    return true;
     m_recvTimeout=-1;
     m_sendTimeout=-1;
 
@@ -32,6 +32,7 @@ bool FDctx::init(){
     }
 
     if(m_isSocket){
+        // 将socketfd设为非阻塞
         int flags=fcntl_f(m_fd,F_GETFL,0);
         if(!(flags & O_NONBLOCK)){
             fcntl_f(m_fd,F_SETFL,flags | O_NONBLOCK);

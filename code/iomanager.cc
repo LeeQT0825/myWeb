@@ -77,7 +77,7 @@ int IOManager::addEvent(int fd,Event event,std::function<void()> cb){
     }
     
     // 注册事件
-    int op=fd_ctx->fd_event? EPOLL_CTL_MOD :  EPOLL_CTL_ADD ;
+    int op=fd_ctx->fd_event ? EPOLL_CTL_MOD :  EPOLL_CTL_ADD ;
     epoll_event ep_event;
     memset(&ep_event,0,sizeof(ep_event));
     ep_event.data.ptr=fd_ctx;

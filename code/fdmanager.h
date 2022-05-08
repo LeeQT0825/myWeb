@@ -14,7 +14,7 @@ class FDctx:public std::enable_shared_from_this<FDctx>{
 public:
     typedef std::shared_ptr<FDctx> ptr;
     FDctx(int fd);
-    ~FDctx();
+    ~FDctx(){}
 
     // 是否初始化完毕
     bool isInit(){
@@ -54,8 +54,8 @@ private:
     bool init();
 
 private:
-    bool m_isInit;
-    bool m_isSocket;
+    bool m_isInit;          // 是否已经被占用
+    bool m_isSocket;        // 是否是socketfd
     bool m_sysNonblock;
     bool m_usrNonblock;
     bool m_isClosed;
