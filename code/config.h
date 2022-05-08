@@ -346,6 +346,7 @@ public:
         }
         wlock.unLock();
 
+        // 创建新的 ConfigVar
         lock_type::read_lock rlock(getLock());
         // 检验name是否合法
         if(name.find_first_not_of("abcdefghijklmnopqrstuvwxyz._1234567890")!=std::string::npos){

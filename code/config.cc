@@ -4,8 +4,6 @@
 #include <iostream>
 
 namespace myWeb{
-    
-// static Logger::ptr config_logger(MYWEB_NAMED_LOG("config_log"));
 
 // 根据层级关系转换为相应的数据结构
 static void ListAllMember(const std::string& prefix,const YAML::Node& node,std::list<std::pair<std::string,const YAML::Node> >& output){

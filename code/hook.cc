@@ -11,6 +11,10 @@
 
 namespace myWeb{
 
+// 配置connect timeout
+static ConfigVar<uint64_t>::ptr config_tcp_connect_timeout=
+                Config::Lookup("tcp_connect_timeout",(uint64_t)5000,"tcp connect timeout");
+
 static thread_local bool t_hook_enable=false;
 
 // 宏定义：所有要HOOK的系统调用
@@ -50,13 +54,6 @@ void hook_init(){
 
 }
 
-// 在main之前就完成hook的实例化
-struct _HookIniter{
-    _HookIniter(){
-        hook_init();
-    }
-};
-static _HookIniter HookIniter; 
 
 bool is_hook_enable(){
     return t_hook_enable;
@@ -66,7 +63,22 @@ void set_hook_enable(bool flag){
     t_hook_enable=flag;
 }
 
-}
+
+// 连接超时时间
+static uint64_t g_connect_timeout_MS=-1;
+// 在main之前就完成hook的实例化
+struct _HookIniter{
+    _HookIniter(){
+        myWeb::hook_init();
+        g_connect_timeout_MS=config_tcp_connect_timeout->getVal();
+        config_tcp_connect_timeout->addListener([](const uint64_t& oldval,const uint64_t& newval){
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tcp_connect_timeout changed from "<<oldval<<" to "<<newval;
+            g_connect_timeout_MS=newval;
+        });
+    }
+};
+static _HookIniter HookIniter; 
+
 
 // 存放条件定时器的条件：成员 cancelled是errno错误值，如果有错误则停止触发
 struct Timer_Cond
@@ -100,6 +112,8 @@ static ssize_t do_io(int fd,OriginFunc origin_func,const char* hook_func_name,
 
     uint64_t time_out=fd_ctx->getTimeout(timeout_so);
     std::shared_ptr<Timer_Cond> timer_cond(new Timer_Cond());
+
+    retry:
     ssize_t n=origin_func(fd,std::forward<Args>(args)...);     //保存返回值，最后再返回
 
     while(n==-1 && errno==EINTR){
@@ -116,6 +130,7 @@ static ssize_t do_io(int fd,OriginFunc origin_func,const char* hook_func_name,
 
         if(time_out!=(uint64_t)-1){
             // 增加定时器————当到达超时时间时就意味着无论就绪还是阻塞，都要取消事件
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<hook_func_name<<" addTimer";
             timer=iomanager->addCondTimer(time_out,[fd,weak_timercond,iomanager,event](){
                 auto cond=weak_timercond.lock();
                 if(!cond || cond->cancelled)  return;
@@ -127,13 +142,14 @@ static ssize_t do_io(int fd,OriginFunc origin_func,const char* hook_func_name,
         // 注册事件
         int ret=iomanager->addEvent(fd,(myWeb::IOManager::Event)event);
         if(ret){
-            INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<hook_func_name<<"addEvent error";
+            INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<hook_func_name<<" addEvent error";
             if(timer){
                 timer->cancelTimer();
             }
             return -1;
         }else{
             myWeb::Fiber::yieldToHold();        // 等定时器被唤醒才会resume
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<hook_func_name<<" resume";
             if(timer){
                 timer->cancelTimer();
             }
@@ -141,8 +157,11 @@ static ssize_t do_io(int fd,OriginFunc origin_func,const char* hook_func_name,
                 errno=timer_cond->cancelled;
                 return -1;
             } 
+            goto retry;
         }
     }
+
+
     return n;
 }
 
@@ -211,12 +230,79 @@ int socket(int domain, int type, int protocol){
     return fd;
 }
 
+// 超时连接
+int connect_timeout(int sockfd, const struct sockaddr *addr, socklen_t addrlen,uint64_t timeout_ms){
+    if(!myWeb::t_hook_enable){
+        return connect_f(sockfd,addr,addrlen);
+    }
+    myWeb::FDctx::ptr fd_ctx=myWeb::Singleton<myWeb::FDManager>::getInstance()->getFD(sockfd);
+    if(!fd_ctx || fd_ctx->isClosed()){
+        errno=EBADF;
+        return -1;
+    }
+    if(!fd_ctx->isSocket() || fd_ctx->getUsrNonblock()){
+        return connect_f(sockfd,addr,addrlen);
+    }
+
+    int ret=connect_f(sockfd,addr,addrlen);
+    if(ret==0){
+        return 0;
+    }else if(errno!=EINPROGRESS){       // 套接字本身为非阻塞，返回-1，但连接还在继续
+        return -1;
+    }
+
+    myWeb::IOManager* iomanager=myWeb::IOManager::getThis();
+    myWeb::Timer::ptr timer;
+    std::shared_ptr<Timer_Cond> timer_cond(new Timer_Cond());
+    std::weak_ptr<Timer_Cond> weak_timerCond(timer_cond);
+
+    // 添加定时器
+    if(timeout_ms!=(uint64_t)-1){
+        timer=iomanager->addCondTimer(timeout_ms,[weak_timerCond,iomanager,sockfd](){
+            auto tcond=weak_timerCond.lock();
+            if(!tcond || tcond->cancelled){
+                return;
+            }
+            tcond->cancelled=ETIMEDOUT;
+            iomanager->cancelEvent(sockfd,myWeb::IOManager::Event::WRITE);
+        },weak_timerCond);
+    }
+
+    // 注册事件
+    ret=iomanager->addEvent(sockfd,myWeb::IOManager::Event::WRITE);
+    if(ret==0){
+        myWeb::Fiber::yieldToHold();
+        if(timer){
+            timer->cancelTimer();
+        }
+        if(timer_cond->cancelled){
+            errno=timer_cond->cancelled;
+            return -1;
+        }
+    }else{
+        if(timer){
+            timer->cancelTimer();
+        }
+        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"connect_timeout addEvent error";
+    }
+
+    int error=0;
+    socklen_t len=sizeof(int);
+    if(getsockopt(sockfd,SOL_SOCKET,SO_ERROR,&error,&len)!=-1){
+        if(!error)  return 0;
+        errno=error;
+    }
+    return -1;
+
+}
+
 int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen){
-    return connect_f(sockfd,addr,addrlen);
+    return connect_timeout(sockfd,addr,addrlen,g_connect_timeout_MS);
 }
 
 int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen){
     // 返回新的 fd 
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"accept";
     int fd=do_io(sockfd,accept_f,"accept",myWeb::IOManager::Event::READ,SO_RCVTIMEO,addr,addrlen);
     if(fd>=0){
         myWeb::Singleton<myWeb::FDManager>::getInstance()->getFD(fd,true);
@@ -281,6 +367,7 @@ int close(int fd){
 }
 
 int fcntl(int fd, int cmd, ... ){
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"fcntl";
     va_list va;
     va_start(va,cmd);
     switch(cmd){
@@ -390,4 +477,5 @@ int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t
     return setsockopt_f(sockfd,level,optname,optval,optlen);
 }
 
+}
 }

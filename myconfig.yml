@@ -31,3 +31,4 @@ logs:
 system:
     port: 999
     value: 000
+tcp_connect_timeout: 3000

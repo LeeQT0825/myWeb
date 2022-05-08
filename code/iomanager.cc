@@ -236,13 +236,13 @@ bool IOManager::isStopping(uint64_t& timeout){
 }
 
 void IOManager::idle(){
-    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"get in idle";
+    // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"get in idle";
     epoll_event* ep_events=new epoll_event[MAX_EVENTSIZE]();
     std::shared_ptr<epoll_event> sh_epEvent(ep_events,[](epoll_event* ptr){delete[] ptr;});      // 用智能指针接管裸指针
     
     while(!isStopping()){
         // 测试——0100
-        // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"in idle: "<<m_running<<m_self_stopping<<m_pendingEventCount<<m_activeThreadCount;
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"in idle: "<<m_running<<m_self_stopping<<m_pendingEventCount<<m_activeThreadCount;
         int ret=0;
         uint64_t timeout=0;
 

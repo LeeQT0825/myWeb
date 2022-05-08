@@ -100,13 +100,14 @@ void TimerManager::addTimer(Timer::ptr timer,lock_type::write_lock& wr_lck){
     }
 }
 
-// addCondTimer() 辅助函数，如果 weak_ptr 未释放则执行
+// addCondTimer() 辅助函数
 static void OnTime(std::weak_ptr<void> weak_cond,std::function<void()> cb){
     std::shared_ptr<void> temp=weak_cond.lock();
     if(temp){
         cb();
     }
 }
+// 如果 weak_ptr 未释放则执行
 Timer::ptr TimerManager::addCondTimer(uint64_t ms,std::function<void()> cb,
                                 std::weak_ptr<void> weak_cond,bool iscycle){
     return addTimer(ms,std::bind(&OnTime,weak_cond,cb),iscycle);
