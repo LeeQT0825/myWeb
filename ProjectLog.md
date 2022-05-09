@@ -345,11 +345,25 @@ schedule ————> thread ————> fiber
         7. 返回原函数返回值
       ```
   3. socket/fcntl/ioctl/close 等接口，这类接口主要处理的是边缘情况，比如分配fd上下文，处理超时及用户显式设置非阻塞问题。
-
-## 句柄管理器
+### 句柄管理器
 &emsp;应用hook的场景应该先确定 fd 是否是socketfd、是否阻塞、是否有超时时间等。所以应该有一个句柄管理类来管理 fd 的属性。
 - 用 ```int fstat(int fd, struct stat *statbuf)``` 来判断句柄属性。判断 fd 是否为 socketfd 可以通过 S_ISSOCK(fd_stat.st_mode) 来判断。
 
+## Socket API
+### 地址类
+#### 抽象类
+#### IPv4
+- INADDR_ANY 宏((in_addr_t) 0x00000000)：
+  在Server端bind本机IP地址和端口的时候，有些程序会使用INADDR_ANY这个地址来取代本机地址。这个宏能够让程序员在不知道本机IP地址的情况下，使用它来代表本机所有接口的IP地址。也就是说，使用这个宏作为监听地址的话，不管本机有多少个接口，socket都会监听。
+- BYTE_ORDER 宏可以识别当前编译环境的字节序，可为 BIG_ENDIAN 或 LITTLE_ENDIAN
+- IPv4地址从二进制转为点分十进制sylar的编程方法：
+  ```cpp
+    os<<((addr>>24) & 0xff)<<"."
+      <<((addr>>16) & 0xff)<<"."
+      <<((addr>>8)  & 0xff)<<"."
+      <<( addr      & 0xff)
+  ```
+- 从网络字节序转为可读序列时，inet_ntoa() 是不可重入的，而 inet_ntop() 是可重入的。（不可重入：The string is returned in a statically allocated buffer, which subsequent calls will overwrite.）
 
 ## 知识碎片
 - &emsp;在 Linux 下的异步 I/O 是不完善的， aio 系列函数是由 POSIX 定义的异步操作接口，不是真正的操作系统级别支持的，而是在用户空间模拟出来的异步，并且仅仅支持基于本地文件的 aio 异步操作，网络编程中的 socket 是不支持的，这也使得基于 Linux 的高性能网络程序都是使用 Reactor 方案。
@@ -413,7 +427,19 @@ schedule ————> thread ————> fiber
 - hook.cc 中 (uint64_t)-1 即为 2^64-1 
   - 当具有整数类型的值转换为除_Bool之外的另一个整数类型时，如果该值可以由新类型表示，则它将保持不变。
   - 否则，如果新类型是无符号的，则通过重复加或减一个可以在新类型中表示的最大值来转换该值，直到该值在新类型的范围内。 
-  - 否则，新类型已签名且值无法在其中表示; 结果是实现定义的，或者引发实现定义的信号。 
+  - 否则，新类型已签名且值无法在其中表示; 结果是实现定义的，或者引发实现定义的信号。
+- 模板元编程时类型选择的小工具：
+  ```cpp
+  /* 只有bool为true，type才有定义
+   * 可用于偏特化模板类型*/
+  template <bool, typename T=void>
+  struct enable_if {
+  };
+  template <typename T>
+  struct enable_if<true, T> {
+    using type = T;
+  };
+  ```
 
 ## Question
 1. 如何保证STL容器的迭代器在多线程中不会失效？如 Logger 中的 appenders 成员变量，在 log() 和 addAppender() 都会对appenders进行修改，这时 log() 中的迭代器是否会失效？

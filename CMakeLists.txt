@@ -22,7 +22,8 @@ set(LIB_SCR code/log.cc
             code/iomanager.cc
             code/timer.cc
             code/hook.cc
-            code/fdmanager.cc)
+            code/fdmanager.cc
+            code/address.cc)
 
 add_library(code SHARED ${LIB_SCR})     # 通过变量LIB-SCR生成库名为libcode.so的动态库
 set(LIBLIB  code

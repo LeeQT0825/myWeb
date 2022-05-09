@@ -17,15 +17,15 @@ public:
     ~FDctx(){}
 
     // 是否初始化完毕
-    bool isInit(){
+    bool isInit() const{
         return m_isInit;
     }
     // 是否是SocketFD
-    bool isSocket(){
+    bool isSocket() const{
         return m_isSocket;
     }
     // 是否已经关闭
-    bool isClosed(){
+    bool isClosed() const{
         return m_isClosed;
     }
     // 用户设置（非）阻塞
@@ -33,7 +33,7 @@ public:
         m_usrNonblock=flag;
     }
     // 获取是否为用户设置非阻塞
-    bool getUsrNonblock(){
+    bool getUsrNonblock() const{
         return m_usrNonblock;
     }
     // 系统设置（非）阻塞
@@ -41,13 +41,13 @@ public:
         m_sysNonblock=flag;
     }
     // 获取是否为系统设置非阻塞
-    bool getSysNonblock(){
+    bool getSysNonblock() const{
         return m_sysNonblock;
     }
     // 设置超时时间 type: SO_RCVTIMEO(接收超时时间)、SO_SNDTIMEO(发送超时时间)
     void setTimeout(int type,uint64_t timeout);
     // 获取超时时间
-    uint64_t getTimeout(int type);
+    uint64_t getTimeout(int type) const;
 
 private:
     // 初始化

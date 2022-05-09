@@ -55,7 +55,7 @@ void FDctx::setTimeout(int type,uint64_t timeout){
     }
 }
 
-uint64_t FDctx::getTimeout(int type){
+uint64_t FDctx::getTimeout(int type) const{
     if(type==SO_RCVTIMEO){
         return m_recvTimeout;
     }else{
