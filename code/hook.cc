@@ -232,6 +232,7 @@ int socket(int domain, int type, int protocol){
 
 // 超时连接
 int connect_timeout(int sockfd, const struct sockaddr *addr, socklen_t addrlen,uint64_t timeout_ms){
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"connect_timeout";
     if(!myWeb::t_hook_enable){
         return connect_f(sockfd,addr,addrlen);
     }
@@ -272,6 +273,7 @@ int connect_timeout(int sockfd, const struct sockaddr *addr, socklen_t addrlen,u
     ret=iomanager->addEvent(sockfd,myWeb::IOManager::Event::WRITE);
     if(ret==0){
         myWeb::Fiber::yieldToHold();
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"connect_timeout resume";
         if(timer){
             timer->cancelTimer();
         }
@@ -367,7 +369,7 @@ int close(int fd){
 }
 
 int fcntl(int fd, int cmd, ... ){
-    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"fcntl";
+    // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"fcntl";
     va_list va;
     va_start(va,cmd);
     switch(cmd){

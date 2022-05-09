@@ -11,6 +11,7 @@
 #include <functional>
 
 myWeb::Timer::ptr timer;
+void test_rd_wr(int fd);
 
 void test_listen(const char* ip,int port){
     // 创建socket地址
@@ -40,20 +41,72 @@ void test_listen(const char* ip,int port){
     int connfd=accept(listenfd,(sockaddr*)&connaddr,&connaddr_len);
 
     if(connfd>=0){
-        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"connect success: "<<connfd;
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"accept success: "<<connfd;
+        myWeb::IOManager::getThis()->schedule(std::bind(test_rd_wr,connfd));
+        sleep(15);
+        // 关闭
+        ret=shutdown(connfd,SHUT_RDWR);
+        if(ret==0){
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"accept shutdown success: "<<connfd;
+        }else{
+            INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"accept shutdown failed: "<<connfd;
+        }
+
     }else{
-        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"connect failed: "<<connfd;
+        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"accept failed: "<<connfd;
     }
 
-    sleep(5);
+}
 
-    // 关闭
-    ret=shutdown(connfd,SHUT_RDWR);
+void test_connect(const char* ip,int port){
+    // 创建socket地址
+    sockaddr_in addr;
+    bzero(&addr,sizeof(addr));
+    addr.sin_family=AF_INET;
+    addr.sin_port=htons(port);
+    inet_pton(AF_INET,ip,&addr.sin_addr);
+
+    int sockfd=socket(PF_INET,SOCK_STREAM,0);
+    MYWEB_ASSERT(sockfd>=0);
+    // 复用socket地址
+    int reused=1;
+    setsockopt(sockfd,SOL_SOCKET,SO_REUSEADDR,&reused,sizeof(reused));
+
+    int ret=connect(sockfd,(const sockaddr*)&addr,sizeof(addr));
     if(ret==0){
-        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"shutdown success: "<<connfd;
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"connect success: "<<sockfd;
+        
+        // myWeb::IOManager::getThis()->schedule(std::bind(test_rd_wr,sockfd));
+        sleep(10);
+
+        // 关闭
+        ret=shutdown(sockfd,SHUT_RDWR);
+        if(ret==0){
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"connect shutdown success: "<<sockfd;
+        }else{
+            INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"connect shutdown failed: "<<sockfd;
+        }
+
     }else{
-        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"shutdown failed: "<<connfd;
+        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"connect failed: "<<sockfd;
     }
+
+}
+
+void test_rd_wr(int fd){
+    const char buf[]="hello client";
+    int ret=send(fd,buf,sizeof(buf),0);
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"send ret= "<<ret<<" errno= "<<errno;
+    
+    std::string recv_buf;
+    recv_buf.resize(4096);
+    ret=recv(fd,&recv_buf[0],sizeof(recv_buf),0);
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"recv ret= "<<ret<<" errno= "<<errno;
+
+    if(ret<0)   return;
+
+    recv_buf.resize(ret);
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<recv_buf;
 }
 
 void test_Timer(myWeb::IOManager::ptr& iomanager){  
@@ -68,10 +121,6 @@ void test_Timer(myWeb::IOManager::ptr& iomanager){
         }
         sleep(10);
     },true);
-}
-
-void func(){
-    
 }
 
 void set_nonBlock(int fd){
@@ -95,6 +144,7 @@ int main(int argc,char** argv){
     // test_Timer(iomanager);
 
     iomanager->schedule(std::bind(test_listen,ip,port));
+    // iomanager->schedule(std::bind(test_connect,"180.101.49.12",80));
 
     // sleep(10);
     return 0;
