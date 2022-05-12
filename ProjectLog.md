@@ -89,6 +89,9 @@
 ##### RTTI（Run-Time Type Identification）——运行时类型识别
 &emsp;在C++中，为了支持RTTI提供了两个操作符：dynamic_cast 和 typeid：
    - dynamic_cast允许运行时刻进行类型转换，从而使程序能够在一个类层次结构中安全地转化类型，与之相对应的还有一个非安全的转换操作符static_cast。
+     - static_cast 进行上行转换（派生类->基类）时是安全的，而下行转换时是不安全的。
+     - dynamic_cast 进行上行转换时和 static_cast 效果一样，在进行下行转换时会先进行类型检查，所以比 static_cast 更安全。
+     - dynamic_pointer_cast 与 dynamic_cast 用法类似。当指针是智能指针时候，向下转换，用 dynamic_cast 则编译不能通过，此时需要使用 dynamic_pointer_cast。
    - typeid是C++的关键字之一，等同于sizeof这类的操作符。typeid操作符的返回结果是名为type_info的标准库类型的对象的引用（在头文件 *\<typeinfo\>* 中定义，稍后我们看一下vs和gcc库里面的源码），它的表达式有下图两种形式。
 #### 回调
 &emsp;当一个配置发生修改的时候，可以反向通知调用它的代码。实现方法：
@@ -352,6 +355,12 @@ schedule ————> thread ————> fiber
 ## Socket API
 ### 地址类
 #### 抽象类
+- 获得本地网络信息：int getaddrinfo(const char* hostname,const char* service,const struct addrinfo* hints,struct addrinfo** result); 
+  - hostname：既可以传入**主机名称**，又可以传入字符串表示的IP地址（IPv4：点分十进制；IPv6：十六进制字符串）
+  - service：既可以传入**服务名**，又可以传入字符串表示的十进制端口号。
+  - hints：提示信息
+  - result：链表，用以存储返回结果
+- 
 #### IPv4
 - INADDR_ANY 宏((in_addr_t) 0x00000000)：
   在Server端bind本机IP地址和端口的时候，有些程序会使用INADDR_ANY这个地址来取代本机地址。这个宏能够让程序员在不知道本机IP地址的情况下，使用它来代表本机所有接口的IP地址。也就是说，使用这个宏作为监听地址的话，不管本机有多少个接口，socket都会监听。
@@ -364,6 +373,22 @@ schedule ————> thread ————> fiber
       <<( addr      & 0xff)
   ```
 - 从网络字节序转为可读序列时，inet_ntoa() 是不可重入的，而 inet_ntop() 是可重入的。（不可重入：The string is returned in a statically allocated buffer, which subsequent calls will overwrite.）
+  ```cpp
+    sockaddr_in addr;
+    const char* ip="192.168.8.106";
+    inet_pton(AF_INET,ip,&addr.sin_addr);
+    std::cout<<std::hex<<addr.sin_addr.s_addr<<std::endl;     // 6a08a8c0
+
+    uint32_t mask=CreateMask<uint32_t>(24);
+    // mask=ntohl(mask);
+    std::cout<<std::hex<<ntohl(mask)<<std::endl;          // ffffff00
+
+    uint32_t ans= addr.sin_addr.s_addr & (mask);
+    std::cout<<"网段："<<std::hex<<ans<<std::endl;          // 8a8c0
+
+    ans= addr.sin_addr.s_addr | (~mask);
+    std::cout<<"广播："<<std::hex<<ans<<std::endl;          // ff08a8c0
+  ```
 
 ## 知识碎片
 - &emsp;在 Linux 下的异步 I/O 是不完善的， aio 系列函数是由 POSIX 定义的异步操作接口，不是真正的操作系统级别支持的，而是在用户空间模拟出来的异步，并且仅仅支持基于本地文件的 aio 异步操作，网络编程中的 socket 是不支持的，这也使得基于 Linux 的高性能网络程序都是使用 Reactor 方案。
@@ -440,6 +465,12 @@ schedule ————> thread ————> fiber
     using type = T;
   };
   ```
+- 定义字符串的方式：
+  ```cpp
+  char* addr;                   // 错误
+  char addr[INET_ADDRSTRLEN];   // 对
+  const char* addr;             // 错，未初始化(待验证)
+  ```
 
 ## Question
 1. 如何保证STL容器的迭代器在多线程中不会失效？如 Logger 中的 appenders 成员变量，在 log() 和 addAppender() 都会对appenders进行修改，这时 log() 中的迭代器是否会失效？
@@ -456,5 +487,10 @@ schedule ————> thread ————> fiber
               (void(myWeb::Scheduler::*)(myWeb::Fiber::ptr,pid_t))&myWeb::IOManager::schedule,
               iomanager,fiber,-1));       // hook.cc 中一例
   ```
+5. 关于 std::string::c_str() 返回的常量字符串指针的生命周期的问题：（ address.cc ）
+  - Q：为何前后两次调用，返回的指针可以指向同一地址？
+  - A：从 c_str() 获得的指针可能因以下原因而失效：（在下一次调用前，string 对象销毁或修改会导致指针失效）
+    1. 将对字符串的非常量引用传递给任何标准库函数
+    2. 在string上调用非常量成员函数，但不包括operator[]，at()，front()，back()，begin()，rbegin()和end()。
 
 

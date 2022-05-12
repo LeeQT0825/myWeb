@@ -66,5 +66,10 @@ add_executable(test_iomanager tests/test_iomanager.cc)
 add_dependencies(test_iomanager code)
 target_link_libraries(test_iomanager ${LIBLIB})
 
+# 测试Socket API的可执行文件
+add_executable(test_socket tests/test_socket.cc)      
+add_dependencies(test_socket code)
+target_link_libraries(test_socket ${LIBLIB})
+
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径
