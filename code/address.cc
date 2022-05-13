@@ -7,10 +7,10 @@
 
 namespace myWeb{
 
-// 获取子网掩码(大端),bits：掩码位数
+// 获取子网掩码(大端),prefix_len：掩码位数
 template<typename T>
-static T CreateMask(uint32_t bits){
-    return (1<<bits)-1;
+static T CreateMask(uint32_t prefix_len){
+    return (1<<prefix_len)-1;
 }
 
 // 计算二进制数中有多少个1
@@ -50,13 +50,13 @@ bool Address::Lookup(std::vector<Address::ptr>& addrs,
     addrinfo hints,*result,*next;
     bzero(&hints,sizeof(addrinfo));
     hints.ai_family=family;
-    hints.ai_socktype=type;
+    hints.ai_socktype=type;     // 如果为0，则会输出三种type
     hints.ai_protocol=protocol;
     hints.ai_canonname=NULL;
     hints.ai_addr=NULL;
     hints.ai_next=NULL;
 
-    std::string node;                       // 服务名称
+    std::string node;                       // 主机号
     const char* service=nullptr;            // 服务名称字符串
 
     // IPv6
@@ -85,9 +85,10 @@ bool Address::Lookup(std::vector<Address::ptr>& addrs,
         node=hostname;
     }
 
-    int error=getaddrinfo(hostname.c_str(),service,&hints,&result);
+    int error=getaddrinfo(node.c_str(),service,&hints,&result);
     if(error){
-        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"Address Lookup(): errno: "<<errno<<" --- "<<strerror(errno);
+        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"Address Lookup():\n error: "<<error<<" --- "<<gai_strerror(error)
+                                            <<"\n errno: "<<errno<<" --- "<<strerror(errno);
         return false;
     }
 
@@ -123,7 +124,7 @@ bool Address::getInterfaceAddress(std::multimap<std::string,std::pair<Address::p
                 {
                     addr=Create_addr(next->ifa_addr,sizeof(sockaddr_in));
                     uint32_t net_mask=((sockaddr_in*)next->ifa_netmask)->sin_addr.s_addr;
-                    prefix_len=CountBytes(net_mask);
+                    prefix_len=CountBytes(net_mask);    // 掩码长度
                 }
                 break;
             case AF_INET6:
@@ -196,10 +197,10 @@ IP_Address::ptr IP_Address::Create_addr(const char* address,uint16_t port){
     hints.ai_family=AF_INET;
     hints.ai_flags=AI_NUMERICHOST;      // 指定hostname必须是字符串表示的IP地址，避免DNS查询
 
-    int err=getaddrinfo(address,NULL,&hints,&result);
-    if(err){
-        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"IP Create_addr( "<<address<<" , "
-                                            <<port<<" ): errno: "<<errno<<" --- "<<strerror(errno);
+    int error=getaddrinfo(address,NULL,&hints,&result);
+    if(error){
+        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"IP_Address Create_addr():\n error: "<<error<<" --- "<<gai_strerror(error)
+                                            <<"\n errno: "<<errno<<" --- "<<strerror(errno);
         return nullptr;
     }
 

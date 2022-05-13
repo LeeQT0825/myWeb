@@ -360,7 +360,33 @@ schedule ————> thread ————> fiber
   - service：既可以传入**服务名**，又可以传入字符串表示的十进制端口号。
   - hints：提示信息
   - result：链表，用以存储返回结果
-- 
+### socket套接字类
+#### 实现逻辑
+- 创建新的 socketfd 的途径：
+  1. 通过 socket() 返回一个新的 socketfd 。
+  2. 通过 accept() 返回一个新的 connfd 。
+  所以创建 mySocket 类的场景：
+    - 先构造一个类对象，再调用 newSocket() 创建新的 socketfd 。
+    - 通过 Init() 加入一个已经创建好的 connfd 。
+#### 相关要点
+- Nagle算法：
+  - Nagle算法 主要是避免发送小的数据包，要求 TCP 连接上最多只能有一个未被确认的小分组，在该分组的确认到达之前不能发送其他的小分组。相反，TCP 收集这些少量的小分组，并在确认到来时以一个分组的方式发出去。
+  ```cpp
+  // 伪代码
+  if there is new data to send
+    if the window size >= MSS and available data is >= MSS
+      send complete MSS segment now
+    else
+      if there is unconfirmed data still in the pipe
+        enqueue data in the buffer until an acknowledge is received
+      else
+        send data immediately
+      end if
+    end if
+  end if
+  ```
+  - 禁用Nagle算法：当你的应用不是连续请求+应答的模型的时候，而是需要实时的单项的发送数据并及时获取响应，这种case就明显不太适合Nagle算法，明显有delay的（粘包）。（ IPPROTO_TCP level中的 TCP_NODELAY 选项）
+
 #### IPv4
 - INADDR_ANY 宏((in_addr_t) 0x00000000)：
   在Server端bind本机IP地址和端口的时候，有些程序会使用INADDR_ANY这个地址来取代本机地址。这个宏能够让程序员在不知道本机IP地址的情况下，使用它来代表本机所有接口的IP地址。也就是说，使用这个宏作为监听地址的话，不管本机有多少个接口，socket都会监听。
@@ -471,6 +497,7 @@ schedule ————> thread ————> fiber
   char addr[INET_ADDRSTRLEN];   // 对
   const char* addr;             // 错，未初始化(待验证)
   ```
+- 在类中调用与类成员函数同名的系统调用时，函数前面要加 “::” 以表示系统函数
 
 ## Question
 1. 如何保证STL容器的迭代器在多线程中不会失效？如 Logger 中的 appenders 成员变量，在 log() 和 addAppender() 都会对appenders进行修改，这时 log() 中的迭代器是否会失效？

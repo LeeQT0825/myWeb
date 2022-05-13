@@ -1,16 +1,24 @@
-[INFO]	2022-05-12 00:06:25 45949 0 </home/lee/projects/VScode/myProject/code/hook.cc:75>	tcp_connect_timeout changed from 5000 to 3000 
-[INFO]	2022-05-12 00:06:25 45949 0 </home/lee/projects/VScode/myProject/code/hook.cc:235>	connect_timeout 
-[INFO]	2022-05-12 00:06:25 45949 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	0 -- 180.101.49.11:0 
-[INFO]	2022-05-12 00:06:25 45949 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	1 -- 180.101.49.11:0 
-[INFO]	2022-05-12 00:06:25 45949 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	2 -- 180.101.49.11:0 
-[INFO]	2022-05-12 00:06:25 45949 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	3 -- 180.101.49.12:0 
-[INFO]	2022-05-12 00:06:25 45949 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	4 -- 180.101.49.12:0 
-[INFO]	2022-05-12 00:06:25 45949 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	5 -- 180.101.49.12:0 
-[INFO]	2022-05-12 00:08:16 46161 0 </home/lee/projects/VScode/myProject/code/hook.cc:75>	tcp_connect_timeout changed from 5000 to 3000 
-[INFO]	2022-05-12 00:08:16 46161 0 </home/lee/projects/VScode/myProject/code/hook.cc:235>	connect_timeout 
-[INFO]	2022-05-12 00:08:16 46161 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	0 -- 180.101.49.12:0 
-[INFO]	2022-05-12 00:08:16 46161 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	1 -- 180.101.49.12:0 
-[INFO]	2022-05-12 00:08:16 46161 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	2 -- 180.101.49.12:0 
-[INFO]	2022-05-12 00:08:16 46161 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	3 -- 180.101.49.11:0 
-[INFO]	2022-05-12 00:08:16 46161 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	4 -- 180.101.49.11:0 
-[INFO]	2022-05-12 00:08:16 46161 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	5 -- 180.101.49.11:0 
+[INFO]	2022-05-12 10:13:35 8434 0 </home/lee/projects/VScode/myProject/code/hook.cc:75>	tcp_connect_timeout changed from 5000 to 3000 
+[INFO]	2022-05-12 10:13:35 8434 0 </home/lee/projects/VScode/myProject/code/hook.cc:235>	connect_timeout 
+[INFO]	2022-05-12 10:13:35 8434 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	0 -- 180.101.49.12:21 
+[INFO]	2022-05-12 10:13:35 8434 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	1 -- 180.101.49.11:21 
+[INFO]	2022-05-12 10:14:28 8515 0 </home/lee/projects/VScode/myProject/code/hook.cc:75>	tcp_connect_timeout changed from 5000 to 3000 
+[INFO]	2022-05-12 10:14:28 8515 0 </home/lee/projects/VScode/myProject/code/hook.cc:235>	connect_timeout 
+[ERROR]	2022-05-12 10:14:28 8515 0 </home/lee/projects/VScode/myProject/code/address.cc:90>	Address Lookup():
+ error: -8 --- Servname not supported for ai_socktype
+ errno: 2 --- No such file or directory 
+[ERROR]	2022-05-12 10:14:28 8515 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:12>	Lookup error 
+[INFO]	2022-05-12 10:21:45 8763 0 </home/lee/projects/VScode/myProject/code/hook.cc:75>	tcp_connect_timeout changed from 5000 to 3000 
+[INFO]	2022-05-12 10:21:45 8763 0 </home/lee/projects/VScode/myProject/code/hook.cc:235>	connect_timeout 
+[INFO]	2022-05-12 10:21:45 8763 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	0 -- 180.101.49.12:80 
+[INFO]	2022-05-12 10:21:45 8763 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:17>	1 -- 180.101.49.11:80 
+[INFO]	2022-05-12 10:35:57 9171 0 </home/lee/projects/VScode/myProject/code/hook.cc:75>	tcp_connect_timeout changed from 5000 to 3000 
+[INFO]	2022-05-12 10:35:57 9171 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:30>	docker0 --- 172.17.0.1:0 -- 16 
+[INFO]	2022-05-12 10:35:57 9171 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:30>	lo --- 127.0.0.1:0 -- 8 
+[INFO]	2022-05-12 10:35:57 9171 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:30>	wlp3s0 --- 192.168.8.106:0 -- 24 
+[INFO]	2022-05-12 10:43:07 9343 0 </home/lee/projects/VScode/myProject/code/hook.cc:75>	tcp_connect_timeout changed from 5000 to 3000 
+[ERROR]	2022-05-12 10:43:07 9343 0 </home/lee/projects/VScode/myProject/code/address.cc:202>	IP_Address Create_addr():
+ error: -2 --- Name or service not known
+ errno: 0 --- Success 
+[INFO]	2022-05-12 10:44:03 9438 0 </home/lee/projects/VScode/myProject/code/hook.cc:75>	tcp_connect_timeout changed from 5000 to 3000 
+[ERROR]	2022-05-12 10:44:03 9438 0 </home/lee/projects/VScode/myProject/tests/test_socket.cc:37>	180.101.49.11:80 

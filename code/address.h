@@ -24,10 +24,15 @@ public:
 
     // 已知地址结构，创建地址
     static Address::ptr Create_addr(const sockaddr* address,socklen_t len);
-    // 根据主机名、服务名(或字符串表示的地址)创建地址
+    /* 根据主机名、服务名(或字符串表示的地址)创建地址 
+        hostname: 主机号:服务号
+        family: 协议族
+        type: 服务类型（SOCK_STREAM 或 SOCK_DGRAM）--- 为0则输出全部服务类型
+        protocol: 默认为0 */
     static bool Lookup(std::vector<Address::ptr>& addrs,const std::string& hostname,
                 int family=AF_INET, int type=0,int protocol=0);
-    // 根据网卡获取地址
+    /* 根据网卡获取地址
+        result: <网卡名称，<地址类指针，掩码长度> > */
     static bool getInterfaceAddress(std::multimap<std::string,std::pair<Address::ptr,uint32_t> >& result,
                 int family=AF_INET);
     // 获取协议族
@@ -53,7 +58,8 @@ class IP_Address:public Address{
 public:
     typedef std::shared_ptr<IP_Address> ptr;
 
-    /* 创建地址(获取本地地址信息) 
+    /* 创建地址(获取本地地址信息)
+        address: 仅支持字符串表示的IP地址
         目前仅支持IPv4，后期可以修改 hints.ai_family 参数 */
     static IP_Address::ptr Create_addr(const char* address,uint16_t port=0);
 
