@@ -42,7 +42,16 @@ void test_listen(const char* ip,int port){
 
     if(connfd>=0){
         INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"accept success: "<<connfd;
-        myWeb::IOManager::getThis()->schedule(std::bind(test_rd_wr,connfd));
+        sockaddr_in conn_addr;
+        socklen_t conn_len=sizeof(conn_addr);
+        ret=getpeername(connfd,(sockaddr*)&conn_addr,&conn_len);
+        if(!ret){
+            char str_ip[INET_ADDRSTRLEN];
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<inet_ntop(AF_INET,&conn_addr.sin_addr,str_ip,conn_len)
+                                                <<":"<<ntohs(conn_addr.sin_port);
+        }
+        
+        // myWeb::IOManager::getThis()->schedule(std::bind(test_rd_wr,connfd));
         sleep(15);
         // 关闭
         ret=shutdown(connfd,SHUT_RDWR);
@@ -101,9 +110,11 @@ void test_rd_wr(int fd){
     std::string recv_buf;
     recv_buf.resize(4096);
     ret=recv(fd,&recv_buf[0],sizeof(recv_buf),0);
-    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"recv ret= "<<ret<<" errno= "<<errno;
-
-    if(ret<0)   return;
+    
+    if(ret<0){
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"recv ret= "<<ret<<" errno= "<<errno;
+        return;
+    }   
 
     recv_buf.resize(ret);
     INLOG_INFO(MYWEB_NAMED_LOG("system"))<<recv_buf;
@@ -130,12 +141,12 @@ void set_nonBlock(int fd){
 }
 
 int main(int argc,char** argv){
-    // if(argc<=2){
-    //     std::cout<<"usage: "<<basename(argv[0])<<" IP_addr Port_num"<<std::endl;
-    //     return 1;
-    // }
-    // const char* ip=argv[1];
-    // int port=atoi(argv[2]);
+    if(argc<=2){
+        std::cout<<"usage: "<<basename(argv[0])<<" IP_addr Port_num"<<std::endl;
+        return 1;
+    }
+    const char* ip=argv[1];
+    int port=atoi(argv[2]);
 
     LOADYAML;
 
@@ -143,8 +154,9 @@ int main(int argc,char** argv){
     
     // test_Timer(iomanager);
 
-    // iomanager->schedule(std::bind(test_listen,ip,port));
-    iomanager->schedule(std::bind(test_connect,"180.101.49.12",80));
+    iomanager->schedule(std::bind(test_listen,ip,port));
+
+    // iomanager->schedule(std::bind(test_connect,"180.101.49.12",80));
 
     // sleep(10);
     return 0;

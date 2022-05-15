@@ -459,6 +459,7 @@ schedule ————> thread ————> fiber
       不可以，这样会造成2个非共享的share_ptr指向一个对象，最后造成2次析构该对象。
   - 所以通过 shared_from_this() 传递的智能指针与外界指向该对象的智能指针是**共享**的。
 - 结构体 stuct 要重载构造函数的话，一定要给出默认构造函数。
+- 结构体可以用参数列表初始化，参数列表中顺序写入成员变量的初始值。
 - int ftcnl(int fd,int cmd,...) cmd 参数表示执行何种类型的操作。其中有 F_SETFD（设置fd的标志）和 F_SETFL（设置fd的状态标志）。如何理解 **fd的标志** 和 **fd的状态标志** ：
   - fd的标志：是文件描述符本身的状态标志
   - fd的状态标志：是文件描述符所指向的文件的状态标志
@@ -495,7 +496,7 @@ schedule ————> thread ————> fiber
   ```cpp
   char* addr;                   // 错误
   char addr[INET_ADDRSTRLEN];   // 对
-  const char* addr;             // 错，未初始化(待验证)
+  const char* addr;             // 错，底层常量,指向变量只读
   ```
 - 在类中调用与类成员函数同名的系统调用时，函数前面要加 “::” 以表示系统函数
 

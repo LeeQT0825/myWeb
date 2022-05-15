@@ -72,7 +72,7 @@ struct _HookIniter{
         myWeb::hook_init();
         g_connect_timeout_MS=config_tcp_connect_timeout->getVal();
         config_tcp_connect_timeout->addListener([](const uint64_t& oldval,const uint64_t& newval){
-            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tcp_connect_timeout changed from "<<oldval<<" to "<<newval;
+            // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tcp_connect_timeout changed from "<<oldval<<" to "<<newval;
             g_connect_timeout_MS=newval;
         });
     }
@@ -230,7 +230,7 @@ int socket(int domain, int type, int protocol){
     return fd;
 }
 
-// 超时连接
+// 连接(定时器)
 int connect_timeout(int sockfd, const struct sockaddr *addr, socklen_t addrlen,uint64_t timeout_ms){
     INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"connect_timeout";
     if(!myWeb::t_hook_enable){

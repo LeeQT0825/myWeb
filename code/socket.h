@@ -52,9 +52,9 @@ public:
     // 获取接收超时时间
     uint64_t getRecvTimeout();
     // 设置发送超时时间
-    void setSendTimeout(uint64_t timeout);
+    void setSendTimeout(uint64_t timeout_ms);
     // 设置发送超时时间
-    void setRecvTimeout(uint64_t timeout);
+    void setRecvTimeout(uint64_t timeout_ms);
     // 获取socket选项
     bool getOption(int level,int opt,void* result,socklen_t* len);
     // 设置socket选项
@@ -66,7 +66,7 @@ public:
     virtual bool listen(int backlog=SOMAXCONN);
     // 接收socket连接
     virtual mySocket::ptr accept();
-    // 连接地址
+    // 连接地址（timeout_ms=-1时，禁用定时器）
     virtual bool connect(const Address::ptr addr,uint64_t timeout_ms=-1);
     // 重连
     virtual bool reconnect(uint64_t timeout_ms=-1);
@@ -76,19 +76,19 @@ public:
     // TCP 写数据
     virtual int send(const void* buffer,size_t length,int flag=0);
     // TCP 写数据（集中写）
-    virtual int send(const iovec* buffers,size_t iov_len,int flad=0);
+    virtual int send(const iovec* buffers,size_t iov_len,int flag=0);
     // UDP 写数据
     virtual int sendto(const void* buffer,size_t length,const Address::ptr dst,int flag=0);
     // UDP 写数据（集中写）
-    virtual int sendto(const iovec* buffers,size_t iov_len,const Address::ptr dst,int flad=0);
+    virtual int sendto(const iovec* buffers,size_t iov_len,const Address::ptr dst,int flag=0);
     // TCP 读数据
     virtual int recv(void* buffer,size_t length,int flag=0);
     // TCP 读数据（分散读）
-    virtual int recv(iovec* buffers,size_t iov_len,int flad=0);
+    virtual int recv(iovec* buffers,size_t iov_len,int flag=0);
     // UDP 读数据
     virtual int recvfrom(void* buffer,size_t length,Address::ptr src,int flag=0);
     // UDP 读数据（分散读）
-    virtual int recvfrom(iovec* buffers,size_t iov_len,Address::ptr src,int flad=0);
+    virtual int recvfrom(iovec* buffers,size_t iov_len,Address::ptr src,int flag=0);
 
     // 获取socket句柄
     int getSocketfd() const {
@@ -106,6 +106,10 @@ public:
     int getProtocol() const {
         return m_protocol;
     }
+    // 获取本端地址
+    Address::ptr getSrcAddr();
+    // 获取对端地址
+    Address::ptr getDstAddr();
     // 是否连接
     bool isConnected() const {
         return m_isConnected;
@@ -116,7 +120,7 @@ public:
     int getError();
 
     // 转存信息
-    virtual std::ostream& sockDump(std::ostream& os) const ;
+    virtual std::ostream& sockinfoDump(std::ostream& os) const ;
     // 输出字符串
     virtual std::string toString() const;
 
@@ -130,14 +134,12 @@ public:
     bool CancelAll();
 
 protected:
-    // 初始化socket
-    void InitSocket();
+    // socket设置初始化
+    void Init_setSocket();
     // 创建socket
     void newSocket();
-
-    // 初始化
+    // 创建一个新的mySocket对象(accept返回一个新的connfd)时初始化
     virtual bool Init(int socket);
-
 
 private:
     // 不可被复制
@@ -153,7 +155,7 @@ private:
     int m_type;
     // 具体协议（默认为0）
     int m_protocol=0;
-    // 连接状态
+    // 连接状态（connfd：建立连接后为true； socketfd：创建即是true； AF_UNIX：默认为true）
     bool m_isConnected;
     // 本端地址
     Address::ptr m_srcaddr;

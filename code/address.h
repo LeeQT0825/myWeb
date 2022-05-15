@@ -40,6 +40,8 @@ public:
 
     // 获取地址
     virtual const sockaddr* getAddr() const =0;
+    // 获取地址
+    virtual sockaddr* getAddr()=0;
     // 获取地址长度
     virtual socklen_t getAddrlen() const =0;
     // 地址序列化（网络字节序转为可读序列）
@@ -89,6 +91,8 @@ public:
 
     // 获取地址
     const sockaddr* getAddr() const override;
+    // 获取地址
+    sockaddr* getAddr();
     // 获取地址长度
     socklen_t getAddrlen() const override;
     // 地址序列化（网络字节序转为可读序列）

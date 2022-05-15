@@ -69,7 +69,7 @@ extern ioctl_func ioctl_f;
 extern getsockopt_func getsockopt_f;
 extern setsockopt_func setsockopt_f;
 
-
+extern int connect_timeout(int sockfd, const struct sockaddr *addr, socklen_t addrlen,uint64_t timeout_ms);
 }
 
 

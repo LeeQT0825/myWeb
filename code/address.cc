@@ -243,6 +243,9 @@ IPv4_Address::IPv4_Address(const sockaddr_in& address){
 const sockaddr* IPv4_Address::getAddr() const{
     return (const sockaddr*)&m_addr;
 }
+sockaddr* IPv4_Address::getAddr(){
+    return (sockaddr*)&m_addr;
+}
 socklen_t IPv4_Address::getAddrlen() const{
     return sizeof(m_addr);
 }
