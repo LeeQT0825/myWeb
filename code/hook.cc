@@ -232,7 +232,7 @@ int socket(int domain, int type, int protocol){
 
 // 连接(定时器)
 int connect_timeout(int sockfd, const struct sockaddr *addr, socklen_t addrlen,uint64_t timeout_ms){
-    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"connect_timeout";
+    // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"connect_timeout";
     if(!myWeb::t_hook_enable){
         return connect_f(sockfd,addr,addrlen);
     }

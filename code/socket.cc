@@ -187,6 +187,7 @@ mySocket::ptr mySocket::accept(){
     return nullptr;
 }
 bool mySocket::connect(const Address::ptr addr,uint64_t timeout_ms){
+    // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<myWeb::BacktraceToString(10);
     // 检查 m_sockfd 是否合法
     if(!isValid()){
         newSocket();
@@ -196,7 +197,7 @@ bool mySocket::connect(const Address::ptr addr,uint64_t timeout_ms){
     }
     // 检查 m_family 是否一致
     if(addr->getFamily()!=m_family){
-        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"::bind() sockaddr_in.so_family is invalid";
+        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"::connect() sockaddr_in.so_family is invalid";
         return false;
     }
 
@@ -207,6 +208,7 @@ bool mySocket::connect(const Address::ptr addr,uint64_t timeout_ms){
             close();
             return false;
         }
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"connect success";
     }else{
         if(::connect_timeout(m_sockfd,addr->getAddr(),addr->getAddrlen(),timeout_ms)){
             INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"::connect(): errno: "<<errno<<" --- "<<strerror(errno);

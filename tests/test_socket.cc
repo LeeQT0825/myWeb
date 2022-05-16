@@ -1,5 +1,6 @@
 #include <vector>
 #include <map>
+#include <string>
 #include "../code/myweb.h"
 #include "../code/address.h"
 #include "../code/socket.h"
@@ -7,7 +8,6 @@
 void test_server(){
     std::multimap<std::string,std::pair<myWeb::Address::ptr,uint32_t> > results;
     myWeb::Address::getInterfaceAddress(results);
-    // myWeb::IOManager* iomanager=myWeb::IOManager::getThis();
 
     auto iter=results.find("wlp3s0");
     if(iter!=results.end()){
@@ -37,6 +37,48 @@ void test_server(){
         }
         
     } 
+}
+
+void test_client(const char* ip){
+    std::multimap<std::string,std::pair<myWeb::Address::ptr,uint32_t> > results;
+    myWeb::Address::getInterfaceAddress(results);
+
+    auto iter=results.find("wlp3s0");
+    if(iter!=results.end()){
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"here";
+        std::vector<myWeb::Address::ptr> vec;
+        myWeb::Address::ptr dst_addr;
+
+        myWeb::Address::Lookup(vec,ip);
+        if(!vec.empty()){
+            dst_addr=vec[0];
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"get dst_addr: "<<dst_addr->toString();
+        }
+
+        myWeb::mySocket::ptr sock=myWeb::mySocket::CreateTCPsocket4();
+        if(sock->connect(dst_addr)){
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<sock->toString();
+
+            // const char send_buff[]="GET / HTTP/1.1\r\n\r\n";        // 注意写法
+            std::string send_buff="GET / HTTP/1.1\r\n\r\n"; 
+            int ret=sock->send(&send_buff[0],sizeof(send_buff));
+            MYWEB_ASSERT_2(ret!=-1,"send failed");
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"send success";
+
+            std::string recv_buff;
+            recv_buff.resize(4096);
+            ret=sock->recv(&recv_buff[0],recv_buff.size());
+            // char recv_buff[4096];
+            // ret=sock->recv(recv_buff,sizeof(recv_buff),MSG_WAITALL);
+            MYWEB_ASSERT_2(ret!=-1,"recv failed");
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"recv success";
+
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"\n"<<recv_buff;
+            // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<recv_io;
+        }
+        sock->close();
+             
+    }
 }
 
 void test_Lookup(){
@@ -80,7 +122,7 @@ int main(int argc,char** argv){
     //     return 1;
     // }
 
-    // const char* ip=argv[1];
+    const char* ip=argv[1];
     // uint16_t port=atoi(argv[2]);
 
     myWeb::IOManager::ptr iomanager(new myWeb::IOManager(5));
@@ -91,7 +133,9 @@ int main(int argc,char** argv){
 
     // test_interface();
 
-    iomanager->schedule(std::bind(test_server));
+    // iomanager->schedule(std::bind(test_server));
+
+    iomanager->schedule(std::bind(test_client,ip));
 
     return 0;
 }

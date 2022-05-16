@@ -141,12 +141,12 @@ void set_nonBlock(int fd){
 }
 
 int main(int argc,char** argv){
-    if(argc<=2){
-        std::cout<<"usage: "<<basename(argv[0])<<" IP_addr Port_num"<<std::endl;
-        return 1;
-    }
-    const char* ip=argv[1];
-    int port=atoi(argv[2]);
+    // if(argc<=2){
+    //     std::cout<<"usage: "<<basename(argv[0])<<" IP_addr Port_num"<<std::endl;
+    //     return 1;
+    // }
+    // const char* ip=argv[1];
+    // int port=atoi(argv[2]);
 
     LOADYAML;
 
@@ -154,9 +154,9 @@ int main(int argc,char** argv){
     
     // test_Timer(iomanager);
 
-    iomanager->schedule(std::bind(test_listen,ip,port));
+    // iomanager->schedule(std::bind(test_listen,ip,port));
 
-    // iomanager->schedule(std::bind(test_connect,"180.101.49.12",80));
+    iomanager->schedule(std::bind(test_connect,"180.101.49.12",80));
 
     // sleep(10);
     return 0;
