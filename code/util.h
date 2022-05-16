@@ -10,15 +10,21 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <byteswap.h>
 
 #ifndef __MYWEB_UTIL_H__
 #define __MYWEB_UTIL_H__
+// 字节序
+#define MYWEB_LITTLE_ENDIAN 1
+#define MYWEB_BIG_ENDIAN 2
 namespace myWeb{
 
 // 获取当前的系统线程号
 pid_t GetThreadID();
 // 获取协程ID
 uint64_t GetFiberID();
+
+
 
 // 文件相关
 class FileUtils{
@@ -35,12 +41,40 @@ public:
 
 std::string BacktraceToString(int size,int skip=1,const std::string& prefix="\n---");
 
+
+
 // 时间相关ms
 // 毫秒
 uint64_t GetCurrentMS();
 // 微秒
 uint64_t GetCurrentUS();
 
+
+
+// 字节序转化
+
+template<typename T>
+typename std::enable_if<sizeof(T)==sizeof(uint16_t),T>::type ByteSwap(T val){
+    return (T)bswap_16(val);
+}
+
+template<typename T>
+typename std::enable_if<sizeof(T)==sizeof(uint32_t),T>::type ByteSwap(T val){
+    return (T)bswap_32(val);
+}
+
+template<typename T>
+typename std::enable_if<sizeof(T)==sizeof(uint64_t),T>::type ByteSwap(T val){
+    return (T)bswap_64(val);
+}
+
+
+// 判断当前系统的字节序
+#if BYTE_ORDER == BIG_ENDIAN
+#define MYWEB_ORDER MYWEB_BIG_ENDIAN
+#else
+#define MYWEB_ORDER MYWEB_LITTLE_ENDIAN
+#endif
 
 }
 #endif
