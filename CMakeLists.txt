@@ -24,7 +24,8 @@ set(LIB_SCR code/log.cc
             code/hook.cc
             code/fdmanager.cc
             code/address.cc
-            code/socket.cc)
+            code/socket.cc
+            code/bytearray.cc)
 
 add_library(code SHARED ${LIB_SCR})     # 通过变量LIB-SCR生成库名为libcode.so的动态库
 set(LIBLIB  code
@@ -71,6 +72,11 @@ target_link_libraries(test_iomanager ${LIBLIB})
 add_executable(test_socket tests/test_socket.cc)      
 add_dependencies(test_socket code)
 target_link_libraries(test_socket ${LIBLIB})
+
+# 测试序列化的可执行文件
+add_executable(test_bytearray tests/test_bytearray.cc)      
+add_dependencies(test_bytearray code)
+target_link_libraries(test_bytearray ${LIBLIB})
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径

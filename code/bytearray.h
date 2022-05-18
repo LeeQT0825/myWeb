@@ -4,8 +4,11 @@
 #include <memory>
 #include <arpa/inet.h>
 #include <string>
+#include <vector>
 #include <unistd.h>
 #include <stdint.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 
 namespace myWeb{
 
@@ -97,25 +100,43 @@ public:
     // 设置字节序
     void setEndian(bool islittle);
 
-    // 写入size长度的数据
+    // 向节点中写入size长度的数据
     void write(const void* src_buf,size_t size);
-    // 读取size长度的数据
+    // 从节点中读取size长度的数据（使用前应现将m_position移至数据头位置）
     void read(void* dst_buf,size_t size);
+    // 暂读，不改变m_position位置
+    void read(void* dst_buf,size_t size,size_t position) const;
+
+    // 将可读取的缓存转存为iovec数组，返回读取的字节长度
+    size_t getReadBuffs(std::vector<iovec>& dst_buffers,size_t len=~0ul) const ;
+    // 将可读取的缓存转存为iovec数组，返回读取的字节长度（指定起始位置）
+    size_t getReadBuffs(std::vector<iovec>& dst_buffers,size_t len,size_t start_pos) const ;
+    // 获取可写的缓存，转存为iovec数组，返回写入的字节长度
+    size_t getWriteBuffs(std::vector<iovec>& src_buffers,size_t len);
 
     // 获取当前进行位置
     size_t getPosition() const {return m_position;}
     // 设置当前进行位置
     void setPosition(size_t pos);
 
-    // 写入文件
-    bool writeToFile(const std::string& filename);
-    // 从文件读
-    bool readFromFile(const std::string& filename);
+    // 将节点内存中可读数据写入文件
+    bool readToFile(const std::string& filename);
+    // 从文件读数据到节点内存中
+    bool writeFromFile(const std::string& filename);
 
     // 获取基础结点大小
     size_t getNodeSize() const {return m_NodeSize;}
+    // 获取结点数量
+    size_t getNodeCount() const ;
     // 获取剩余可读数据大小
-    size_t getRestRdSize() const {return m_size-m_position;}
+    size_t getRestRdSize() const {return m_datsize-m_position;}
+    // 获取当前数据大小
+    size_t getSize() const {return m_datsize;}
+
+    // 转为字符串
+    std::string toString() const ;
+    // 转为十六进制字符串
+    std::string toHexString() const ;
 
 private:
     // 扩容
@@ -126,12 +147,12 @@ private:
 private:
     // 每一个Node有多大
     size_t m_NodeSize;
-    // 记录当前读（写）的位置
+    // 记录当前读（写）的位置（可写位置）
     size_t m_position;
     // 分配的总容量
     size_t m_capacity;
-    // 当前数据大小
-    size_t m_size;
+    // 当前已读（写）数据大小
+    size_t m_datsize;
     // 字节序（默认大端）
     int8_t m_endian;
 

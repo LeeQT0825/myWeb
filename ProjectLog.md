@@ -92,7 +92,7 @@
      - static_cast 进行上行转换（派生类->基类）时是安全的，而下行转换时是不安全的。
      - dynamic_cast 进行上行转换时和 static_cast 效果一样，在进行下行转换时会先进行类型检查，所以比 static_cast 更安全。
      - dynamic_pointer_cast 与 dynamic_cast 用法类似。当指针是智能指针时候，向下转换，用 dynamic_cast 则编译不能通过，此时需要使用 dynamic_pointer_cast。
-   - typeid是C++的关键字之一，等同于sizeof这类的操作符。typeid操作符的返回结果是名为type_info的标准库类型的对象的引用（在头文件 *\<typeinfo\>* 中定义，稍后我们看一下vs和gcc库里面的源码），它的表达式有下图两种形式。
+   - typeid是C++的关键字之一，等同于sizeof这类的操作符。typeid操作符的返回结果是名为type_info的标准库类型的对象的引用（在头文件 *\<typeinfo\>* 中定义）
 #### 回调
 &emsp;当一个配置发生修改的时候，可以反向通知调用它的代码。实现方法：
    - 配置的事件机制：
@@ -437,8 +437,11 @@ schedule ————> thread ————> fiber
        - 第二个优势是：这种数据可以直接持久化到磁盘，从磁盘读取后也可以通过这个协议解析出来。
 ### 实现逻辑
 - 数据压缩：（全是位运算，，哭了）
-  - 正数：protobuf
+  - 正数：protobuf---每个字节的高阶位为标志位，标志是否还有未表示的字节；所以只有 7 位表示数据。
   - 负数：zigzag
+- 读写：针对指向内存空间的节点链表进行读写。
+  - 固定长度读写：考虑字节序的转换
+  - 可变长度（可压缩）读写：逐个字节的读写，不需要考虑字节序的问题了。
 
 ## 知识碎片
 - &emsp;在 Linux 下的异步 I/O 是不完善的， aio 系列函数是由 POSIX 定义的异步操作接口，不是真正的操作系统级别支持的，而是在用户空间模拟出来的异步，并且仅仅支持基于本地文件的 aio 异步操作，网络编程中的 socket 是不支持的，这也使得基于 Linux 的高性能网络程序都是使用 Reactor 方案。
@@ -544,5 +547,11 @@ schedule ————> thread ————> fiber
   - A：从 c_str() 获得的指针可能因以下原因而失效：（在下一次调用前，string 对象销毁或修改会导致指针失效）
     1. 将对字符串的非常量引用传递给任何标准库函数
     2. 在string上调用非常量成员函数，但不包括operator[]，at()，front()，back()，begin()，rbegin()和end()。
+6. 段错误 Debug 可真tm难
+7. ```cpp
+  // 出现错误：comparison with string literal results in unspecified behavior
+  if(typeid(type).name()=="float" || typeid(type).name()=="double")   
+   ```
+  原因：在C ++中，== 仅在内部为原始类型（如int、char、bool…）实现，而 const char* 不是原始类型，因此const char* 和字符串会作为两个char* 比较，即两个指针的比较，而这是两个不同的指针，“connection”== nextElement->Name()不可能为真。
 
 
