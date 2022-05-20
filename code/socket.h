@@ -74,21 +74,21 @@ public:
     virtual bool close();
 
     // TCP 写数据
-    virtual int send(const void* buffer,size_t length,int flag=0);
+    virtual int send(const void* src_buffer,size_t length,int flag=0);
     // TCP 写数据（集中写）
-    virtual int send(const iovec* buffers,size_t iov_len,int flag=0);
+    virtual int send(const iovec* src_buffer,size_t iov_len,int flag=0);
     // UDP 写数据
-    virtual int sendto(const void* buffer,size_t length,const Address::ptr dst,int flag=0);
+    virtual int sendto(const void* src_buffer,size_t length,const Address::ptr dst,int flag=0);
     // UDP 写数据（集中写）
-    virtual int sendto(const iovec* buffers,size_t iov_len,const Address::ptr dst,int flag=0);
+    virtual int sendto(const iovec* src_buffer,size_t iov_len,const Address::ptr dst,int flag=0);
     // TCP 读数据
-    virtual int recv(void* buffer,size_t length,int flag=0);
+    virtual int recv(void* dst_buffer,size_t length,int flag=0);
     // TCP 读数据（分散读）
-    virtual int recv(iovec* buffers,size_t iov_len,int flag=0);
+    virtual int recv(iovec* dst_buffer,size_t iov_len,int flag=0);
     // UDP 读数据
-    virtual int recvfrom(void* buffer,size_t length,Address::ptr src,int flag=0);
+    virtual int recvfrom(void* dst_buffer,size_t length,Address::ptr src,int flag=0);
     // UDP 读数据（分散读）
-    virtual int recvfrom(iovec* buffers,size_t iov_len,Address::ptr src,int flag=0);
+    virtual int recvfrom(iovec* dst_buffer,size_t iov_len,Address::ptr src,int flag=0);
 
     // 获取socket句柄
     int getSocketfd() const {

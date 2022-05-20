@@ -241,33 +241,33 @@ bool mySocket::close(){
     }
     return true;
 }
-int mySocket::send(const void* buffer,size_t length,int flag){
+int mySocket::send(const void* src_buffer,size_t length,int flag){
     if(isConnected()){
-        return ::send(m_sockfd,buffer,length,flag);
+        return ::send(m_sockfd,src_buffer,length,flag);
     }
     return -1;
 }
-int mySocket::send(const iovec* buffers,size_t iov_len,int flag){
+int mySocket::send(const iovec* src_buffer,size_t iov_len,int flag){
     if(isConnected()){
         msghdr msg;
         memset(&msg,0,sizeof(msg));
-        msg.msg_iov=(iovec*)buffers;
+        msg.msg_iov=(iovec*)src_buffer;
         msg.msg_iovlen=iov_len;
         return ::sendmsg(m_sockfd,&msg,flag);
     }
     return -1;
 }
-int mySocket::sendto(const void* buffer,size_t length,const Address::ptr dst,int flag){
+int mySocket::sendto(const void* src_buffer,size_t length,const Address::ptr dst,int flag){
     if(isConnected()){
-        return ::sendto(m_sockfd,buffer,length,flag,dst->getAddr(),dst->getAddrlen());
+        return ::sendto(m_sockfd,src_buffer,length,flag,dst->getAddr(),dst->getAddrlen());
     }
     return -1;
 }
-int mySocket::sendto(const iovec* buffers,size_t iov_len,const Address::ptr dst,int flag){
+int mySocket::sendto(const iovec* src_buffer,size_t iov_len,const Address::ptr dst,int flag){
     if(isConnected()){
         msghdr msg;
         memset(&msg,0,sizeof(msg));
-        msg.msg_iov=const_cast<iovec*>(buffers);
+        msg.msg_iov=const_cast<iovec*>(src_buffer);
         msg.msg_iovlen=iov_len;
         msg.msg_name=dst->getAddr();
         msg.msg_namelen=dst->getAddrlen();
@@ -275,38 +275,38 @@ int mySocket::sendto(const iovec* buffers,size_t iov_len,const Address::ptr dst,
     }
     return -1;
 }
-int mySocket::recv(void* buffer,size_t length,int flag){
+int mySocket::recv(void* dst_buffer,size_t length,int flag){
     if(isConnected()){
-        return ::recv(m_sockfd,buffer,length,flag);
+        return ::recv(m_sockfd,dst_buffer,length,flag);
     }
     return -1;
 }
-int mySocket::recv(iovec* buffers,size_t iov_len,int flag){
+int mySocket::recv(iovec* dst_buffer,size_t iov_len,int flag){
     if(isConnected()){
         msghdr msg;
         memset(&msg,0,sizeof(msg));
-        msg.msg_iov=(iovec*)buffers;
+        msg.msg_iov=(iovec*)dst_buffer;
         msg.msg_iovlen=iov_len;
         return ::recvmsg(m_sockfd,&msg,flag);
     }
     return -1;
 }
-int mySocket::recvfrom(void* buffer,size_t length,Address::ptr src,int flag){
+int mySocket::recvfrom(void* dst_buffer,size_t length,Address::ptr src,int flag){
     if(isConnected()){
         socklen_t addr_len=src->getAddrlen();
-        return ::recvfrom(m_sockfd,buffer,length,flag,src->getAddr(),&addr_len);
+        return ::recvfrom(m_sockfd,dst_buffer,length,flag,src->getAddr(),&addr_len);
     }
     return -1;
 }
-int mySocket::recvfrom(iovec* buffers,size_t iov_len,Address::ptr src,int flag){
+int mySocket::recvfrom(iovec* dst_buffer,size_t iov_len,Address::ptr src,int flag){
     if(isConnected()){
         msghdr msg;
         memset(&msg,0,sizeof(msg));
-        msg.msg_iov=(iovec*)buffers;
+        msg.msg_iov=(iovec*)dst_buffer;
         msg.msg_iovlen=iov_len;
         msg.msg_name=src->getAddr();
         msg.msg_namelen=src->getAddrlen();
-        return ::sendmsg(m_sockfd,&msg,flag);
+        return ::recvmsg(m_sockfd,&msg,flag);
     }
     return -1;
 }
@@ -356,7 +356,7 @@ bool mySocket::CancelAll(){
 void mySocket::Init_setSocket(){
     int val=1;
     // 地址复用（无 TIME_WAIT ）
-    setOption(SOL_SOCKET,SO_REUSEADDR,&val,sizeof(val));
+    setOption(SOL_SOCKET,SO_REUSEADDR,&val,sizeof(val));        // 设置 SO_REUSEADDR 应该在 bind() 之前
     if(m_type==TCP){
         // 禁用Nagle算法(应当在accept之前)
         setOption(IPPROTO_TCP,TCP_NODELAY,&val,sizeof(val));

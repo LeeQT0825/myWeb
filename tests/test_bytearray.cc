@@ -24,9 +24,11 @@ void test_val(){
     INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"write: data_size="<<ba->getSize(); \
     \
     ba->setPosition(0); \
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<ba->toString(); \
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<ba->toHexString(); \
     for(size_t i=0;i<len;++i){ \
         type v=ba->read_func(); \
-        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<i+1<<"--"<<vec[i]<<"--"<<v<<"--"<<(int)v; \
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<i+1<<"--"<<vec[i]<<"--"<<v<<"--"<<std::hex<<v; \
     } \
     INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"\n"#write_func"/"#read_func<<"("#type")\n len="<<len \
                                     <<"\n node_size="<<node_size \
@@ -34,16 +36,16 @@ void test_val(){
                                     <<"\n data_size="<<ba->getSize(); \
     }
 
-    XX(int8_t,20,writef_int8,readf_int8,1);
+    // XX(int8_t,20,writef_int8,readf_int8,1);
     // XX(uint8_t,20,writef_uint8,readf_uint8,1);
     // XX(int16_t,20,writef_int16,readf_int16,1);
     // XX(uint64_t,20,writef_uint64,readf_uint64,1);
     XX(uint64_t,20,writef_uint64,readf_uint64,3);
-    XX(float,20,write_float,read_float,1);
+    // XX(float,20,write_float,read_float,1);
     // XX(uint64_t,20,writef_uint64,readf_uint64,4);
-    XX(int64_t,20,writef_int64,readf_int64,4);
+    // XX(int64_t,20,writef_int64,readf_int64,4);
     XX(int64_t,20,writev_int64,readv_int64,1);
-    XX(uint64_t,20,writev_uint64,readv_uint64,1);
+    // XX(uint64_t,20,writev_uint64,readv_uint64,1);
 
 #undef XX    
 }
@@ -103,7 +105,7 @@ void test_file(){
 
 int main(int argc,char** argv){
     LOADYAML;
-    test_file();
+    test_val();
 
     return 0;
 }

@@ -364,7 +364,7 @@ void ByteArray::read(void* dst_buf,size_t size){
     }
 }
 void ByteArray::read(void* dst_buf,size_t size,size_t position) const {
-    if(size>getRestRdSize()){
+    if(size>m_datsize-position){
         throw std::out_of_range("not enough len");
     }
     
@@ -377,10 +377,6 @@ void ByteArray::read(void* dst_buf,size_t size,size_t position) const {
         if(n_rstcap>=size){
             // 剩下的数据都在当前节点内
             memcpy((char*)dst_buf+bpos,cur->ptr+n_pos,size);
-            if(n_pos+size == cur->size){
-                // 当前节点用尽
-                cur=cur->next;
-            }
             position+=size;
             bpos+=size;
             size-=size;
