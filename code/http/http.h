@@ -2,7 +2,9 @@
 #define __MYWEB_HTTP_H__
 
 #include <memory>
+#include <unistd.h>
 #include <string>
+#include <vector>
 #include <map>
 #include <iostream>
 #include <sstream>
@@ -184,13 +186,13 @@ T getAs(const MapType& mp,const std::string& key,const T& def=T()){
     }
 }
 
-// HTTP 请求结构
+// HTTP 请求类
 class HttpRequest{
 public:
     typedef std::shared_ptr<HttpRequest> ptr;
     typedef std::map<std::string,std::string,CaseInsensitiveLess> MapType;
 
-    HttpRequest(uint8_t version=0x11,bool keepalive=false);
+    HttpRequest(uint8_t version=0x11,bool iskeepalive=true);
 
     // 获取方法
     Http_Method getMethod() const { return m_method; }
@@ -313,9 +315,76 @@ private:
 
 };
 
+// Http 响应类
+class HttpResponse{
+public:
+    typedef std::shared_ptr<HttpResponse> ptr;
+    typedef std::map<std::string,std::string,CaseInsensitiveLess> MapType;
 
+    HttpResponse(uint8_t version=0x11,bool isKeepAlive=true);
 
+    // 获取方法
+    Http_Status getStatus() const { return m_status; }
+    // 获取版本
+    uint8_t getVersion() const { return m_version; }
+    // 是否为长连接
+    bool isKeepAlive() const { return m_keepalive; }
+    // 获取消息体
+    const std::string& getBody() const { return m_body; }
+    // 获取响应原因
+    const std::string& getreact() const { return m_react; }
+    // 获取响应头 map
+    const MapType& getHeaders() const { return m_headers; }
 
+    // 设置状态
+    void setStatus(Http_Status stat){ m_status=stat; }
+    // 设置版本
+    void setVersion(uint8_t val){ m_version=val; }
+    // 设置长连接
+    void setKeepAlive(bool flag){ m_keepalive=flag; }
+    // 设置消息体
+    void setBody(const std::string& body){ m_body=body; }
+    // 设置响应原因
+    void setreact(const std::string& res){ m_react=res; }
+    // 设置响应头 map
+    void setHeaders(const MapType& val){ m_headers=val; }
+
+    // 获取指定响应头
+    std::string getHeaders(const std::string& key,const std::string& def="") const ;
+    // 设置指定响应头
+    void setHeaders(const std::string& key,const std::string& val);
+    // 删除指定响应头
+    void delHeaders(const std::string& key);
+
+    // 判断是否有指定响应头，有则返回true，并将值保存在指定类型val中
+    template<typename T>
+    bool checkHeadersAs(const std::string& key,T& val,const T& def=T()){
+        return checkAs(m_headers,key,val,def);
+    }
+    // 获取指定响应头，返回特定类型的值
+    template<typename T>
+    T getHeadersAs(const std::string& key,const T& def=T()){
+        return getAs(m_headers,key,def);
+    }
+
+    // 转存
+    std::ostream& dump(std::ostream& os) const ;
+
+private:
+    Http_Status m_status;
+    uint8_t m_version;
+    // 是否为长连接
+    bool m_keepalive;
+
+    // 响应消息体
+    std::string m_body;
+    // 响应码文本
+    std::string m_react;
+    // 响应头部 map
+    MapType m_headers;
+    // 响应Cookies数组
+    std::vector<std::string> m_cookies;
+};
 
 
 

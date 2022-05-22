@@ -79,5 +79,10 @@ add_executable(test_bytearray tests/test_bytearray.cc)
 add_dependencies(test_bytearray code)
 target_link_libraries(test_bytearray ${LIBLIB})
 
+# 测试Http相关的可执行文件
+add_executable(test_http tests/test_http.cc)      
+add_dependencies(test_http code)
+target_link_libraries(test_http ${LIBLIB})
+
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径
