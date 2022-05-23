@@ -14,7 +14,6 @@ const char response[]=  "HTTP/1.1 200 OK\r\n"
                         "Accept-Ranges: bytes\r\n"
                         "Cache-Control: no-cache\r\n"
                         "Connection: keep-alive\r\n"
-                        "Content-Length: 9508\r\n"
                         "Content-Type: text/html\r\n"
                         "Date: Mon, 23 May 2022 12:00:26 GMT\r\n"
                         "P3p: CP=\" OTI DSP COR IVA OUR IND COM \"\r\n"
@@ -47,6 +46,7 @@ void test_http(){
     resp->setStatus(myWeb::http::Http_Status::NOT_FOUND);
     resp->setBody("bye");
     resp->dump(std::cout)<<std::endl;
+    
 }
 
 void test_request_parser(){
@@ -61,6 +61,9 @@ void test_request_parser(){
                                         <<"\n is finish= "<<http_req_parser->isFinished()
                                         <<"\n Content Length= "<<http_req_parser->getContentLength()<<"\n";
     http_req_parser->getReqData()->dump(std::cout);
+
+    tmp.resize(len-ret);
+    std::cout<<tmp<<std::endl;
 }
 
 void test_response_parser(){
@@ -70,16 +73,19 @@ void test_response_parser(){
     int ret=0;
     ret=http_rsp_parser->execute(&tmp[0],len,false);
 
-    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"\n execute ret= "<<ret<<"/"<<tmp.size()
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"\n execute ret= "<<ret<<"/"<<len
                                         <<"\n error= "<<http_rsp_parser->getError()
                                         <<"\n is finish= "<<http_rsp_parser->isFinished()
                                         <<"\n Content Length= "<<http_rsp_parser->getContentLength()<<"\n";
     std::cout<<http_rsp_parser->getRspData()->toString()<<std::endl;
+    // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<tmp.size();
+    tmp.resize(len-ret);
     std::cout<<tmp<<std::endl;
 }
 
 int main(int argc,char** argv){
     LOADYAML;
+    // test_request_parser();
     test_response_parser();
 
     return 0;

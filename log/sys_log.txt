@@ -4,3 +4,82 @@
  is finish= 1
  Content Length= 9508
  
+[INFO]	2022-05-23 20:21:06 64217 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:73>	
+ execute ret= 988/1027
+ error= 0
+ is finish= 1
+ Content Length= 9508
+ 
+[INFO]	2022-05-23 20:21:48 64300 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:73>	
+ execute ret= 988/1027
+ error= 0
+ is finish= 1
+ Content Length= 9508
+ 
+[INFO]	2022-05-23 20:33:43 64521 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:73>	
+ execute ret= 988/1027
+ error= 0
+ is finish= 1
+ Content Length= 9508
+ 
+[INFO]	2022-05-23 20:35:18 64640 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:73>	
+ execute ret= 988/1027
+ error= 0
+ is finish= 1
+ Content Length= 9508
+ 
+[INFO]	2022-05-23 20:35:18 64640 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:78>	1027 
+[INFO]	2022-05-23 20:36:02 64727 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:73>	
+ execute ret= 988/1027
+ error= 0
+ is finish= 1
+ Content Length= 9508
+ 
+[INFO]	2022-05-23 20:36:02 64727 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:78>	1027 
+[INFO]	2022-05-23 20:37:57 64875 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:73>	
+ execute ret= 988/1027
+ error= 0
+ is finish= 1
+ Content Length= 9508
+ 
+[INFO]	2022-05-23 20:37:57 64875 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:78>	1027 
+[INFO]	2022-05-23 20:39:11 64982 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:73>	
+ execute ret= 988/1027
+ error= 0
+ is finish= 1
+ Content Length= 9508
+ 
+[INFO]	2022-05-23 20:39:11 64982 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:78>	1027 
+[INFO]	2022-05-23 20:41:51 65090 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:72>	
+ execute ret= 966/1005
+ error= 0
+ is finish= 1
+ Content Length= 0
+ 
+[INFO]	2022-05-23 20:41:51 65090 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:77>	1005 
+[INFO]	2022-05-23 20:44:18 65295 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:72>	
+ execute ret= 966/1005
+ error= 0
+ is finish= 1
+ Content Length= 0
+ 
+[INFO]	2022-05-23 20:44:18 65295 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:77>	1005 
+[INFO]	2022-05-23 20:59:14 65629 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:59>	
+ execute ret= 83/93
+ error= 0
+ is finish= 1
+ Content Length= 10
+ 
+[INFO]	2022-05-23 21:00:20 65719 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:76>	
+ execute ret= 966/1005
+ error= 0
+ is finish= 1
+ Content Length= 0
+ 
+[INFO]	2022-05-23 21:00:20 65719 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:81>	1005 
+[INFO]	2022-05-23 21:02:27 65919 0 </home/lee/projects/VScode/myProject/tests/test_http.cc:76>	
+ execute ret= 965/1005
+ error= 0
+ is finish= 1
+ Content Length= 0
+ 
