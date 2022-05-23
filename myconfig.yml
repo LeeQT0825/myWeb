@@ -31,4 +31,12 @@ logs:
 system:
     port: 999
     value: 000
+http:
+    request:
+      buffsize: 4096
+      maxbodysize: 65536
+    response:
+      buffsize: 1024
+      maxbodysize: 65536
+
 tcp_connect_timeout: 3000

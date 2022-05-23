@@ -211,8 +211,8 @@ int httpclient_parser_execute(httpclient_parser *parser, const char *buffer, siz
 
     return(parser->nread);
 
-error:
-    return -1;
+//error:
+    //return -1;
 }
 
 int httpclient_parser_finish(httpclient_parser *parser)

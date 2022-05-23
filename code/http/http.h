@@ -186,7 +186,7 @@ T getAs(const MapType& mp,const std::string& key,const T& def=T()){
     }
 }
 
-// HTTP 请求类
+// HTTP 请求文本类
 class HttpRequest{
 public:
     typedef std::shared_ptr<HttpRequest> ptr;
@@ -291,6 +291,8 @@ public:
 
     // 转存
     std::ostream& dump(std::ostream& os) const ;
+    // 转为字符串
+    std::string toString() const ;
 
 private:
     Http_Method m_method;
@@ -315,7 +317,7 @@ private:
 
 };
 
-// Http 响应类
+// Http 响应文本类
 class HttpResponse{
 public:
     typedef std::shared_ptr<HttpResponse> ptr;
@@ -369,6 +371,8 @@ public:
 
     // 转存
     std::ostream& dump(std::ostream& os) const ;
+    // 转为字符串
+    std::string toString() const ;
 
 private:
     Http_Status m_status;

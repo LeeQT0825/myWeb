@@ -131,6 +131,11 @@ std::ostream& HttpRequest::dump(std::ostream& os) const {
     }
     return os;
 }
+std::string HttpRequest::toString() const {
+    std::stringstream ss;
+    dump(ss);
+    return ss.str();
+}
 
 // HttpResponse
 
@@ -182,6 +187,11 @@ std::ostream& HttpResponse::dump(std::ostream& os) const {
     }
     
     return os;
+}
+std::string HttpResponse::toString() const {
+    std::stringstream ss;
+    dump(ss);
+    return ss.str();
 }
 
 

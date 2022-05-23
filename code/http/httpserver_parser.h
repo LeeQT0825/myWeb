@@ -16,10 +16,13 @@ typedef struct http_parser {
   int xml_sent;
   int json_sent;
 
+  // 文本内容，所有对data的操作都是通过下面的回调完成
   void *data;
 
   int uri_relaxed;
+  // 请求头域回调(自动添加请求头键值对)
   field_cb http_field;
+  // 请求行回调
   element_cb request_method;
   element_cb request_uri;
   element_cb fragment;
@@ -30,10 +33,15 @@ typedef struct http_parser {
   
 } http_parser;
 
+// 重置parser
 int http_parser_init(http_parser *parser);
+// 返回完成状态：出错：-1，完成：1，其他：0
 int http_parser_finish(http_parser *parser);
+// 执行分析，返回已分析的偏移量。off：起始位置
 size_t http_parser_execute(http_parser *parser, const char *data, size_t len, size_t off);
+// 
 int http_parser_has_error(http_parser *parser);
+// 
 int http_parser_is_finished(http_parser *parser);
 
 #define http_parser_nread(parser) (parser)->nread 

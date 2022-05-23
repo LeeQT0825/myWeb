@@ -26,7 +26,13 @@ set(LIB_SCR code/log.cc
             code/address.cc
             code/socket.cc
             code/bytearray.cc
-            code/http/http.cc)
+            code/http/http.cc
+            code/http/http_parser.cc
+            code/http/httpserver_parser.cc
+            code/http/httpclient_parser.cc)
+
+# ragelmaker(code/http/httpserver_parser.rl LIB_SCR ${CMAKE_CURRENT_SOURCE_DIR}/code/http)
+# ragelmaker(code/http/httpclient_parser.rl LIB_SCR ${CMAKE_CURRENT_SOURCE_DIR}/code/http)
 
 add_library(code SHARED ${LIB_SCR})     # 通过变量LIB-SCR生成库名为libcode.so的动态库
 set(LIBLIB  code

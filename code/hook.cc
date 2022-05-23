@@ -65,15 +65,15 @@ void set_hook_enable(bool flag){
 
 
 // 连接超时时间
-static uint64_t g_connect_timeout_MS=-1;
+static uint64_t s_connect_timeout_MS=-1;
 // 在main之前就完成hook的实例化
 struct _HookIniter{
     _HookIniter(){
         myWeb::hook_init();
-        g_connect_timeout_MS=config_tcp_connect_timeout->getVal();
+        s_connect_timeout_MS=config_tcp_connect_timeout->getVal();
         config_tcp_connect_timeout->addListener([](const uint64_t& oldval,const uint64_t& newval){
             // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tcp_connect_timeout changed from "<<oldval<<" to "<<newval;
-            g_connect_timeout_MS=newval;
+            s_connect_timeout_MS=newval;
         });
     }
 };
@@ -299,7 +299,7 @@ int connect_timeout(int sockfd, const struct sockaddr *addr, socklen_t addrlen,u
 }
 
 int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen){
-    return connect_timeout(sockfd,addr,addrlen,g_connect_timeout_MS);
+    return connect_timeout(sockfd,addr,addrlen,s_connect_timeout_MS);
 }
 
 int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen){

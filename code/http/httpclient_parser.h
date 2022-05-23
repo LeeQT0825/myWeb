@@ -51,9 +51,12 @@ typedef struct httpclient_parser {
   size_t field_start;
   size_t field_len;
 
+  // 文本内容
   void *data;
 
+  // 响应报头域回调
   field_cb http_field;
+  // 响应行回调
   element_cb reason_phrase;
   element_cb status_code;
   element_cb chunk_size;

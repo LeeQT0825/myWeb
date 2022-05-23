@@ -3301,8 +3301,8 @@ case 119:
 
     return(parser->nread);
 
-error:
-    return -1;
+//error:
+    //return -1;
 }
 
 int httpclient_parser_finish(httpclient_parser *parser)

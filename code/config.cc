@@ -6,7 +6,8 @@
 namespace myWeb{
 
 // 根据层级关系转换为相应的数据结构
-static void ListAllMember(const std::string& prefix,const YAML::Node& node,std::list<std::pair<std::string,const YAML::Node> >& output){
+static void ListAllMember(const std::string& prefix,const YAML::Node& node,
+                                std::list<std::pair<std::string,const YAML::Node> >& output){
     if(prefix.find_first_not_of("abcdefghijklmnopqrstuvwxyz._1234567890")!=std::string::npos){
         INLOG_ERROR(MYWEB_ROOT_LOG)<<"Config invalid name: " << prefix << " : " << node;
         return;

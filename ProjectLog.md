@@ -62,7 +62,7 @@
 - 如果配置变量是 Sequence ，则定义配置变量的时候应该定义成 set<T> （如 set<LogDefine>）。
 - 初始化配置变量：
   - 通过 Config::Lookup() 的重载定义一个配置变量 ConfigVar<T> ；
-  - 定义一个形如 LogConfigInit 的类，来 addListener() ;
+  - 定义一个结构体，来初始化全局变量并添加 addListener() ，定义好后，用这个结构体定义一个静态变量（实现在main之前运行）
 - Config 类基本都是静态成员，静态成员的初始化顺序是随机的，所以如果 m_lock 锁不是静态变量的话，会导致其他函数进行的时候他还没初始化好的情况。
 ### 相关技术要点
 #### yaml-cpp
@@ -455,9 +455,14 @@ schedule ————> thread ————> fiber
     ```
     - query查询参数：用一个“?”开始，但不包含“?”，表示对资源附加的额外要求。查询参数 query 有一套自己的格式，是多个“key=value”的字符串，这些 KV 值用字符“&”连接。
     - fragment标签（锚点）：浏览器可以在获取资源后直接跳转到它指示的位置。片段标识符仅能由浏览器这样的客户端使用，服务器是看不到的。也就是说，浏览器永远不会把带“#fragment”的 URI 发送给服务器，服务器也永远不会用这种方式去处理资源的片段。
+- 报头：(每一个报头域都是由 **key+“:”+空格+value** 组成，消息报头域的名字是大小写无关的)
+  - 普通报头：包含请求和响应消息都支持的头域，包含Cache-Control、Connection、Date、Pragma、Transfer-Encoding、Upgrade、Via。
+  - 请求报头：包含客户端向服务器端传递请求的附加信息以及客户端自身的信息。包含Host、Accept、Accept-Charset、Accept-Encoding、Accept-Language、Authorization、User-Agent等。
+  - 响应报头：用于服务器传递自身信息的响应。
+  - 实体报头：用来描述消息体内容。实体报头既可用于请求也可用于响应中。包含Content-Length、Content-Language、Content-Encoding等。
 ### HTTP 解析
 - 文本解析：ragel
-- 直接复用 https://github.com/mongrel2/mongrel2/tree/master/src/http11 的有限状态机
+- 直接复用 https://github.com/mongrel2/mongrel2/tree/master/src/http11 ，该调用实现了http解析时的有限状态机，每一部分的解析回调需要自己完成。
 
 ## 知识碎片
 - &emsp;在 Linux 下的异步 I/O 是不完善的， aio 系列函数是由 POSIX 定义的异步操作接口，不是真正的操作系统级别支持的，而是在用户空间模拟出来的异步，并且仅仅支持基于本地文件的 aio 异步操作，网络编程中的 socket 是不支持的，这也使得基于 Linux 的高性能网络程序都是使用 Reactor 方案。
