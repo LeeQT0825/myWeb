@@ -26,6 +26,7 @@ set(LIB_SCR code/log.cc
             code/address.cc
             code/socket.cc
             code/bytearray.cc
+            code/tcp_server.cc
             code/http/http.cc
             code/http/http_parser.cc
             code/http/httpserver_parser.cc

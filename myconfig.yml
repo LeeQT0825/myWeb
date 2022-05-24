@@ -39,4 +39,6 @@ http:
       buffsize: 4096
       maxbodysize: 65536
 
-tcp_connect_timeout: 3000
+tcp:
+    connect:
+      timeout: 3000

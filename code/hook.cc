@@ -13,7 +13,7 @@ namespace myWeb{
 
 // 配置connect timeout
 static ConfigVar<uint64_t>::ptr config_tcp_connect_timeout=
-                Config::Lookup("tcp_connect_timeout",(uint64_t)5000,"tcp connect timeout");
+                Config::Lookup("tcp.connect.timeout",(uint64_t)5000,"tcp connect timeout");
 
 static thread_local bool t_hook_enable=false;
 
@@ -88,9 +88,11 @@ struct Timer_Cond
 
 
 /* IO 类型函数的hook，失败返回-1
-func: 原函数，hook_func_name: hook后的函数名称（写日志用），event: 注册事件，
-timeout_so: socket超时时间类型（可选SO_RCVTIMEO(接收超时时间)、SO_SNDTIMEO(发送超时时间)），
-args: 原函数参数列表 */
+    origin_func: 原函数
+    hook_func_name: hook后的函数名称（写日志用）
+    event: 注册事件，
+    timeout_so: socket超时时间类型（可选SO_RCVTIMEO(接收超时时间)、SO_SNDTIMEO(发送超时时间)），
+    args: 原函数参数列表 */
 template<typename OriginFunc,typename ... Args>
 static ssize_t do_io(int fd,OriginFunc origin_func,const char* hook_func_name,
                 uint32_t event,int timeout_so,Args&& ... args){

@@ -443,7 +443,7 @@ schedule ————> thread ————> fiber
   - 固定长度读写：考虑字节序的转换
   - 可变长度（可压缩）读写：逐个字节的读写，不需要考虑字节序的问题了。
 
-## HTTP
+## HTTP层
 ### 协议相关知识点
 - **URI**---统一资源标识符*Uniform Resource Identifier*：
   - URI 不完全等同于网址，它包含有 **URL**（统一资源定位符*Uniform Resource Locator*） 和 **URN** 两个部分。
@@ -463,6 +463,15 @@ schedule ————> thread ————> fiber
 ### HTTP 解析
 - 文本解析：ragel
 - 直接复用 https://github.com/mongrel2/mongrel2/tree/master/src/http11 ，该调用实现了http解析时的有限状态机，每一部分的解析回调需要自己完成。
+
+## TCP层
+### 主要功能
+- 创建监听socket，并循环 accept
+- 创建 conn_socket ，启动 conn_socket 的处理函数
+### 实现逻辑
+#### TCP_Server抽象类
+- conn_socket处理函数 handleClient 需要在子类中实现
+#### echo测试程序
 
 ## 知识碎片
 - &emsp;在 Linux 下的异步 I/O 是不完善的， aio 系列函数是由 POSIX 定义的异步操作接口，不是真正的操作系统级别支持的，而是在用户空间模拟出来的异步，并且仅仅支持基于本地文件的 aio 异步操作，网络编程中的 socket 是不支持的，这也使得基于 Linux 的高性能网络程序都是使用 Reactor 方案。
