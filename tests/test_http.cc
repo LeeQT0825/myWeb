@@ -4,11 +4,20 @@
 #include "../code/config.h"
 #include "../code/macro.h"
 
-const char request[]=   "GET / HTTP/1.1\r\n"
-                        "Host: www.baidu.com\r\n"
+const char request[]=   "GET /favicon.ico HTTP/1.1\r\n"
+                        "Host: localhost:12345\r\n"
+                        "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0\r\n"
+                        "Accept: image/avif,image/webp,*/*\r\n"
+                        "Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2\r\n"
+                        "Accept-Encoding: gzip, deflate\r\n"
                         "Connection: keep-alive\r\n"
-                        "Content-length: 10\r\n\r\n"
-                        "1234567890";
+                        "Referer: http://localhost:12345/\r\n"
+                        "Sec-Fetch-Dest: image\r\n"
+                        "Sec-Fetch-Mode: no-cors\r\n"
+                        "Sec-Fetch-Site: same-origin\r\n"
+                        "Cache-Control: max-age=0\r\n\r\n"
+                        "aaabbbcccddd";
+;
 
 const char response[]=  "HTTP/1.1 200 OK\r\n"
                         "Accept-Ranges: bytes\r\n"
@@ -56,14 +65,14 @@ void test_request_parser(){
     int ret=0;
     ret=http_req_parser->execute(&tmp[0],len);
 
-    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"\n execute ret= "<<ret<<"/"<<tmp.size()
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"http_request_parser info:\n execute ret= "<<ret<<"/"<<tmp.size()
                                         <<"\n error= "<<http_req_parser->getError()
                                         <<"\n is finish= "<<http_req_parser->isFinished()
                                         <<"\n Content Length= "<<http_req_parser->getContentLength()<<"\n";
     http_req_parser->getReqData()->dump(std::cout);
 
     tmp.resize(len-ret);
-    std::cout<<tmp<<std::endl;
+    std::cout<<"http_body: \n"<<tmp<<std::endl;
 }
 
 void test_response_parser(){
@@ -85,8 +94,8 @@ void test_response_parser(){
 
 int main(int argc,char** argv){
     LOADYAML;
-    // test_request_parser();
-    test_response_parser();
+    test_request_parser();
+    // test_response_parser();
 
     return 0;
 }

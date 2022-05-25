@@ -45,9 +45,9 @@ public:
     // 获取地址长度
     virtual socklen_t getAddrlen() const =0;
     // 地址序列化（网络字节序转为可读序列）
-    virtual std::ostream& insert(std::ostream& os) =0;
+    virtual std::ostream& insert(std::ostream& os) const =0;
     
-    std::string toString();
+    std::string toString() const ;
 
     bool operator<(const Address& r) const;
     bool operator==(const Address& r) const;
@@ -96,7 +96,7 @@ public:
     // 获取地址长度
     socklen_t getAddrlen() const override;
     // 地址序列化（网络字节序转为可读序列）
-    std::ostream& insert(std::ostream& os) override;
+    std::ostream& insert(std::ostream& os) const override;
     // 获取广播地址
     IP_Address::ptr broadcastAddr(uint32_t prefix_len) override;
     // 获取网段
@@ -129,7 +129,7 @@ private:
 //     // 获取地址长度
 //     socklen_t getAddrlen() const override;
 //     // 地址序列化（网络字节序转为可读序列）
-//     std::ostream& insert(std::ostream& os) override;
+//     std::ostream& insert(std::ostream& os) const override;
 //     // 获取广播地址(prefix_len 掩码位数)
 //     IP_Address::ptr broadcastAddr(uint32_t prefix_len) override;
 //     // 获取网段

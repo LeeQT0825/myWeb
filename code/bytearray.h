@@ -111,12 +111,12 @@ public:
     size_t getReadBuffs(std::vector<iovec>& dst_buffers,size_t len=~0ul) const ;
     // 将可读取的缓存转存为iovec数组，返回读取的字节长度（指定起始位置）
     size_t getReadBuffs(std::vector<iovec>& dst_buffers,size_t len,size_t start_pos) const ;
-    // 获取可写的缓存，转存为iovec数组，返回写入的字节长度
+    // 获取可写的缓存，转存为iovec数组（可写的缓存用iovec保存下来），返回写入的字节长度
     size_t getWriteBuffs(std::vector<iovec>& src_buffers,size_t len);
 
     // 获取当前进行位置
     size_t getPosition() const {return m_position;}
-    // 设置当前进行位置
+    // 设置当前进行位置（隐藏可以设置m_datsize）
     void setPosition(size_t pos);
 
     // 将节点内存中可读数据写入文件

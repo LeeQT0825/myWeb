@@ -91,5 +91,18 @@ add_executable(test_http tests/test_http.cc)
 add_dependencies(test_http code)
 target_link_libraries(test_http ${LIBLIB})
 
+# 测试TCP_Server相关的可执行文件
+add_executable(test_tcp_server tests/test_tcp_server.cc)      
+add_dependencies(test_tcp_server code)
+target_link_libraries(test_tcp_server ${LIBLIB})
+
+# 测试Echo_Server相关的可执行文件
+add_executable(echo_server examples/echo_server.cc)      
+add_dependencies(echo_server code)
+target_link_libraries(echo_server ${LIBLIB})
+add_executable(echo_client examples/echo_client.cc)      
+add_dependencies(echo_client code)
+target_link_libraries(echo_client ${LIBLIB})
+
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径

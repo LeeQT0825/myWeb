@@ -148,7 +148,7 @@ bool Address::getInterfaceAddress(std::multimap<std::string,std::pair<Address::p
 int Address::getFamily() const{
     return getAddr()->sa_family;
 }
-std::string Address::toString(){
+std::string Address::toString() const {
     std::stringstream ss;
     insert(ss);
     return ss.str();
@@ -249,7 +249,7 @@ sockaddr* IPv4_Address::getAddr(){
 socklen_t IPv4_Address::getAddrlen() const{
     return sizeof(m_addr);
 }
-std::ostream& IPv4_Address::insert(std::ostream& os){
+std::ostream& IPv4_Address::insert(std::ostream& os) const {
     char address[INET_ADDRSTRLEN];
     inet_ntop(AF_INET,&m_addr.sin_addr,address,INET_ADDRSTRLEN);    // 可重入
         os<<address;    
@@ -305,7 +305,7 @@ void IPv4_Address::setPort(uint16_t port){
 // socklen_t IPv6_Address::getAddrlen() const{
 //     return sizeof(m_addr);
 // }
-// std::ostream& IPv6_Address::insert(std::ostream& os){
+// std::ostream& IPv6_Address::insert(std::ostream& os) const {
     // char address[INET6_ADDRSTRLEN];
 //     inet_ntop(AF_INET6,&m_addr.sin6_addr,address,INET6_ADDRSTRLEN);     // 可重入
 //     os<<"["<<address<<"]";    

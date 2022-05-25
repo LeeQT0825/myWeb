@@ -188,6 +188,12 @@ int HttpRequestParser::execute(char* data,size_t len){
     memmove(data,data+offset,(len-offset));
     return offset;
 }
+int HttpRequestParser::execute(ByteArray::ptr byt_array,std::string& dump_str,size_t position){
+    size_t len=byt_array->getRestRdSize();
+    dump_str.resize(len);
+    byt_array->read(&dump_str[0],len,position);
+    return execute(&dump_str[0],sizeof(dump_str));
+}
 int HttpRequestParser::isFinished(){
     return http_parser_finish(&m_parser);
 }

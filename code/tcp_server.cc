@@ -12,6 +12,7 @@ TCP_Server::TCP_Server(IOManager* worker)
                     ,m_name("myWeb_TCP/1.0.0")
                     ,m_isStop(true){}
 TCP_Server::~TCP_Server(){
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"TCP_Server destructed";
     stop();
 }
 
@@ -42,7 +43,7 @@ bool TCP_Server::bind_listen(const std::vector<Address::ptr>& addrs,std::vector<
     }
 
     for(auto& sk:m_socks){
-        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"Server Name: "<<m_name
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"\nServer Name: "<<m_name
                                             <<" Listening socket: "<<sk->toString();
     }
     return true;
@@ -71,6 +72,7 @@ bool TCP_Server::start(){
     return true;
 }
 void TCP_Server::stop(){
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"TCP_Server stopping";
     m_isStop=true;
 
     // 关停所有 listens_sock
@@ -84,6 +86,7 @@ void TCP_Server::stop(){
 }
 void TCP_Server::handleClient(mySocket::ptr client_sock){
     INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"handleClient: "<<client_sock->toString();
+    sleep(5);
 }
 
 

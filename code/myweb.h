@@ -10,5 +10,12 @@
 #include "fiber.h"
 #include "scheduler.h"
 #include "iomanager.h"
+#include "fdmanager.h"
+#include "socket.h"
+#include "bytearray.h"
+#include "address.h"
+#include "http/http.h"
+#include "http/http_parser.h"
+#include "tcp_server.h"
 
 #endif

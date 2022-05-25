@@ -4,6 +4,7 @@
 #include "httpserver_parser.h"
 #include "httpclient_parser.h"
 #include "http.h"
+#include "../bytearray.h"
 #include <memory>
 
 namespace myWeb{
@@ -24,6 +25,8 @@ public:
         len: 协议文本内存长度
         返回值：-1：错误，>0：解析长度，0：无数据可解析 */
     int execute(char* data,size_t len);
+    // 直接从 bytearray 中读取
+    int execute(ByteArray::ptr byt_array,std::string& dump_str,size_t position);
     /*  是否完成解析
             出错：-1，完成：1，其他：0 */
     int isFinished();
