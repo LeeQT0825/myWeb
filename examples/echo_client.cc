@@ -36,7 +36,7 @@ void run(){
     });
 
     while(client_sock->isConnected()){
-        memset(&rcv_buff[0],0,sizeof(rcv_buff));
+        memset(&rcv_buff[0],'\0',sizeof(rcv_buff));
         
         client_sock->recv(&rcv_buff[0],sizeof(rcv_buff));
         INLOG_INFO(MYWEB_NAMED_LOG("system"))<<rcv_buff;

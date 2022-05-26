@@ -353,6 +353,20 @@ schedule ————> thread ————> fiber
 - 用 ```int fstat(int fd, struct stat *statbuf)``` 来判断句柄属性。判断 fd 是否为 socketfd 可以通过 S_ISSOCK(fd_stat.st_mode) 来判断。
 
 ## Socket API
+### 一些 socket API 的底层逻辑
+1. ssize_t **send**(int sockfd, const void *buf, size_t len, int flags);
+  **同步编程下 send 的执行过程**：
+    1. send先比较待发送数据的长度 len 和套接字 sockfd 的发送缓冲的长度， 如果len大于s的发送缓冲区的长度，该函数返回   SOCKET_ERROR 。
+    2. 如果 len 小于或者等于 sockfd 的发送缓冲区的长度，那么 send 先检查协议是否正在发送 sockfd 的发送缓冲中的数据，如果是就等待协议把数据发送完，如果协议还没有开始发送s的发送缓冲中的数据或者 sockfd 的发送缓冲中没有数据，那么 send 就比较 len 和sockfd 的发送缓冲区的剩余空间。
+    3. 如果 len 大于剩余空间大小，send 就一直等待协议把 sockfd 的发送缓冲中的数据发送完；如果 len 小于剩余空间大小，send 就仅仅把 buf 中的数据 copy 到剩余空间里（注意并不是 send 把 sockfd 的发送缓冲中的数据传到连接的另一端的，而是TCP协议传的，send 仅仅是把 buf 中的数据 copy 到 sockfd 的发送缓冲区的剩余空间里）。
+    4. 如果 send 函数 copy 数据成功，就返回实际 copy 的字节数，如果 send 在 copy 数据时出现错误，那么 send 就返回SOCKET_ERROR；如果 send 在等待TCP协议传送数据时网络断开的话，那么 send 函数也返回 SOCKET_ERROR 。（要注意send函数把buf中的数据成功copy到s的发送缓冲的剩余空间里后它就返回了，但是此时这些数据并不一定马上被传到连接的另一端。如果协议在后续的传送过程中出现网络错误的话，那么下一个Socket函数就会返回SOCKET_ERROR。（每一个除send外的Socket函数在执 行的最开始总要先等待套接字的发送缓冲中的数据被协议传送完毕才能继续，如果在等待时出现网络错误，那么该Socket函数就返回 SOCKET_ERROR））
+  注意：在Unix系统下，如果send在等待协议传送数据时网络断开的话，调用send的进程会接收到一个SIGPIPE信号，进程对该信号的默认处理是进程终止。
+  通过测试发现，异步socket的 send 函数在网络刚刚断开时还能发送返回相应的字节数，同时使用 select 检测也是可写的，但是过几秒钟之后，再 send 就会出错了，返回-1。select 也不能检测出可写了。
+2. ssize_t **recv**(int sockfd, void *buf, size_t len, int flags);
+  **同步编程下 send 的执行过程**（ sockfd 发送缓冲区清空才能执行 recv）：
+    1. recv 先等待 sockfd 的发送缓冲中的数据被TCP协议传送完毕，如果TCP协议在传送 sockfd 的发送缓冲中的数据时出现网络错误，那么 recv 函数返回 SOCKET_ERROR 。
+    2. 如果 sockfd 的发送缓冲中没有数据或者数据被TCP协议成功发送完毕后，recv 先检查套接字 sockfd 的接收缓冲区，如果 sockfd 接收缓冲区中没有数据或者TCP协议正在接收数据，那么 recv 就一直等待，直到协议把数据接收完毕。
+    3. 当TCP协议把数据接收完毕，recv 函数就把 sockfd 的接收缓冲中的数据 copy 到 buf 中（注意协议接收到的数据可能大于 buf 的长度，所以在这种情况下要调用几次 recv 函数才能把 sockfd 的接收缓冲中的数据 copy 完。recv 函数仅仅是 copy 数据，真正的接收数据是TCP协议来完成的）
 ### 地址类
 #### 抽象类
 - 获得本地网络信息：int getaddrinfo(const char* hostname,const char* service,const struct addrinfo* hints,struct addrinfo** result); 
@@ -416,6 +430,17 @@ schedule ————> thread ————> fiber
     ans= addr.sin_addr.s_addr | (~mask);
     std::cout<<"广播："<<std::hex<<ans<<std::endl;          // ff08a8c0
   ```
+### Socket_Stream 流
+- TCP 分包、粘包
+  - 分包：
+    1. TCP自动分包：TCP是以段(Segment)为单位发送数据的,建立TCP链接后,有一个最大消息长度(MSS).如果应用层数据包超过MSS,就会把应用层数据包拆分,分成两个段来发送.这个时候接收端的应用层就要拼接这两个TCP包，才能正确处理数据。相关的,路由器有一个MTU( 最大传输单元)一般是1500字节,除去IP头部20字节,留给TCP的就只有MTU-20字节。所以一般TCP的MSS为MTU-20=1460字节，当应用层数据超过1460字节时,TCP会分多个数据包来发送。
+    2. 用户自己分包：比如我们定义每一次发送的数据大小为8k(因为在真正的项目编程中基本都是要进行封装的，所以发送的大小基本固定)，那如果我们要发送一个25k的数据，我们就得分成8+8+8+1四个包发送，前三个包都是8k，最后一个包是小于8k。但容易出现的问题是：用户在应用层定义的每个分包的包头信息，在TCP协议层又被重新分包，导致实际发送到第一个报中含有第二个包的包头信息。
+  - 粘包：
+    1. TCP自动粘包：由于TCP数据段在发送的时候超过MSS，协议会自动的分包，所以也得把它粘起来组成一个完整的包。
+    2. 用户自己粘包：把自定义分开发送的数据(8+8+8+1)重新粘在一起组成25k的原数据。
+  - 如何实现粘包：
+    - 先处理TCP自己分的包粘在一起，我们先将recv接受的数据appand添加到string类型的变量，然后判断string变量的长度和头部中的包大小进行比较，如果string变量的长度大于或等于包大小，说明该包已经接收完，就进行处理。如果小于则不做处理。
+    - 再处理我们自己分的包，根据包头信息将数据复制到新的string变量中。如果头部的当前包序号等于总包数，说明这个包是最后一个包了，
 
 ## 序列化和反序列化
 ### 定义
