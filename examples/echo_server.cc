@@ -6,8 +6,6 @@ public:
 
     void handleClient(myWeb::mySocket::ptr client_sock);
 
-private:
-
 };
 
 static size_t s_write_buffer_size=1024;
@@ -21,10 +19,12 @@ void Echo_Server::handleClient(myWeb::mySocket::ptr client_sock){
     while(1){
         barray->clear();
         // 设置缓存（集中写）
-        std::vector<iovec> iovs;
-        barray->getWriteBuffs(iovs,s_write_buffer_size);
+        myWeb::Socket_Stream::ptr sock_stream(new myWeb::Socket_Stream(client_sock,false));
+        // std::vector<iovec> iovs;
+        // barray->getWriteBuffs(iovs,s_write_buffer_size);
 
-        int ret=client_sock->recv(&iovs[0],iovs.size());
+        // int ret=client_sock->recv(&iovs[0],iovs.size());
+        int ret=sock_stream->read(barray,s_write_buffer_size);
         if(ret==0){
             INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"Client closed"<<client_sock->toString();
             break;
@@ -34,24 +34,24 @@ void Echo_Server::handleClient(myWeb::mySocket::ptr client_sock){
         }
 
         // 设置可读范围
-        size_t pre_pos=barray->getPosition();
-        barray->setPosition(ret+pre_pos);
+        // size_t pre_pos=barray->getPosition();
+        // barray->setPosition(ret+pre_pos);
 
         // 设置读起点
-        barray->setPosition(pre_pos);
+        // barray->setPosition(pre_pos);
+        barray->setPosition(0);
         size_t recv_len=barray->getRestRdSize();
         MYWEB_ASSERT(ret==(int)recv_len);
 
         // 检查是否能接收全部信息
         std::string dump_str=barray->toString();
-        int dump_len=dump_str.size();
         INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"origin msg: \n"<<dump_str;
 
         // 测试 http parser
         myWeb::http::HttpRequestParser::ptr http_req_parser(new myWeb::http::HttpRequestParser());
 
-        ret=http_req_parser->execute(&dump_str[0],dump_len);
-        dump_str.resize(dump_len-ret);
+        ret=http_req_parser->execute(&dump_str[0],recv_len);
+        dump_str.resize(recv_len-ret);
 
         // 输出 http parser 信息
         INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"http_parser info: \n execute ret= "<<ret<<"/"<<recv_len

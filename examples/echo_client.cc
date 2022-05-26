@@ -2,6 +2,7 @@
 
 const char req_buff[]=  "GET /favicon.ico HTTP/1.1\r\n"
                         "Host: localhost:12345\r\n"
+                        "Content-length: 9\r\n"
                         "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0\r\n"
                         "Accept: image/avif,image/webp,*/*\r\n"
                         "Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2\r\n"

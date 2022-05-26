@@ -137,6 +137,18 @@ std::string HttpRequest::toString() const {
     return ss.str();
 }
 
+void HttpRequest::init(){
+    std::string tmp=getHeadersAs<std::string>("Connection");
+    if(!tmp.empty()){
+        if(strcasecmp(tmp.c_str(),"keep-alive")==0){
+            m_keepalive=true;
+        }else{
+            m_keepalive=false;
+        }
+    }
+}
+
+
 // HttpResponse
 
 HttpResponse::HttpResponse(uint8_t version,bool isKeepAlive)

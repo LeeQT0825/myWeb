@@ -32,6 +32,7 @@ set(LIB_SCR code/log.cc
             code/http/http_parser.cc
             code/http/httpserver_parser.cc
             code/http/httpclient_parser.cc
+            code/http/http_session.cc
             code/streams/socket_stream.cc)
 
 # ragelmaker(code/http/httpserver_parser.rl LIB_SCR ${CMAKE_CURRENT_SOURCE_DIR}/code/http)
@@ -105,6 +106,11 @@ target_link_libraries(echo_server ${LIBLIB})
 add_executable(echo_client examples/echo_client.cc)      
 add_dependencies(echo_client code)
 target_link_libraries(echo_client ${LIBLIB})
+
+# 测试Echo_Server相关的可执行文件
+add_executable(echo_server_2 examples/echo_server_2.cc)      
+add_dependencies(echo_server_2 code)
+target_link_libraries(echo_server_2 ${LIBLIB})
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径

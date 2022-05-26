@@ -49,6 +49,18 @@ struct Http_ConfigInit
 };
 static Http_ConfigInit _httpconfig;
 
+uint64_t HttpRequestParser::GetReq_BufferSize(){
+    return s_http_req_BufferSize;
+}
+uint64_t HttpRequestParser::GetReq_maxBodySize(){
+    return s_http_req_maxBodySize;
+}
+uint64_t GetRsp_BufferSize(){
+    return s_http_rsp_BufferSize;
+}
+uint64_t GetRsp_maxBodySize(){
+    return s_http_rsp_maxBodySize;
+}
 
 // 回调处理
 

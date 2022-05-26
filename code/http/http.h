@@ -294,6 +294,9 @@ public:
     // 转为字符串
     std::string toString() const ;
 
+    // 根据请求头初始化
+    void init();
+
 private:
     Http_Method m_method;
     uint8_t m_version;          // 0xab: HTTP/a.b

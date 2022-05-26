@@ -10,6 +10,9 @@
 
 namespace myWeb{
 
+/* TCP传输层封装类：
+    创建、绑定、监听 listen_socket
+    accept返回新的 client_socket （具体处理程序需要继承该类并实现） */
 class TCP_Server : public std::enable_shared_from_this<TCP_Server>{
 public:
     typedef std::shared_ptr<TCP_Server> ptr;

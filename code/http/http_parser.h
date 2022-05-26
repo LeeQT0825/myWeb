@@ -23,10 +23,11 @@ public:
     /*  解析协议
         data: 协议文本
         len: 协议文本内存长度
-        返回值：-1：错误，>0：解析长度，0：无数据可解析 */
+        返回值：-1：错误，>0：解析长度，0：无数据可解析
+        注意：解析完后，会将未解析的部分移到缓冲区头部 */
     int execute(char* data,size_t len);
     /*  是否完成解析
-            出错：-1，完成：1，其他：0 */
+            出错：-1，完成：1，未完成：0 */
     int isFinished();
     /*  是否有错误 */
     bool isError();
@@ -41,6 +42,12 @@ public:
     HttpRequest::ptr getReqData() const { return m_request; }
     // 设置错误号
     void setError(int val){ m_error=val; }
+
+public:
+    // 获取存储http请求的缓存大小
+    static uint64_t GetReq_BufferSize();
+    // 获取存储http消息体的最大大小
+    static uint64_t GetReq_maxBodySize();
 
 private:
     http_parser m_parser;
@@ -81,6 +88,12 @@ public:
     HttpResponse::ptr getRspData() const { return m_response; }
     // 设置错误号
     void setError(int val){ m_error=val; }
+
+public:
+    // 获取存储http响应的缓存大小
+    static uint64_t GetRsp_BufferSize();
+    // 获取存储http响应消息体的最大大小
+    static uint64_t GetRsp_maxBodySize();
 
 private:
     httpclient_parser m_parser;
