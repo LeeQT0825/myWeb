@@ -28,17 +28,30 @@ void run(){
     myWeb::Address::ptr addr=addrs[0];
 
     Echo_Server::ptr echo_server(new Echo_Server);
-    std::vector<myWeb::Address::ptr> f_addrs;
     if(echo_server->bind_listen(addr)){
         sleep(2);
         echo_server->start();
     }
 }
 
+void test_http_server(){
+    std::vector<myWeb::Address::ptr> addrs;
+    myWeb::Address::Lookup(addrs,"0.0.0.0:12345");
+    if(addrs.empty())   return;
+    myWeb::Address::ptr addr=addrs[0];
+
+    myWeb::http::Http_Server::ptr http_server(new myWeb::http::Http_Server(true));
+    if(http_server->bind_listen(addr)){
+        sleep(2);
+        http_server->start();
+    }
+}
+
 
 int main(int argc,char** argv){
+    LOADYAML;
     myWeb::IOManager::ptr iom(new myWeb::IOManager(3));
-    iom->schedule(run);
+    iom->schedule(test_http_server);
 
     return 0;
 }

@@ -33,6 +33,7 @@ set(LIB_SCR code/log.cc
             code/http/httpserver_parser.cc
             code/http/httpclient_parser.cc
             code/http/http_session.cc
+            code/http/http_server.cc
             code/streams/socket_stream.cc)
 
 # ragelmaker(code/http/httpserver_parser.rl LIB_SCR ${CMAKE_CURRENT_SOURCE_DIR}/code/http)

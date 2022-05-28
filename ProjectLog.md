@@ -489,6 +489,11 @@ schedule ————> thread ————> fiber
 ### HTTP 解析
 - 文本解析：ragel
 - 直接复用 https://github.com/mongrel2/mongrel2/tree/master/src/http11 ，该调用实现了http解析时的有限状态机，每一部分的解析回调需要自己完成。
+### HTTP Session
+### HTTP Server
+- 实现功能：
+  - 封装下层接口（TCP_Server），重载 HandleClient() 
+  - 
 
 ## TCP层
 ### 主要功能

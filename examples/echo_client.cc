@@ -2,7 +2,7 @@
 
 const char req_buff[]=  "GET /favicon.ico HTTP/1.1\r\n"
                         "Host: localhost:12345\r\n"
-                        "Content-length: 9\r\n"
+                        "Content-length: 12\r\n"
                         "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0\r\n"
                         "Accept: image/avif,image/webp,*/*\r\n"
                         "Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2\r\n"
@@ -22,16 +22,17 @@ void run(){
 
     std::string snd_buff=req_buff;
     std::string rcv_buff;
-    rcv_buff.resize(64);
+    rcv_buff.resize(1024);
 
     bool ret=client_sock->connect(addr,2*1000);
     assert(ret==true);
 
+    // 2s 发送一次
     iom->addCondTimer(2*1000,[client_sock,snd_buff](){
         int ret=client_sock->send(&snd_buff[0],snd_buff.size());
         INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"send: "<<ret;
     },std::weak_ptr<myWeb::mySocket>(client_sock),true);
-
+    // 10s 关闭
     iom->addTimer(10*1000,[client_sock](){
         client_sock->close();
     });
@@ -40,7 +41,9 @@ void run(){
         memset(&rcv_buff[0],'\0',sizeof(rcv_buff));
         
         client_sock->recv(&rcv_buff[0],sizeof(rcv_buff));
+
         INLOG_INFO(MYWEB_NAMED_LOG("system"))<<rcv_buff;
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"tcp segment broke";
     }
 }
 

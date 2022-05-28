@@ -17,6 +17,7 @@
 #include "http/http.h"
 #include "http/http_parser.h"
 #include "http/http_session.h"
+#include "http/http_server.h"
 #include "tcp_server.h"
 #include "streams/socket_stream.h"
 
