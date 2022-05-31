@@ -1,4 +1,5 @@
 #include "http_session.h"
+#include "../log.h"
 
 namespace myWeb{
 namespace http{
@@ -20,18 +21,21 @@ HttpRequest::ptr HttpSession::recvRequest(){
 
     while(true){
         int len=read(recv_buff+offset,buff_size-offset);
+        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"socket read: "<<len;
+
         if(len<=0){
             close();
             return nullptr;
         }
         size_t ps_len=parser->execute(recv_buff,len+offset);
+
         if(parser->isError()){
             close();
             return nullptr;
         }
         
         // 更新offset
-        offset=len+offset-ps_len;
+        offset=(size_t)len+offset-ps_len;
         if(offset==buff_size){
             close();
             return nullptr;
@@ -44,6 +48,7 @@ HttpRequest::ptr HttpSession::recvRequest(){
     }
 
     size_t conten_len=parser->getContentLength();
+
     if(conten_len>0){
         std::string body;
         body.resize(conten_len);

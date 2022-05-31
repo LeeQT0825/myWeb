@@ -18,6 +18,8 @@ void Echo_Server::handleClient(myWeb::mySocket::ptr client_sock){
         // 打印 http_request
         std::string recv_buff=http_req->toString();
         INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"recv_len: "<<recv_buff.size()<<"\n"<<recv_buff;
+    }else{
+        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"http_session recvRequest error";
     }
 }
 

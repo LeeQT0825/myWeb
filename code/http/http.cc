@@ -123,12 +123,13 @@ std::ostream& HttpRequest::dump(std::ostream& os) const {
     for(auto& i:m_headers){
         os<<i.first<<": "<<i.second<<"\r\n";
     }
-    if(!m_body.empty()){
+    if(!m_body.empty() && getHeaders("content-length").empty()){
         os<<"content-length: "<<m_body.size()<<"\r\n\r\n";
-        os<<m_body;
     }else{
         os<<"\r\n";
     }
+    
+    os<<m_body;
     return os;
 }
 std::string HttpRequest::toString() const {
@@ -191,13 +192,13 @@ std::ostream& HttpResponse::dump(std::ostream& os) const {
         os<<"Set-Cookie: "<<i<<"\r\n";
     }
 
-    if(!m_body.empty()){
-        os<<"Content-Length: "<<m_body.size()<<"\r\n\r\n"
-            <<m_body;
+    if(!m_body.empty() && getHeaders("content-length").empty()){
+        os<<"Content-Length: "<<m_body.size()<<"\r\n\r\n";
     }else{
         os<<"\r\n";
     }
     
+    os<<m_body;
     return os;
 }
 std::string HttpResponse::toString() const {
