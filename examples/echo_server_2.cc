@@ -42,9 +42,8 @@ void test_http_server(){
     if(addrs.empty())   return;
     myWeb::Address::ptr addr=addrs[0];
 
-    myWeb::http::Http_Server::ptr http_server(new myWeb::http::Http_Server(true));
+    myWeb::http::Http_Server::ptr http_server(new myWeb::http::Http_Server(false));
     if(http_server->bind_listen(addr)){
-        sleep(2);
         http_server->start();
     }
 }
@@ -52,7 +51,7 @@ void test_http_server(){
 
 int main(int argc,char** argv){
     LOADYAML;
-    myWeb::IOManager::ptr iom(new myWeb::IOManager(3));
+    myWeb::IOManager::ptr iom(new myWeb::IOManager(5));
     iom->schedule(test_http_server);
 
     return 0;

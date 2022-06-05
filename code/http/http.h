@@ -200,7 +200,7 @@ public:
     uint8_t getVersion() const { return m_version; }
     // 是否为长连接
     bool isKeepAlive() const { return m_keepalive; }
-    // 获取路径
+    // 获取URI的路径
     const std::string& getPath() const { return m_path; }
     // 获取查询参数
     const std::string& getQuery() const { return m_query; }
@@ -219,7 +219,7 @@ public:
     void setMethod(Http_Method meth){ m_method=meth; }
     // 设置版本
     void setVersion(uint8_t ver){ m_version=ver; }
-    // 设置路径
+    // 设置URI的路径
     void setPath(const std::string& path){ m_path=path; }
     // 设置查询参数
     void setQuery(const std::string& query){ m_query=query; }

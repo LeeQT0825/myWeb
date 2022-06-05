@@ -21,7 +21,7 @@ HttpRequest::ptr HttpSession::recvRequest(){
 
     while(true){
         int len=read(recv_buff+offset,buff_size-offset);
-        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"socket read: "<<len;
+        // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"socket read: "<<len;
 
         if(len<=0){
             close();
@@ -76,7 +76,7 @@ int HttpSession::sendResponse(HttpResponse::ptr rsp){
     rsp->dump(ss);
     std::string rsp_buff=ss.str();
 
-    return write_Fix(&rsp_buff[0],rsp_buff.size());
+    return write_Fix(rsp_buff.c_str(),rsp_buff.size());
 }
 
 }

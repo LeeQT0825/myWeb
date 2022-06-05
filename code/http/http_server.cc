@@ -5,11 +5,14 @@ namespace http{
 
 Http_Server::Http_Server(bool keep_alive,IOManager* worker)
                     :TCP_Server(worker)
-                    ,m_keepalive(keep_alive){}
+                    ,m_keepalive(keep_alive){
+    m_type="http";
+    m_Dispatch.reset(new ServletDispatch);
+}
 
 void Http_Server::handleClient(mySocket::ptr client_sock){
     INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"client_sock info: "<<client_sock->toString();
-    HttpSession::ptr session(new HttpSession(client_sock,true));
+    HttpSession::ptr session(new HttpSession(client_sock));
 
     while(1){
         // 接收请求
@@ -22,18 +25,25 @@ void Http_Server::handleClient(mySocket::ptr client_sock){
         std::string recv_buff=req->toString();
         INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"recv_len: "<<recv_buff.size()<<"\n"<<recv_buff;
 
-        // 响应
-        HttpResponse::ptr rsp(new HttpResponse(req->getVersion(),m_keepalive && req->isKeepAlive()));
+        // 响应（TODO 不添加任务的话，会造成死锁（可能是，这里的bug没完全解决））
+        HttpResponse::ptr rsp(new HttpResponse(req->getVersion(),req->isKeepAlive() && m_keepalive));
         rsp->setHeaders("server",getName());
-        std::string snd_buff="copy words: "+std::to_string(recv_buff.size());
-        rsp->setBody(snd_buff);
-        session->sendResponse(rsp);
+        m_Dispatch->handle(req,rsp,session);
+        // session->sendResponse(rsp);
 
+        m_worker->schedule([session,rsp](){
+            session->sendResponse(rsp);
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"response send";
+        });
+        
         if(!m_keepalive || !req->isKeepAlive()){
+            sleep(1);
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"session over";
             break;
         }
     }
     session->close();
+    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"session closed";
 }
 
 }

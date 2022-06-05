@@ -13,7 +13,7 @@ class HttpSession:public Socket_Stream{
 public:
     typedef std::shared_ptr<HttpSession> ptr;
 
-    HttpSession(mySocket::ptr sock,bool auto_destruct=false);
+    HttpSession(mySocket::ptr sock,bool auto_destruct=true);
 
     // 接收http请求
     HttpRequest::ptr recvRequest();

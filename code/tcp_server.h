@@ -53,14 +53,18 @@ private:
     TCP_Server& operator=(const TCP_Server&) = delete;
 
 protected:
+    // 服务器名称
+    std::string m_name;
+    // 服务器类型
+    std::string m_type="tcp";
+
     // 存放监听socket，支持多地址监听，所以用vector
     std::vector<mySocket::ptr> m_socks;
-    // 任务调度器
-    IOManager* m_worker;
     // 防止恶意连接，长时间无对话就关掉
     uint64_t m_recvTimeout;
-    // 为做日志输出
-    std::string m_name;
+    // 任务调度器
+    IOManager* m_worker;
+    
     // 是否停止
     bool m_isStop;
 

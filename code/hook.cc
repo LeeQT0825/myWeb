@@ -151,9 +151,11 @@ static ssize_t do_io(int fd,OriginFunc origin_func,const char* hook_func_name,
             return -1;
         }else{
             myWeb::Fiber::yieldToHold();        // 等定时器被唤醒才会resume
-            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<hook_func_name<<" resume";
             if(timer){
                 timer->cancelTimer();
+                INLOG_INFO(MYWEB_NAMED_LOG("system"))<<hook_func_name<<" resume by epoll";
+            }else{
+                INLOG_INFO(MYWEB_NAMED_LOG("system"))<<hook_func_name<<" resume by timer";
             }
             if(timer_cond->cancelled){
                 errno=timer_cond->cancelled;
@@ -306,7 +308,7 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen){
 
 int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen){
     // 返回新的 fd 
-    INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"accept";
+    // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"accept";
     int fd=do_io(sockfd,accept_f,"accept",myWeb::IOManager::Event::READ,SO_RCVTIMEO,addr,addrlen);
     if(fd>=0){
         myWeb::Singleton<myWeb::FDManager>::getInstance()->getFD(fd,true);

@@ -36,7 +36,7 @@ void run(){
     },std::weak_ptr<myWeb::mySocket>(client_sock),true);
 
     // 10s 关闭
-    iom->addTimer(10*1000,[client_sock](){
+    iom->addTimer(20*1000,[client_sock](){
         client_sock->close();
     });
 

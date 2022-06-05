@@ -7,9 +7,9 @@ static ConfigVar<uint64_t>::ptr config_tcp_server_recv_timeout
                                                 ,(uint64_t)(1000*60*2),"tcp_server_recv_timeout");
 
 TCP_Server::TCP_Server(IOManager* worker)
-                    :m_worker(worker)
+                    :m_name("myWeb_TCP/1.0.0")
                     ,m_recvTimeout(config_tcp_server_recv_timeout->getVal())
-                    ,m_name("myWeb_TCP/1.0.0")
+                    ,m_worker(worker)
                     ,m_isStop(true){}
 TCP_Server::~TCP_Server(){
     INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"TCP_Server destructed";
