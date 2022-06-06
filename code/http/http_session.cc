@@ -72,6 +72,8 @@ HttpRequest::ptr HttpSession::recvRequest(){
     return parser->getReqData();
 }
 int HttpSession::sendResponse(HttpResponse::ptr rsp){
+    if(!isConnected())  return -1;
+    
     std::stringstream ss;
     rsp->dump(ss);
     std::string rsp_buff=ss.str();

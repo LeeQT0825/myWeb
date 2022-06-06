@@ -32,7 +32,7 @@ int Stream::write_Fix(const void* buffer,size_t length){
     size_t offset=0;
     int left=length;
 
-    while(length>0){
+    while(left>0){
         int len=write((const char*)buffer+offset,left);
         if(len<0){
             return len;

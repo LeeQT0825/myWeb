@@ -114,5 +114,10 @@ add_executable(echo_server_2 examples/echo_server_2.cc)
 add_dependencies(echo_server_2 code)
 target_link_libraries(echo_server_2 ${LIBLIB})
 
+# 测试Servlet相关的可执行文件
+add_executable(test_http_server tests/test_http_server.cc)      
+add_dependencies(test_http_server code)
+target_link_libraries(test_http_server ${LIBLIB})
+
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)       # EXECUTABLE_OUTPUT_PATH————可执行文件输出的存放路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)          # LIBRARY_OUTPUT_PATH————库文件输出的存放路径

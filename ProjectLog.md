@@ -618,6 +618,8 @@ schedule ————> thread ————> fiber
   // 出现错误：comparison with string literal results in unspecified behavior
   if(typeid(type).name()=="float" || typeid(type).name()=="double")   
    ```
-  原因：在C ++中，== 仅在内部为原始类型（如int、char、bool…）实现，而 const char* 不是原始类型，因此const char* 和字符串会作为两个char* 比较，即两个指针的比较，而这是两个不同的指针，“connection”== nextElement->Name()不可能为真。
-
+  原因：在 C++ 中，== 仅在内部为原始类型（如int、char、bool…）实现，而 const char* 不是原始类型，因此const char* 和字符串会作为两个char* 比较，即两个指针的比较，而这是两个不同的指针，“connection”== nextElement->Name()不可能为真。
+8. HttpSession 中，sendResponse 在与 recvRequest 同一个schedule（协程）中执行时，出现死循环，所在线程无法切换其他协程（无法 yieldtoHold ），抢占该线程无法被调度。
+  原因：一个循环写错了
+  心得：准确描述问题后应该认真回溯代码，逻辑没问题的话就要仔细检查每一处细节。
 

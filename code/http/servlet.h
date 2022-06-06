@@ -66,7 +66,7 @@ private:
 
 };
 
-// 处理接口分发
+// 根据URI处理接口分发
 class ServletDispatch: public Servlet{
 public:
     typedef std::shared_ptr<ServletDispatch> ptr;

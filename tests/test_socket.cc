@@ -21,19 +21,28 @@ void test_server(){
         if(listen_sock->listen()){
             myWeb::mySocket::ptr conn_sock=listen_sock->accept();
             INLOG_INFO(MYWEB_NAMED_LOG("system"))<<conn_sock->toString();
+            myWeb::http::HttpSession::ptr session(new myWeb::http::HttpSession(conn_sock));
 
-            std::string recv_buf;
-            recv_buf.resize(4096);
-            int ret=conn_sock->recv(&recv_buf[0],sizeof(recv_buf),0);
+            // std::string recv_buf;
+            // recv_buf.resize(4096);
             
-            if(ret<0){
-                INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"recv ret= "<<ret<<" errno= "<<errno;
-                return;
-            }
+            myWeb::http::HttpRequest::ptr req=session->recvRequest();
 
-            recv_buf.resize(ret);
-            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<recv_buf;
-            sleep(5);
+            myWeb::http::HttpResponse::ptr rsp(new myWeb::http::HttpResponse(req->getVersion(),false));
+            rsp->setBody("Hello World");
+            session->sendResponse(rsp);
+
+            INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"sent";
+
+            // int ret=conn_sock->recv(&recv_buf[0],sizeof(recv_buf),0);
+            // if(ret<0){
+            //     INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"recv ret= "<<ret<<" errno= "<<errno;
+            //     return;
+            // }
+
+            // recv_buf.resize(ret);
+            // INLOG_INFO(MYWEB_NAMED_LOG("system"))<<recv_buf;
+            // sleep(5);
         }
         
     } 
@@ -122,7 +131,7 @@ int main(int argc,char** argv){
     //     return 1;
     // }
 
-    const char* ip=argv[1];
+    // const char* ip=argv[1];
     // uint16_t port=atoi(argv[2]);
 
     myWeb::IOManager::ptr iomanager(new myWeb::IOManager(5));
@@ -133,9 +142,9 @@ int main(int argc,char** argv){
 
     // test_interface();
 
-    // iomanager->schedule(std::bind(test_server));
+    iomanager->schedule(std::bind(test_server));
 
-    iomanager->schedule(std::bind(test_client,ip));
+    // iomanager->schedule(std::bind(test_client,ip));
 
     return 0;
 }
