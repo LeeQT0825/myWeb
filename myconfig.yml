@@ -6,10 +6,10 @@ logs:
         - type: StdoutLogAppender
           formatter: '%d %t%T%m%n'
     - name: system
-      level: debug
+      level: warn
       appender: 
         - type: FileLogAppender
-          level: debug
+          level: warn
           file: /home/lee/projects/VScode/myProject/log/sys_log.txt
           formatter: '[%p]%T%d{%Y-%m-%d %H:%M:%S} %t %F <%f:%l>%T%m %n'
         - type: StdoutLogAppender

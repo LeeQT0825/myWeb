@@ -8,6 +8,7 @@ void run(){
 
     myWeb::http::Http_Server::ptr server(new myWeb::http::Http_Server(false));
     while(!server->bind_listen(addr)){
+        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"bind "<<addr->toString()<<" failed";
         sleep(1);    
     }
     auto sd=server->getServletDispatch();
@@ -29,7 +30,7 @@ void run(){
 
 int main(int args,char** argv){
     LOADYAML;
-    myWeb::IOManager::ptr iom(new myWeb::IOManager(5));
+    myWeb::IOManager::ptr iom(new myWeb::IOManager(3));
     iom->schedule(run);
 
     return 0;

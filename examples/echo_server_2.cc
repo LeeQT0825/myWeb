@@ -43,15 +43,17 @@ void test_http_server(){
     myWeb::Address::ptr addr=addrs[0];
 
     myWeb::http::Http_Server::ptr http_server(new myWeb::http::Http_Server(false));
-    if(http_server->bind_listen(addr)){
-        http_server->start();
+    while(!http_server->bind_listen(addr)){
+        INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"bind "<<addr->toString()<<" failed";
+        sleep(1);
     }
+    http_server->start();
 }
 
 
 int main(int argc,char** argv){
     LOADYAML;
-    myWeb::IOManager::ptr iom(new myWeb::IOManager(5));
+    myWeb::IOManager::ptr iom(new myWeb::IOManager(1));
     iom->schedule(test_http_server);
 
     return 0;

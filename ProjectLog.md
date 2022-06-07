@@ -469,6 +469,15 @@ schedule ————> thread ————> fiber
   - 固定长度读写：考虑字节序的转换
   - 可变长度（可压缩）读写：逐个字节的读写，不需要考虑字节序的问题了。
 
+## TCP层
+### 主要功能
+- 创建监听socket，并循环 accept
+- 创建 conn_socket ，启动 conn_socket 的处理函数
+### 实现逻辑
+#### TCP_Server抽象类
+- conn_socket处理函数 handleClient 需要在子类中实现
+#### echo测试程序
+
 ## HTTP层
 ### 协议相关知识点
 - **URI**---统一资源标识符*Uniform Resource Identifier*：
@@ -493,16 +502,257 @@ schedule ————> thread ————> fiber
 ### HTTP Server
 - 实现功能：
   - 封装下层接口（TCP_Server），重载 HandleClient() 
-  - 
 
-## TCP层
-### 主要功能
-- 创建监听socket，并循环 accept
-- 创建 conn_socket ，启动 conn_socket 的处理函数
-### 实现逻辑
-#### TCP_Server抽象类
-- conn_socket处理函数 handleClient 需要在子类中实现
-#### echo测试程序
+## 性能测试
+### 工具
+- AB httpd-tools 安装：http://t.zoukankan.com/chevin-p-10222681.html
+### 步骤
+1. 命令行：ulimit -a
+  用于查看当前资源限制设置
+2. cd /usr/local/httpd/bin
+3. ./ab -n 1000000 -c 200 "localhost:12345/lqt"
+### 测试细节
+- 主机为4核，让出一个核给ab，所以服务器开3个线程比较合理
+### 压测结果
+```
+echo_server_2 5线程：
+  Server Software:        myWeb/1.0.0
+  Server Hostname:        localhost
+  Server Port:            12345
+
+  Document Path:          /lqt
+  Document Length:        136 bytes
+
+  Concurrency Level:      200
+  Time taken for tests:   72.149 seconds
+  Complete requests:      236019
+  Failed requests:        0
+  Non-2xx responses:      236022
+  Total transferred:      58533456 bytes
+  HTML transferred:       32098992 bytes
+  Requests per second:    3271.29 [#/sec] (mean)
+  Time per request:       61.138 [ms] (mean)
+  Time per request:       0.306 [ms] (mean, across all concurrent requests)
+  Transfer rate:          792.27 [Kbytes/sec] received
+
+  Connection Times (ms)
+                min  mean[+/-sd] median   max
+  Connect:        0    0   0.4      0      13
+  Processing:     2   61  10.0     59     109
+  Waiting:        1   60   9.9     58     109
+  Total:          8   61  10.0     59     109
+
+  Percentage of the requests served within a certain time (ms)
+    50%     59
+    66%     61
+    75%     64
+    80%     68
+    90%     79
+    95%     82
+    98%     85
+    99%     87
+    100%    109 (longest request)
+
+===================================================================
+
+test_http_server 2线程：
+  Server Software:        myWeb/1.0.0
+  Server Hostname:        192.168.8.106
+  Server Port:            12345
+
+  Document Path:          /lqt
+  Document Length:        136 bytes
+
+  Concurrency Level:      200
+  Time taken for tests:   120.631 seconds
+  Complete requests:      389340
+  Failed requests:        0
+  Non-2xx responses:      389340
+  Total transferred:      96556320 bytes
+  HTML transferred:       52950240 bytes
+  Requests per second:    3227.52 [#/sec] (mean)
+  Time per request:       61.967 [ms] (mean)
+  Time per request:       0.310 [ms] (mean, across all concurrent requests)
+  Transfer rate:          781.66 [Kbytes/sec] received
+
+  Connection Times (ms)
+                min  mean[+/-sd] median   max
+  Connect:        0    0   0.2      0      12
+  Processing:     2   62  10.0     63     100
+  Waiting:        1   62  10.0     63     100
+  Total:         12   62  10.0     63     100
+
+  Percentage of the requests served within a certain time (ms)
+    50%     63
+    66%     67
+    75%     68
+    80%     69
+    90%     73
+    95%     78
+    98%     82
+    99%     84
+    100%    100 (longest request)
+
+===================================================================
+
+test_http_server 1线程：
+  Server Software:        myWeb/1.0.0
+  Server Hostname:        192.168.8.106
+  Server Port:            12345
+
+  Document Path:          /lqt
+  Document Length:        136 bytes
+
+  Concurrency Level:      200
+  Time taken for tests:   105.629 seconds
+  Complete requests:      319036
+  Failed requests:        0
+  Non-2xx responses:      319036
+  Total transferred:      79120928 bytes
+  HTML transferred:       43388896 bytes
+  Requests per second:    3020.35 [#/sec] (mean)
+  Time per request:       66.217 [ms] (mean)
+  Time per request:       0.331 [ms] (mean, across all concurrent requests)
+  Transfer rate:          731.49 [Kbytes/sec] received
+
+  Connection Times (ms)
+                min  mean[+/-sd] median   max
+  Connect:        0    0   0.2      0      11
+  Processing:     4   66   7.1     66     106
+  Waiting:        2   66   7.1     66     106
+  Total:         13   66   7.1     66     106
+
+  Percentage of the requests served within a certain time (ms)
+    50%     66
+    66%     68
+    75%     70
+    80%     71
+    90%     76
+    95%     81
+    98%     83
+    99%     84
+    100%    106 (longest request)
+
+===================================================================
+
+test_http_server 1线程（不打日志）：
+  Server Software:        myWeb/1.0.0
+  Server Hostname:        192.168.8.106
+  Server Port:            12345
+
+  Document Path:          /lqt
+  Document Length:        136 bytes
+
+  Concurrency Level:      200
+  Time taken for tests:   94.270 seconds
+  Complete requests:      1000000
+  Failed requests:        0
+  Non-2xx responses:      1000000
+  Total transferred:      248000000 bytes
+  HTML transferred:       136000000 bytes
+  Requests per second:    10607.84 [#/sec] (mean)
+  Time per request:       18.854 [ms] (mean)
+  Time per request:       0.094 [ms] (mean, across all concurrent requests)
+  Transfer rate:          2569.09 [Kbytes/sec] received
+
+  Connection Times (ms)
+                min  mean[+/-sd] median   max
+  Connect:        0    0   0.1      0      11
+  Processing:     4   19   0.4     19      28
+  Waiting:        1   19   0.4     19      28
+  Total:         13   19   0.4     19      28
+
+  Percentage of the requests served within a certain time (ms)
+    50%     19
+    66%     19
+    75%     19
+    80%     19
+    90%     19
+    95%     19
+    98%     20
+    99%     20
+    100%     28 (longest request)
+
+===================================================================
+
+test_http_server 3线程（不打日志）：
+  Server Software:        myWeb/1.0.0
+  Server Hostname:        192.168.8.106
+  Server Port:            12345
+
+  Document Path:          /lqt
+  Document Length:        136 bytes
+
+  Concurrency Level:      200
+  Time taken for tests:   79.333 seconds
+  Complete requests:      1000000
+  Failed requests:        0
+  Non-2xx responses:      1000000
+  Total transferred:      248000000 bytes
+  HTML transferred:       136000000 bytes
+  Requests per second:    12605.17 [#/sec] (mean)
+  Time per request:       15.867 [ms] (mean)
+  Time per request:       0.079 [ms] (mean, across all concurrent requests)
+  Transfer rate:          3052.81 [Kbytes/sec] received
+
+  Connection Times (ms)
+                min  mean[+/-sd] median   max
+  Connect:        0    7   0.9      7      18
+  Processing:     3    9   1.4      9      20
+  Waiting:        1    7   1.6      8      19
+  Total:          9   16   1.0     16      27
+
+  Percentage of the requests served within a certain time (ms)
+    50%     16
+    66%     16
+    75%     16
+    80%     16
+    90%     17
+    95%     18
+    98%     19
+    99%     20
+    100%     27 (longest request)
+
+===================================================================
+
+test_http_server 3线程（不打日志）：
+  Server Software:        myWeb_TCP/1.0.0
+  Server Hostname:        192.168.8.106
+  Server Port:            12345
+
+  Document Path:          /lqt/x
+  Document Length:        123 bytes
+
+  Concurrency Level:      100
+  Time taken for tests:   11.844 seconds
+  Complete requests:      148860
+  Failed requests:        0
+  Total transferred:      30814848 bytes
+  HTML transferred:       18310272 bytes
+  Requests per second:    12568.40 [#/sec] (mean)
+  Time per request:       7.956 [ms] (mean)
+  Time per request:       0.080 [ms] (mean, across all concurrent requests)
+  Transfer rate:          2540.75 [Kbytes/sec] received
+
+  Connection Times (ms)
+                min  mean[+/-sd] median   max
+  Connect:        0    3   0.5      3       7
+  Processing:     3    5   0.7      5      10
+  Waiting:        1    4   0.8      4       8
+  Total:          7    8   0.6      8      13
+
+  Percentage of the requests served within a certain time (ms)
+    50%      8
+    66%      8
+    75%      8
+    80%      8
+    90%      8
+    95%      9
+    98%     10
+    99%     10
+    100%     13 (longest request)
+
+```
 
 ## 知识碎片
 - &emsp;在 Linux 下的异步 I/O 是不完善的， aio 系列函数是由 POSIX 定义的异步操作接口，不是真正的操作系统级别支持的，而是在用户空间模拟出来的异步，并且仅仅支持基于本地文件的 aio 异步操作，网络编程中的 socket 是不支持的，这也使得基于 Linux 的高性能网络程序都是使用 Reactor 方案。

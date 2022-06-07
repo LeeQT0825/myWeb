@@ -1,0 +1,1779 @@
+[ERROR]	2022-06-07 17:12:47 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:48 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:50 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:51 97268 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:51 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:51 97268 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:51 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:55 97268 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:55 97268 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:55 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:55 97268 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:57 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:57 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:57 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:12:57 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:00 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:08 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:08 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:14 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:19 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:19 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:19 97268 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:25 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:26 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:29 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:31 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:34 97268 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:34 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:36 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:36 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:36 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:36 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:36 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:37 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:37 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:38 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:39 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:42 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:42 97268 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:44 97268 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:44 97268 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:45 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:48 97269 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:53 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:13:54 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:14:00 97268 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:14:00 97270 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52112]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52114]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52110]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52120]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52122]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52116]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52124]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52118]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52126]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52128]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52130]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52132]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52134]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52136]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52138]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52140]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52142]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52144]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52146]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52148]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52150]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52152]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52154]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52156]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52158]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52160]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52162]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52164]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52166]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52168]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52170]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52172]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52176]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52174]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52178]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52180]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52182]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52186]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52184]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52190]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52188]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52192]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52194]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52196]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52198]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52200]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52202]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52206]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52204]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52210]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52208]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52212]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97270 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52214]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97269 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52216]
+Connection: 0 
+[ERROR]	2022-06-07 17:14:07 97268 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:52218]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:00 97934 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:32:00 97935 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:32:01 97935 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:32:08 97936 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:32:08 97935 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35412]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35414]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35416]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35410]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35418]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35420]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35422]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35424]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35426]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35428]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35430]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35432]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35434]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35436]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35438]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35440]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35442]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35444]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35446]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35448]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35450]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35452]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35456]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35454]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35458]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35460]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35462]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35464]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35466]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35468]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35470]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35474]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35472]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35478]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35476]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35480]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35482]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35484]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35486]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35488]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35490]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35494]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35492]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35498]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35496]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97934 207 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35500]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97935 206 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35502]
+Connection: 0 
+[ERROR]	2022-06-07 17:32:15 97936 205 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:35504]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:36 97963 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:35:38 97963 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:35:40 97963 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:35:42 97963 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:35:43 97963 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:35:44 97963 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:35:45 97963 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:35:47 97963 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51098]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51096]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51100]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51102]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51104]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51106]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51108]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51110]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51112]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51114]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51116]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51118]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51120]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51122]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51124]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51126]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51128]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51130]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51132]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51134]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51136]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51138]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51140]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51142]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51144]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51146]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51148]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51150]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51152]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51154]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51156]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51158]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51160]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51162]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51164]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51166]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51168]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51170]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51172]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51174]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51176]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51178]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51182]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51180]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51184]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97962 194 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51186]
+Connection: 0 
+[ERROR]	2022-06-07 17:35:47 97963 193 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:51188]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:01 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:01 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:01 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:02 97999 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:03 97998 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:03 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:03 97998 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:05 97998 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:05 97998 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:05 97999 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:07 97998 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:07 97998 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:08 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:08 97998 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:10 97999 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:10 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:10 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:10 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:11 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:11 97998 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:11 97999 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:11 97998 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:12 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:12 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:12 98000 3 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:12 97998 4 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:12 97999 2 </home/lee/projects/VScode/myProject/code/iomanager.cc:306>	epoll_ctl(6,2,9,2147483648): (2)-(No such file or directory) 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38538]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38534]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38542]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38544]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38540]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 98000 107 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38536]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38546]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38548]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 98000 107 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38550]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38552]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38554]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 98000 107 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38556]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38558]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38560]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 98000 107 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38562]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38564]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38566]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 98000 107 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38568]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38570]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38572]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 98000 107 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38574]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38576]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38578]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 98000 107 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38580]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38582]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38584]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 98000 107 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38586]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38588]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38590]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 98000 107 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38592]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38594]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38596]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 98000 107 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38598]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38600]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38602]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 98000 107 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38604]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97998 106 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38606]
+Connection: 0 
+[ERROR]	2022-06-07 17:41:13 97999 7 </home/lee/projects/VScode/myProject/code/http/http_server.cc:21>	HTTP request recv failed, errno=11---Resource temporarily unavailable client: 
+[Socket sock= -1
+ is_Connected= 0
+ family= 2
+ type= 1
+ protocol= 0
+ src_addr: 192.168.8.106:12345
+ dst_addr: 192.168.8.106:38608]
+Connection: 0 

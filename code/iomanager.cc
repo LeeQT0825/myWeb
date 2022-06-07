@@ -242,7 +242,7 @@ void IOManager::idle(){
     
     while(!isStopping()){
         // 测试——0100
-        INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"in idle: "<<m_running<<m_self_stopping<<m_pendingEventCount<<m_activeThreadCount;
+        // INLOG_INFO(MYWEB_ROOT_LOG)<<"in idle: "<<m_running<<m_self_stopping<<m_pendingEventCount<<m_activeThreadCount;
         int ret=0;
         uint64_t timeout=0;
 
