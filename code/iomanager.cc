@@ -9,7 +9,7 @@
 #include <string.h>
 #include <errno.h>
 
-#define MAX_EVENTSIZE 256
+#define MAX_EVENTSIZE 1024
 #define MAX_TIMEOUT 3000
 
 namespace myWeb{

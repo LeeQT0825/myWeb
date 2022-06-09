@@ -30,7 +30,7 @@ void run(){
 
 int main(int args,char** argv){
     LOADYAML;
-    myWeb::IOManager::ptr iom(new myWeb::IOManager(3));
+    myWeb::IOManager::ptr iom(new myWeb::IOManager(8));
     iom->schedule(run);
 
     return 0;
