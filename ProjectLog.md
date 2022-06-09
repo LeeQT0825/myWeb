@@ -506,6 +506,8 @@ schedule ————> thread ————> fiber
 ## 性能测试
 ### 工具
 - AB httpd-tools 安装：http://t.zoukankan.com/chevin-p-10222681.html
+  Apache Bench 性能测试工具，测试HTTP/HTTPs性能
+- Webbench
 ### 步骤
 1. 命令行：ulimit -a
   用于查看当前资源限制设置
@@ -515,84 +517,6 @@ schedule ————> thread ————> fiber
 - 主机为4核，让出一个核给ab，所以服务器开3个线程比较合理
 ### 压测结果
 ```
-echo_server_2 5线程：
-  Server Software:        myWeb/1.0.0
-  Server Hostname:        localhost
-  Server Port:            12345
-
-  Document Path:          /lqt
-  Document Length:        136 bytes
-
-  Concurrency Level:      200
-  Time taken for tests:   72.149 seconds
-  Complete requests:      236019
-  Failed requests:        0
-  Non-2xx responses:      236022
-  Total transferred:      58533456 bytes
-  HTML transferred:       32098992 bytes
-  Requests per second:    3271.29 [#/sec] (mean)
-  Time per request:       61.138 [ms] (mean)
-  Time per request:       0.306 [ms] (mean, across all concurrent requests)
-  Transfer rate:          792.27 [Kbytes/sec] received
-
-  Connection Times (ms)
-                min  mean[+/-sd] median   max
-  Connect:        0    0   0.4      0      13
-  Processing:     2   61  10.0     59     109
-  Waiting:        1   60   9.9     58     109
-  Total:          8   61  10.0     59     109
-
-  Percentage of the requests served within a certain time (ms)
-    50%     59
-    66%     61
-    75%     64
-    80%     68
-    90%     79
-    95%     82
-    98%     85
-    99%     87
-    100%    109 (longest request)
-
-===================================================================
-
-test_http_server 2线程：
-  Server Software:        myWeb/1.0.0
-  Server Hostname:        192.168.8.106
-  Server Port:            12345
-
-  Document Path:          /lqt
-  Document Length:        136 bytes
-
-  Concurrency Level:      200
-  Time taken for tests:   120.631 seconds
-  Complete requests:      389340
-  Failed requests:        0
-  Non-2xx responses:      389340
-  Total transferred:      96556320 bytes
-  HTML transferred:       52950240 bytes
-  Requests per second:    3227.52 [#/sec] (mean)
-  Time per request:       61.967 [ms] (mean)
-  Time per request:       0.310 [ms] (mean, across all concurrent requests)
-  Transfer rate:          781.66 [Kbytes/sec] received
-
-  Connection Times (ms)
-                min  mean[+/-sd] median   max
-  Connect:        0    0   0.2      0      12
-  Processing:     2   62  10.0     63     100
-  Waiting:        1   62  10.0     63     100
-  Total:         12   62  10.0     63     100
-
-  Percentage of the requests served within a certain time (ms)
-    50%     63
-    66%     67
-    75%     68
-    80%     69
-    90%     73
-    95%     78
-    98%     82
-    99%     84
-    100%    100 (longest request)
-
 ===================================================================
 
 test_http_server 1线程：
@@ -715,45 +639,6 @@ test_http_server 3线程（不打日志）：
 
 ===================================================================
 
-test_http_server 3线程（不打日志,100并发量）：
-  Server Software:        myWeb_TCP/1.0.0
-  Server Hostname:        192.168.8.106
-  Server Port:            12345
-
-  Document Path:          /lqt/x
-  Document Length:        123 bytes
-
-  Concurrency Level:      100
-  Time taken for tests:   11.844 seconds
-  Complete requests:      148860
-  Failed requests:        0
-  Total transferred:      30814848 bytes
-  HTML transferred:       18310272 bytes
-  Requests per second:    12568.40 [#/sec] (mean)
-  Time per request:       7.956 [ms] (mean)
-  Time per request:       0.080 [ms] (mean, across all concurrent requests)
-  Transfer rate:          2540.75 [Kbytes/sec] received
-
-  Connection Times (ms)
-                min  mean[+/-sd] median   max
-  Connect:        0    3   0.5      3       7
-  Processing:     3    5   0.7      5      10
-  Waiting:        1    4   0.8      4       8
-  Total:          7    8   0.6      8      13
-
-  Percentage of the requests served within a certain time (ms)
-    50%      8
-    66%      8
-    75%      8
-    80%      8
-    90%      8
-    95%      9
-    98%     10
-    99%     10
-    100%     13 (longest request)
-
-===================================================================
-
 test_http_server 3线程（不打日志,1000并发量）：
   Server Software:        myWeb_TCP/1.0.0
   Server Hostname:        192.168.8.106
@@ -793,6 +678,87 @@ test_http_server 3线程（不打日志,1000并发量）：
 
 ===================================================================
 
+test_http_server 8线程（不打日志,200并发量）：
+  Server Software:        myWeb/1.0.0
+  Server Hostname:        192.168.8.106
+  Server Port:            12345
+
+  Document Path:          /
+  Document Length:        136 bytes
+
+  Concurrency Level:      200
+  Time taken for tests:   92.708 seconds
+  Complete requests:      1000000
+  Failed requests:        0
+  Non-2xx responses:      1000000
+  Total transferred:      248000000 bytes
+  HTML transferred:       136000000 bytes
+  Requests per second:    10786.55 [#/sec] (mean)
+  Time per request:       18.542 [ms] (mean)
+  Time per request:       0.093 [ms] (mean, across all concurrent requests)
+  Transfer rate:          2612.37 [Kbytes/sec] received
+
+  Connection Times (ms)
+                min  mean[+/-sd] median   max
+  Connect:        0    9   0.9      9      16
+  Processing:     4    9   1.0      9      21
+  Waiting:        1    7   1.0      7      16
+  Total:         12   19   0.8     18      30
+  WARNING: The median and mean for the total time are not within a normal deviation
+          These results are probably not that reliable.
+
+  Percentage of the requests served within a certain time (ms)
+    50%     18
+    66%     19
+    75%     19
+    80%     19
+    90%     19
+    95%     20
+    98%     21
+    99%     21
+    100%     30 (longest request)
+
+===================================================================
+
+对比：nginx 8线程，200并发量
+  Server Software:        nginx/1.18.0
+  Server Hostname:        192.168.8.106
+  Server Port:            80
+
+  Document Path:          /
+  Document Length:        612 bytes
+
+  Concurrency Level:      200
+  Time taken for tests:   88.177 seconds
+  Complete requests:      1000000
+  Failed requests:        0
+  Total transferred:      854000000 bytes
+  HTML transferred:       612000000 bytes
+  Requests per second:    11340.80 [#/sec] (mean)
+  Time per request:       17.635 [ms] (mean)
+  Time per request:       0.088 [ms] (mean, across all concurrent requests)
+  Transfer rate:          9458.05 [Kbytes/sec] received
+
+  Connection Times (ms)
+                min  mean[+/-sd] median   max
+  Connect:        0    8   1.4      7      15
+  Processing:     0   10   1.9     10      36
+  Waiting:        0    8   1.9      7      33
+  Total:          0   18   1.3     18      40
+
+  Percentage of the requests served within a certain time (ms)
+    50%     18
+    66%     18
+    75%     18
+    80%     18
+    90%     19
+    95%     20
+    98%     21
+    99%     22
+    100%     40 (longest request)
+
+===================================================================
+
 test_http_server 8线程（不打日志,10000并发量）：
   Server Software:        myWeb_TCP/1.0.0
   Server Hostname:        192.168.8.106
@@ -829,6 +795,127 @@ test_http_server 8线程（不打日志,10000并发量）：
     98%   3545
     99%   3766
     100%  31914 (longest request)
+
+===================================================================
+
+对比：nginx 8线程，10000并发量
+  Server Software:        nginx/1.18.0
+  Server Hostname:        192.168.8.106
+  Server Port:            80
+
+  Document Path:          /
+  Document Length:        612 bytes
+
+  Concurrency Level:      10000
+  Time taken for tests:   73.579 seconds
+  Complete requests:      1000000
+  Failed requests:        1909197
+    (Connect: 0, Receive: 0, Length: 956706, Exceptions: 952491)
+  Total transferred:      39890340 bytes
+  HTML transferred:       28586520 bytes
+  Requests per second:    13590.77 [#/sec] (mean)
+  Time per request:       735.794 [ms] (mean)
+  Time per request:       0.074 [ms] (mean, across all concurrent requests)
+  Transfer rate:          529.43 [Kbytes/sec] received
+
+  Connection Times (ms)
+                min  mean[+/-sd] median   max
+  Connect:        0  362  35.1    362     537
+  Processing:    62  370  54.6    363     797
+  Waiting:        0   18  83.3      0     678
+  Total:        438  732  44.9    721    1165
+
+  Percentage of the requests served within a certain time (ms)
+    50%    721
+    66%    728
+    75%    738
+    80%    747
+    90%    768
+    95%    787
+    98%    878
+    99%    965
+    100%   1165 (longest request)
+
+===================================================================
+
+test_http_server 8线程（不打日志,500并发量,keep-alive）：
+  Server Software:        myWeb_TCP/1.0.0
+  Server Hostname:        192.168.8.106
+  Server Port:            12345
+
+  Document Path:          /lqt/xx
+  Document Length:        117 bytes
+
+  Concurrency Level:      500
+  Time taken for tests:   25.078 seconds
+  Complete requests:      1000000
+  Failed requests:        0
+  Keep-Alive requests:    1000000
+  Total transferred:      206000000 bytes
+  HTML transferred:       117000000 bytes
+  Requests per second:    39875.69 [#/sec] (mean)
+  Time per request:       12.539 [ms] (mean)
+  Time per request:       0.025 [ms] (mean, across all concurrent requests)
+  Transfer rate:          8021.87 [Kbytes/sec] received
+
+  Connection Times (ms)
+                min  mean[+/-sd] median   max
+  Connect:        0    0   0.4      0      27
+  Processing:     0   13   4.0     13      41
+  Waiting:        0   13   4.0     13      41
+  Total:          0   13   4.0     13      54
+
+  Percentage of the requests served within a certain time (ms)
+    50%     13
+    66%     14
+    75%     14
+    80%     14
+    90%     15
+    95%     16
+    98%     18
+    99%     21
+    100%     54 (longest request)
+
+===================================================================
+
+对比：nginx 8线程，500并发量,keep-alive
+  Server Software:        nginx/1.18.0
+  Server Hostname:        192.168.8.106
+  Server Port:            80
+
+  Document Path:          /lqt/xx
+  Document Length:        162 bytes
+
+  Concurrency Level:      500
+  Time taken for tests:   16.795 seconds
+  Complete requests:      1000000
+  Failed requests:        0
+  Non-2xx responses:      1000000
+  Keep-Alive requests:    990253
+  Total transferred:      325951265 bytes
+  HTML transferred:       162000000 bytes
+  Requests per second:    59541.24 [#/sec] (mean)
+  Time per request:       8.398 [ms] (mean)
+  Time per request:       0.017 [ms] (mean, across all concurrent requests)
+  Transfer rate:          18952.68 [Kbytes/sec] received
+
+  Connection Times (ms)
+                min  mean[+/-sd] median   max
+  Connect:        0    0   1.3      0      28
+  Processing:     0    8   2.8      7      42
+  Waiting:        0    8   2.7      7      35
+  Total:          0    8   3.2      7      42
+
+  Percentage of the requests served within a certain time (ms)
+    50%      7
+    66%      8
+    75%      9
+    80%      9
+    90%     14
+    95%     15
+    98%     16
+    99%     20
+    100%     42 (longest request)
 
 ```
 

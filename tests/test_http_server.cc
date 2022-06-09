@@ -6,7 +6,7 @@ void run(){
     if(addrs.empty())   return;
     myWeb::Address::ptr addr=addrs[0];
 
-    myWeb::http::Http_Server::ptr server(new myWeb::http::Http_Server(false));
+    myWeb::http::Http_Server::ptr server(new myWeb::http::Http_Server(true));
     while(!server->bind_listen(addr)){
         INLOG_ERROR(MYWEB_NAMED_LOG("system"))<<"bind "<<addr->toString()<<" failed";
         sleep(1);    

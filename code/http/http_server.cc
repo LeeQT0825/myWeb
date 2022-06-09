@@ -26,7 +26,6 @@ void Http_Server::handleClient(mySocket::ptr client_sock){
         std::string recv_buff=req->toString();
         INLOG_INFO(MYWEB_NAMED_LOG("system"))<<"recv_len: "<<recv_buff.size()<<"\n"<<recv_buff;
 
-        // 响应（TODO 不添加任务的话会出现死循环的现象（可能是，这里的bug没完全解决））
         HttpResponse::ptr rsp(new HttpResponse(req->getVersion(),req->isKeepAlive() && m_keepalive));
         rsp->setHeaders("server",getName());
         m_Dispatch->handle(req,rsp,session);
