@@ -10,7 +10,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)          # 显示原始编译信息，用于定�
 # CMAKE_CXX_FLAGS———g++编译选项     
 # -O3是release版本；-O0是debug版本  O英文字母）
 # -g是启用GDB调试
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -g -std=c++11 -Wall -Wno-depracated -Werror -Wno-unused-function")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -g -std=c++11 -Wall -Wno-depracated -Werror -Wno-unused-function")
 
 set(LIB_SCR code/log.cc 
             code/util.cc

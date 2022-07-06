@@ -68,7 +68,7 @@ public:
     static Fiber* getMasterFiber();
 
 protected:
-    // 调度器执行入口
+    // 调度器执行入口（线程池取任务）
     void run();
     // 设置当前调度器
     void setThis();
