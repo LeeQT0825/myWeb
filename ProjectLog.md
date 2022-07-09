@@ -839,6 +839,88 @@ test_http_server 8线程（不打日志,10000并发量）：
 
 ===================================================================
 
+test_http_server 8线程（不打日志,10000并发量,keep-alive）：
+Server Software:        myWeb_TCP/1.0.0
+Server Hostname:        192.168.8.106
+Server Port:            12345
+
+Document Path:          /lqt/xx
+Document Length:        117 bytes
+
+Concurrency Level:      10000
+Time taken for tests:   22.676 seconds
+Complete requests:      1000000
+Failed requests:        0
+Keep-Alive requests:    1000000
+Total transferred:      206000000 bytes
+HTML transferred:       117000000 bytes
+Requests per second:    44099.21 [#/sec] (mean)
+Time per request:       226.761 [ms] (mean)
+Time per request:       0.023 [ms] (mean, across all concurrent requests)
+Transfer rate:          8871.52 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    4  47.7      0    1341
+Processing:    42  220  20.5    221     491
+Waiting:        1  220  20.5    221     451
+Total:         42  224  57.0    221    1559
+
+Percentage of the requests served within a certain time (ms)
+  50%    221
+  66%    223
+  75%    224
+  80%    224
+  90%    226
+  95%    234
+  98%    285
+  99%    491
+ 100%   1559 (longest request)
+
+===================================================================
+
+对比：nginx 8线程，总量100000，10000并发量，keep-alive:
+Server Software:        nginx/1.18.0
+Server Hostname:        192.168.8.106
+Server Port:            80
+
+Document Path:          /lqt
+Document Length:        162 bytes
+
+Concurrency Level:      10000
+Time taken for tests:   6.231 seconds
+Complete requests:      100000
+Failed requests:        158928
+   (Connect: 0, Receive: 0, Length: 80096, Exceptions: 78832)
+Non-2xx responses:      21168
+Keep-Alive requests:    21165
+Total transferred:      6900768 bytes
+HTML transferred:       3429216 bytes
+Requests per second:    16049.86 [#/sec] (mean)
+Time per request:       623.058 [ms] (mean)
+Time per request:       0.062 [ms] (mean, across all concurrent requests)
+Transfer rate:          1081.61 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0  280 157.5    311     536
+Processing:     4  312 106.1    312     551
+Waiting:        0   72 147.2      0     551
+Total:          4  592 190.2    683     744
+
+Percentage of the requests served within a certain time (ms)
+  50%    683
+  66%    689
+  75%    698
+  80%    704
+  90%    720
+  95%    740
+  98%    741
+  99%    742
+ 100%    744 (longest request)
+
+===================================================================
+
 test_http_server 8线程（不打日志,500并发量,keep-alive）：
   Server Software:        myWeb_TCP/1.0.0
   Server Hostname:        192.168.8.106
